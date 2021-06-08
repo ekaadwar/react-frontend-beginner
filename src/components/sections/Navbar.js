@@ -1,6 +1,6 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
-import Logo from "../../img/logo/coffee.png"
+// import Logo from "../../img/logo/coffee.png"
 
 import Home from "../pages/home/Home"
 import Product from "../pages/product/Product"
@@ -18,7 +18,7 @@ class Navbar extends React.Component{
                     <div className="container mx-auto">
                     <div className="flex justify-between">
                         <div className="flex items-center flex-row">
-                        <img src={Logo} alt="Logo Eka Coffee" className="mr-3" />
+                        <img src={this.props.image} alt="Logo Eka Coffee" className="mr-3" />
                         <Link to="/">Eka Coffee</Link>
                         </div>
                         <div className="flex items-center space-x-16 ">
