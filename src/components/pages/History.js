@@ -11,9 +11,7 @@ class History extends React.Component {
           <p class="text-xl text-white text-shadow text-center">
             Select item to delete
           </p>
-          <p class="text-xl text-white text-shadow text-right">
-            <a href="#">Delete</a>
-          </p>
+          <p class="text-xl text-white text-shadow text-right">Delete</p>
           <div class="grid grid-cols-3 gap-x-3 gap-y-5">
             <div class="flex justify-between p-5 bg-white rounded-2xl">
               <div class="h-20 w-20 overflow-hidden rounded-full bg-gray-300">

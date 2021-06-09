@@ -59,7 +59,7 @@ class Cart extends React.Component {
                     <div class="flex justify-between items-center text-white font-bold">
                       <h4 class="text-shadow">Address details</h4>
                       <p class="text-shadow text-xs hover:text-yellow-500">
-                        <a href="">edit</a>
+                        edit
                       </p>
                     </div>
                     <div class="px-5 py-5 bg-white rounded-2xl">
