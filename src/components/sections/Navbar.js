@@ -1,23 +1,27 @@
-import React from "react"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Home from "../pages/home/Home"
-import Product from "../pages/product/Product"
-import Cart from "../pages/cart/Cart"
-import History from "../pages/history/History"
-import Login from "../pages/login/Login"
-import Signup from "../pages/signup/Signup"
+import Home from "../pages/home/Home";
+import Product from "../pages/product/Product";
+import Cart from "../pages/cart/Cart";
+import History from "../pages/history/History";
+import Login from "../pages/login/Login";
+import Signup from "../pages/signup/Signup";
 
-class Navbar extends React.Component{
-  render(){
-    return(
+class Navbar extends React.Component {
+  render() {
+    return (
       <Router>
         <div>
           <nav className="py-4 fixed bg-white w-full shadow-md">
             <div className="container mx-auto">
               <div className="flex justify-between">
                 <div className="flex items-center flex-row">
-                  <img src={this.props.image} alt="Logo Eka Coffee" className="mr-3" />
+                  <img
+                    src={this.props.image}
+                    alt="Logo Eka Coffee"
+                    className="mr-3"
+                  />
                   <Link to="/">Eka Coffee</Link>
                 </div>
                 <div className="flex items-center space-x-16 ">
@@ -28,9 +32,13 @@ class Navbar extends React.Component{
                 </div>
                 <div className="flex items-center space-x-16">
                   <Link to="/login">Login</Link>
-                  <Link to="/signup"><button className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold">Sign Up</button></Link>
+                  <Link to="/signup">
+                    <button className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold">
+                      Sign Up
+                    </button>
+                  </Link>
                 </div>
-              </div>  
+              </div>
             </div>
           </nav>
 
@@ -46,8 +54,8 @@ class Navbar extends React.Component{
           </Switch>
         </div>
       </Router>
-    )
+    );
   }
 }
 
-export default Navbar
+export default Navbar;
