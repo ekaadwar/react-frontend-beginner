@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Home from "../pages/home/Home";
-import Product from "../pages/product/Product";
-import Cart from "../pages/cart/Cart";
-import History from "../pages/history/History";
-import Login from "../pages/login/Login";
-import Signup from "../pages/signup/Signup";
+import Home from "../pages/Home";
+import Product from "../pages/Product";
+import Cart from "../pages/Cart";
+import History from "../pages/History";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 
 class Navbar extends React.Component {
   render() {
