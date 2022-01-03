@@ -216,7 +216,7 @@ p.sub-judul {
 }
 
 .product .content {
-  height: 900px;
+  min-height: 900px;
 }
 
 .product .side {
