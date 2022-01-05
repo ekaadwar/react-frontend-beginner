@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import qs from "querystring";
 
+// import coffee from "../../assets/flatIcons/coffee1.png";
+import ItemImage from "../components/PictureCircle";
+
 class Product extends React.Component {
   state = {
     items: [],
@@ -135,11 +138,13 @@ class Product extends React.Component {
                   <div className="item grid grid-cols-4">
                     {this.state.items.map((items, idx) => {
                       return (
-                        <div key={idx} className="flex items-end w-36 h-56">
-                          <div className="w-36 h-44 border rounded-2xl text-center bg-white shadow-2xl">
-                            <div className="w-24 h-24 -mt-12 bg-yellow-200 rounded-full mx-auto"></div>
+                        <div key={idx} className="flex w-36">
+                          <div className="w-full border rounded-2xl text-center shadow-2xl bg-red-100 ">
+                            <div className="bg-blue-200">
+                              <ItemImage category={items.category_id} />
+                            </div>
 
-                            <div className="h-2/4 flex flex-col justify-between">
+                            <div className="flex flex-col justify-between bg-gray-300 ">
                               <h4 className="text-lg font-bold capitalize">
                                 {items.name}
                               </h4>

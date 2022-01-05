@@ -105,6 +105,14 @@ nav button {
   background-color: rgba(255, 186, 51, 1);
 }
 
+.imageSuitVertical {
+  width: 100%;
+}
+
+.imageSuitHorizontal {
+  height: 100%;
+}
+
 .jumbotron {
   padding-top: 80px;
   background-image: linear-gradient(rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)),
@@ -248,9 +256,9 @@ p.sub-judul {
   color: rgb(106, 64, 40);
 }
 
-.product .main .item div.flex {
+/* .product .main .item div.flex {
   margin-top: 30px;
-}
+} */
 
 section.cart .grid .item {
   margin-bottom: 5px;
