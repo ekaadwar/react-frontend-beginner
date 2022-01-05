@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import qs from "querystring";
 
-// import coffee from "../../assets/flatIcons/coffee1.png";
 import ItemImage from "../components/PictureCircle";
 
 class Product extends React.Component {
@@ -70,7 +69,7 @@ class Product extends React.Component {
                   <div className="flex items-center pl-10">
                     <div className="card flex flex-col bg-yellow-300 w-72 rounded-3xl">
                       <div className="main flex flex-col justify-evenly items-center border-dashed border-b border-black text-center">
-                        <div className="w-28 h-28 bg-blue-500 rounded-full"></div>
+                        <ItemImage category={4} diametre={32} />
 
                         <div>
                           <h3 className="text-2xl font-bold">Beef Spaghetti</h3>
@@ -135,24 +134,25 @@ class Product extends React.Component {
                     />
                   </div>
 
-                  <div className="item grid grid-cols-4">
+                  <div className="item grid grid-cols-4 gap-y-20 gap-x-4 pt-16">
                     {this.state.items.map((items, idx) => {
                       return (
-                        <div key={idx} className="flex w-36">
-                          <div className="w-full border rounded-2xl text-center shadow-2xl bg-red-100 ">
-                            <div className="bg-blue-200">
-                              <ItemImage category={items.category_id} />
-                            </div>
+                        <div
+                          key={idx}
+                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
+                        >
+                          <div className="absolute -top-12 my-auto w-full">
+                            <ItemImage category={items.category_id} />
+                          </div>
 
-                            <div className="flex flex-col justify-between bg-gray-300 ">
-                              <h4 className="text-lg font-bold capitalize">
-                                {items.name}
-                              </h4>
+                          <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
+                            <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
+                              {items.name}
+                            </h4>
 
-                              <h6 className="text-sm font-bold text-yellow-900">
-                                IDR. {items.price}
-                              </h6>
-                            </div>
+                            <h6 className="text-sm font-bold text-yellow-900">
+                              IDR. {items.price}
+                            </h6>
                           </div>
                         </div>
                       );

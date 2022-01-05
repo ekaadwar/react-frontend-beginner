@@ -25,9 +25,24 @@ const PictureDefault = ({ category = 1 }) => {
   return <img className="h-full" src={icon} alt="coffee" />;
 };
 
-const PictureCircle = ({ ImgDefault = PictureDefault, category }) => {
+const PictureCircle = ({
+  ImgDefault = PictureDefault,
+  category,
+  diametre = 24,
+}) => {
+  const diametreStr = diametre.toString();
+  const height = "h-" + diametreStr;
+  const width = "w-" + diametreStr;
+
   return (
-    <div className="flex justify-center items-center w-24 h-24 bg-yellow-200 rounded-full mx-auto overflow-hidden">
+    <div
+      className={
+        "flex justify-center items-center bg-yellow-200 rounded-full mx-auto overflow-hidden " +
+        height +
+        " " +
+        width
+      }
+    >
       <ImgDefault category={category} />
     </div>
   );
