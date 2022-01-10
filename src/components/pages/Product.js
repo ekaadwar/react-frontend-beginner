@@ -122,16 +122,19 @@ class Product extends React.Component {
                     </ul>
                   </div>
 
-                  <div>
+                  <div className="flex flex-row">
                     <input
                       value={this.state.searchInput}
-                      className="border border-gray-500 rounded w-full h-8 mb-5 px-2"
+                      className="border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
                       type="text"
                       onChange={(event) =>
                         this.setState({ searchInput: event.target.value })
                       }
                       onKeyDown={this.onSearch}
                     />
+                    <button className="h-10 w-10 border rounded-r-lg border-gray-500 hover:bg-gray-300">
+                      +
+                    </button>
                   </div>
 
                   <div className="item grid grid-cols-4 gap-y-20 gap-x-4 pt-16">
