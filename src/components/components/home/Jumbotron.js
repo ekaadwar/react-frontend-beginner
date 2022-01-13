@@ -12,10 +12,10 @@ class Jumbotron extends React.Component {
 
   render() {
     return (
-      <section className="jumbotron">
-        <div className="container mx-auto h-full">
-          <div className="flex flex-col h-full">
-            <form className="py-5 lg:text-right">
+      <section className="jumbotron box-border">
+        <div className="container px-2 lg:px-10 mx-auto h-full">
+          <div className="flex flex-col">
+            <form className="pt-5 lg:text-right">
               <input
                 className="pl-5 py-2 rounded-full w-full lg:w-1/4"
                 type="text"
@@ -24,11 +24,12 @@ class Jumbotron extends React.Component {
               />
             </form>
 
-            <div className="flex flex-col justify-center h-3/4 lg:w-1/2 text-white ">
-              <h1 className="text-3xl">Start Your Day with</h1>
-              <h1 className="text-3xl">Coffee and Good Meals</h1>
+            <div className="flex flex-col justify-center h-3/4 lg:w-1/2 text-white my-12">
+              <h1 className="title-jumbo text-3xl leading-10 max-w-xl">
+                Start Your Day with Coffee and Good Meals
+              </h1>
 
-              <p className="text-lg lg:text-xl mt-10">
+              <p className="text-lg lg:text-xl mt-10 max-w-xl">
                 We provide high quality beans, good taste, and healthy meals
                 made by love just for you. Start your day with us for a bigger
                 smile!

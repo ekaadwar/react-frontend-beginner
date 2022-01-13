@@ -45,17 +45,13 @@ section .font-poppins {
   font-family: "Poppins", sans-serif;
 }
 
-.container {
-  width: 1100px;
-}
-
 .text-shadow {
   text-shadow: 2px 2px 4px #000000;
 }
 
 section.jumbotron,
 section.adventages {
-  height: 650px;
+  min-height: 650px;
 }
 
 section.auth,
@@ -101,9 +97,9 @@ section.history {
   background-image: url("./img/general/history.png");
 }
 
-nav button {
+/* nav button {
   background-color: rgba(255, 186, 51, 1);
-}
+} */
 
 .imageSuitVertical {
   width: 100%;
@@ -286,4 +282,8 @@ section.detailProduct .item {
 
 section.detailProduct .item {
   flex: 5;
+}
+
+.title-jumbo {
+  line-height: 50px;
 }
