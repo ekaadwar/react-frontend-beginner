@@ -12,7 +12,7 @@ class Jumbotron extends React.Component {
 
   render() {
     return (
-      <section className="jumbotron box-border">
+      <section className="jumbotron box-border pb-20">
         <div className="container px-2 lg:px-10 mx-auto h-full">
           <div className="flex flex-col">
             <form className="pt-5 lg:text-right">
@@ -35,7 +35,7 @@ class Jumbotron extends React.Component {
                 smile!
               </p>
 
-              <button className="w-60 bg-yellow-500 hover:bg-yellow-300 text-xl mt-10 px-10 py-2 text-yellow-900 font-bold rounded-lg">
+              <button className="max-w-xs bg-yellow-500 hover:bg-yellow-300 text-xl mt-10 px-10 py-2 text-yellow-900 font-bold rounded-lg">
                 Get Started
               </button>
             </div>

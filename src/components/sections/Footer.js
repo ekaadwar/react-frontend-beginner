@@ -37,9 +37,9 @@ class Footer extends React.Component {
               </p>
 
               <div className="flex space-x-3">
-                <IconCircle icon={this.facebook()} />
-                <IconCircle icon={this.twitter()} />
-                <IconCircle icon={this.instagram()} />
+                <IconCircle icon={this.facebook()} diametre={8} />
+                <IconCircle icon={this.twitter()} diametre={8} />
+                <IconCircle icon={this.instagram()} diametre={8} />
               </div>
             </div>
 

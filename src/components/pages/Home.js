@@ -12,11 +12,11 @@ class Home extends React.Component {
     return (
       <>
         <Jumbotron />
-        {/* <Advantages />
-        <Favorites />
-        <Spots />
-        <Partners />
-        <Testimony /> */}
+        <Advantages />
+        {/* <Favorites /> */}
+        {/* <Spots /> */}
+        {/* <Partners /> */}
+        {/* <Testimony /> */}
       </>
     );
   }
