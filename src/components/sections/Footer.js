@@ -1,6 +1,7 @@
 import React from "react";
-import { ImFacebook, ImTwitter, ImInstagram } from "react-icons/im";
+import { Link } from "react-router-dom";
 
+import { ImFacebook, ImTwitter, ImInstagram } from "react-icons/im";
 import IconCircle from "../components/IconCircle";
 
 // const Icon = () => {
@@ -26,10 +27,14 @@ class Footer extends React.Component {
         <div className="container mx-auto px-2 lg:px-10">
           <div className="flex flex-col sm:flex-row">
             <div className="sm:flex-1 space-y-7">
-              <div className="flex items-center">
-                <img src={this.props.image} alt="Coffee Shop" />
-                <h4 className="text-l font-bold ml-3">Coffee Shop</h4>
-              </div>
+              <Link to="/" className="flex items-center flex-row">
+                <img
+                  src={this.props.image}
+                  alt="Logo Eka Coffee"
+                  className="mr-3"
+                />
+                <h3 className="font-bold text-yellow-900">Eka Coffee</h3>
+              </Link>
 
               <p className="leading-8 max-w-xs">
                 Coffee Shop is a store that sells some good meals, and
