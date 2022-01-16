@@ -10,7 +10,7 @@ import { HiViewList } from "react-icons/hi";
 class Navbar extends React.Component {
   render() {
     return (
-      <nav className="h-20 py-4 fixed bg-white w-full shadow-md">
+      <nav className="h-20 py-4 fixed bg-white w-full shadow-md z-40">
         <div className="container mx-auto px-4 lg:px-10">
           <div className="flex justify-between box-content">
             <Link to="/" className="flex items-center flex-row">

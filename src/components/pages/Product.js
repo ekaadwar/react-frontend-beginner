@@ -52,8 +52,8 @@ class Product extends React.Component {
       <section className="product pt-20">
         <div className="border-t border-gray-300">
           <div className="container mx-auto">
-            <div className="content flex flex-row min-h-screen divide-x divide-gray-300 divide-solid">
-              <div className="side flex flex-col justify-between py-10">
+            <div className="content grid grid-cols-3 min-h-screen">
+              <div className="hidden lg:flex lg:flex-col lg:justify-between py-10 border-r border-gray-300">
                 <div className="space-y-5">
                   <div className="text-center">
                     <h3 className="text-2xl font-bold text-yellow-900">
@@ -99,7 +99,7 @@ class Product extends React.Component {
                   </button>
                 </div>
 
-                <div>
+                <div className="px-10">
                   <h5 className="font-bold">Term and Condition</h5>
                   <ol className="list-decimal">
                     <li>You can apply 1 coupon per day</li>
@@ -110,7 +110,7 @@ class Product extends React.Component {
                 </div>
               </div>
 
-              <div className="main h-full">
+              <div className="h-full col-span-3 lg:col-span-2">
                 <div className="flex flex-col w-full h-full p-10">
                   <div className="h-10">
                     <ul className="flex justify-evenly">
@@ -137,7 +137,7 @@ class Product extends React.Component {
                     </button>
                   </div>
 
-                  <div className="item grid grid-cols-4 gap-y-20 gap-x-4 pt-16">
+                  <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 pt-16">
                     {this.state.items.map((items, idx) => {
                       return (
                         <div
