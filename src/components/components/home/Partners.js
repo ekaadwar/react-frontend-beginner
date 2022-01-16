@@ -31,12 +31,13 @@ const logo = [
 
 export default function Partners() {
   return (
-    <section id="partner" className="bg-gray-100 pb-10">
+    <section id="partner" className="bg-gray-100 pb-10 px-4 lg:px-10">
       <div className="container mx-auto text-center">
-        <h3 className="font-bold text-3xl pt-20 w-1/3 mx-auto mb-16">
+        <h3 className="font-bold text-xl md:text-3xl pt-20 mx-auto mb-5 sm:mb-16 mb-3 md:mb-5">
           Our Partner
         </h3>
-        <div className="flex justify-around space-x-16 flex-wrap">
+
+        <div className="flex justify-around space-x-3 sm:space-x-16 flex-wrap">
           {logo.map((value) => {
             return (
               <div className="flex-1">

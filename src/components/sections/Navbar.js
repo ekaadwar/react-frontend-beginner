@@ -19,7 +19,9 @@ class Navbar extends React.Component {
                 alt="Logo Eka Coffee"
                 className="mr-3"
               />
-              <h3 className="font-bold text-yellow-900 text-xl">Eka Coffee</h3>
+              <h3 className="hidden md:block font-bold text-yellow-900 text-xl">
+                Eka Coffee
+              </h3>
             </Link>
 
             <button
@@ -52,7 +54,6 @@ class Navbar extends React.Component {
               <Link to="/product">Product</Link>
               <Link to="/cart">Your Cart</Link>
               <Link to="/history">History</Link>
-
               <Link to="/login">Login</Link>
               <Link to="/signup">
                 <button className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold">

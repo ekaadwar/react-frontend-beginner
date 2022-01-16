@@ -14,9 +14,9 @@ class Home extends React.Component {
         <Jumbotron />
         <Advantages />
         <Favorites />
-        {/* <Spots /> */}
-        {/* <Partners /> */}
-        {/* <Testimony /> */}
+        <Spots />
+        <Partners />
+        <Testimony />
       </>
     );
   }
