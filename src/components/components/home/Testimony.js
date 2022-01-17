@@ -3,13 +3,13 @@ import React from "react";
 import NavButton from "../NavButton";
 
 import { MdStar } from "react-icons/md";
-import asianBeauty from "../../../assets/asianBeauty.png";
+import asianBeauty from "../../../assets/img/asianBeauty.png";
 
 export default function Testimony() {
   return (
     <section id="testimony" className="testimony bg-gray-100 pb-52">
       <div className="container mx-auto text-center">
-        <h3 className="font-bold text-xl md:text-3xl pt-20  px-4 lg:px-10 mx-auto mb-3 md:mb-5">
+        <h3 className="font-bold text-xl md:text-3xl pt-20 px-4 lg:px-10 mx-auto mb-3 md:mb-5">
           Loved by Thousand of Happy Customer
         </h3>
 

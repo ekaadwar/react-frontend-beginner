@@ -2,7 +2,7 @@ import React from "react";
 
 import { MdCheck } from "react-icons/md";
 
-import { hazelnutLatte, pinkyPromise, chikenWing } from "../../../assets";
+import { hazelnutLatte, pinkyPromise, chikenWing } from "../../../assets/img";
 
 import PictureCircle from "../PictureCircle";
 
@@ -79,7 +79,7 @@ export default function Favorites() {
         </div>
 
         <div className="overflow-auto no-scrollbar">
-          <div className="item-wrapper mx-auto">
+          <div className="item-wrapper mx-auto px-2">
             <div className="flex flex-row items-center">
               {favoriteData.map((item, id) => (
                 <div key={id} className="flex-1 w-full flex justify-center">

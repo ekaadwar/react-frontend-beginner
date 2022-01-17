@@ -5,7 +5,7 @@ import IconCircle from "../IconCircle";
 import { BsPersonFill } from "react-icons/bs";
 import { MdLocationOn, MdFavoriteBorder, MdCheckCircle } from "react-icons/md";
 
-import teamWork from "../../../assets/teamWork.png";
+import teamWork from "../../../assets/img/teamWork.png";
 
 const personil = () => {
   return <BsPersonFill size={30} color="#78350f" />;

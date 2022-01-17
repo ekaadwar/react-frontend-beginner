@@ -137,7 +137,7 @@ class Product extends React.Component {
                     </button>
                   </div>
 
-                  <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 pt-16">
+                  <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {this.state.items.map((items, idx) => {
                       return (
                         <div

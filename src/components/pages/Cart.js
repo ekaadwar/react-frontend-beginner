@@ -2,7 +2,7 @@ import React from "react";
 import { FaCreditCard } from "react-icons/fa";
 import { AiFillBank } from "react-icons/ai";
 import { GrDeliver } from "react-icons/gr";
-import { chickenFireWing, hazelnutLatte } from "../../assets";
+import { chickenFireWing, hazelnutLatte } from "../../assets/img";
 
 class Cart extends React.Component {
   render() {

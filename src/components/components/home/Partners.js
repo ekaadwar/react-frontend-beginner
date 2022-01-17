@@ -1,10 +1,10 @@
 import React from "react";
 
-import logoSportify from "../../../assets/logoSportify.png";
-import logoAmazon from "../../../assets/logoAmazon.png";
-import logoDiscord from "../../../assets/logoDiscord.png";
-import logoNetflix from "../../../assets/logoNetflix.png";
-import logoReddit from "../../../assets/logoReddit.png";
+import logoSportify from "../../../assets/img/logoSportify.png";
+import logoAmazon from "../../../assets/img/logoAmazon.png";
+import logoDiscord from "../../../assets/img/logoDiscord.png";
+import logoNetflix from "../../../assets/img/logoNetflix.png";
+import logoReddit from "../../../assets/img/logoReddit.png";
 
 const logo = [
   {
