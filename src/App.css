@@ -71,7 +71,7 @@ section.history {
 }
 
 section.auth {
-  height: 1100px;
+  min-height: 100vh;
   background-image: url("./img/general/login.png");
   background-size: 50%;
 }
