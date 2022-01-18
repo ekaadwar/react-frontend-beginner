@@ -29,11 +29,11 @@ class Login extends React.Component {
                       </h3>
                     </Link>
 
-                    <a href="signUp.html">
+                    <Link to="/signup">
                       <button className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold">
                         Sign Up
                       </button>
-                    </a>
+                    </Link>
                   </div>
 
                   <h3 className="text-yellow-800 text-2xl font-bold text-center">
@@ -79,9 +79,11 @@ class Login extends React.Component {
                     </button>
 
                     <div>
-                      <button className="block bg-white hover:bg-gray-300 border-2 border-gray-300 px-5 py-2 rounded-xl font-bold w-full">
-                        Login with google
-                      </button>
+                      <Link to="signup">
+                        <button className="block bg-white hover:bg-gray-300 border-2 border-gray-300 px-5 py-2 rounded-xl font-bold w-full">
+                          Login with google
+                        </button>
+                      </Link>
                     </div>
                   </form>
                 </div>
