@@ -14,7 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        {/* <Navbar image={Logo} /> */}
+        <Navbar image={Logo} />
         <Routes />
         <Footer image={Logo} />
       </Router>

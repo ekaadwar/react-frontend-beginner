@@ -57,7 +57,7 @@ section.adventages {
 section.auth,
 section.forgot,
 section.cart,
-section.profil,
+section.profile,
 section.history {
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -65,7 +65,7 @@ section.history {
 
 section.forgot,
 section.cart,
-section.profil,
+section.profile,
 section.history {
   background-size: cover;
 }
@@ -87,10 +87,10 @@ section.cart {
   background-image: url("./img/general/cart.png");
 }
 
-section.profil {
-  height: 1100px;
+section.profile {
+  min-height: 100vh;
   background-image: url("./img/general/kopi.png");
-  background-position-y: -200px;
+  /* background-position-y: -200px; */
 }
 
 section.history {
@@ -265,7 +265,7 @@ section.cart .cart-body {
   min-height: 500px;
 }
 
-section.profil .data {
+section.profile .data {
   font-family: "Poppins", sans-serif;
 }
 

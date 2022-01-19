@@ -71,12 +71,14 @@ class Login extends React.Component {
                       Forgot password?
                     </Link>
 
-                    <button
-                      className="block bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-xl font-bold w-full"
-                      type="submit"
-                    >
-                      Login
-                    </button>
+                    <Link to="/profile">
+                      <button
+                        className="block bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-xl font-bold w-full"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                    </Link>
 
                     <div>
                       <Link to="signup">

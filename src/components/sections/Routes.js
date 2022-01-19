@@ -7,6 +7,7 @@ import Cart from "../pages/Cart";
 import History from "../pages/History";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import Profile from "../pages/Profile";
 
 function Routes() {
   return (
@@ -17,6 +18,7 @@ function Routes() {
       <Route path="/history" component={History} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
+      <Route part="/profile" component={Profile} />
     </Switch>
   );
 }
