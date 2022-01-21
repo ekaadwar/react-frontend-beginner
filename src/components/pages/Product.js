@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import qs from "querystring";
 
+import { Link } from "react-router-dom";
+
 import ItemImage from "../components/PictureCircle";
 
 class Product extends React.Component {
@@ -140,24 +142,23 @@ class Product extends React.Component {
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {this.state.items.map((items, idx) => {
                       return (
-                        <div
-                          key={idx}
-                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
-                        >
-                          <div className="absolute -top-12 my-auto w-full">
-                            <ItemImage category={items.category_id} />
-                          </div>
+                        <Link key={idx} to="/product/detail">
+                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
+                            <div className="absolute -top-12 my-auto w-full">
+                              <ItemImage category={items.category_id} />
+                            </div>
 
-                          <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
-                            <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
-                              {items.name}
-                            </h4>
+                            <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
+                              <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
+                                {items.name}
+                              </h4>
 
-                            <h6 className="text-sm font-bold text-yellow-900">
-                              IDR. {items.price}
-                            </h6>
+                              <h6 className="text-sm font-bold text-yellow-900">
+                                IDR. {items.price}
+                              </h6>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
                   </div>

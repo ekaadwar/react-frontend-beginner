@@ -8,12 +8,14 @@ import History from "../pages/History";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
+import ProductDetail from "../pages/ProductDetail";
 
 function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/product" component={Product} />
+      <Route path="/product" exact component={Product} />
+      <Route path="/product/detail" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
       <Route path="/history" component={History} />
       <Route path="/login" component={Login} />
