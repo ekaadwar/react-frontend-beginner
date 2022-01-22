@@ -65,7 +65,7 @@ class Login extends React.Component {
                     </div>
 
                     <Link
-                      to="/"
+                      to="/forgot-pass"
                       className="inline-block text-yellow-800 font-bold"
                     >
                       Forgot password?

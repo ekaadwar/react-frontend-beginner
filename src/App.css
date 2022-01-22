@@ -77,7 +77,7 @@ section.auth {
 }
 
 section.forgot {
-  height: 1100px;
+  min-height: 100vh;
   background-image: url("./img/general/forgot.png");
   font-family: "Poppins", sans-serif;
 }
@@ -269,13 +269,13 @@ section.profile .data {
   font-family: "Poppins", sans-serif;
 }
 
-.forgot .email {
+/* .forgot .email {
   flex-grow: 3;
 }
 
 .forgot .send {
   flex-grow: 1;
-}
+} */
 
 section.detailProduct .item {
   flex: 4;
