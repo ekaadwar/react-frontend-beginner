@@ -11,11 +11,15 @@ import Logo from "./img/logo/coffee.png";
 class App extends React.Component {
   state = { isAuth: 0 };
 
+  changeAuth = (data) => {
+    this.setState({ isAuth: data.isAuth });
+  };
+
   render() {
     return (
       <Router>
-        {/* <Navbar image={Logo} /> */}
-        <Routes />
+        {this.state.isAuth === 0 && <Navbar image={Logo} />}
+        <Routes change={this.changeAuth} />
         <Footer image={Logo} />
       </Router>
     );

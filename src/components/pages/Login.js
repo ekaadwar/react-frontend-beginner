@@ -9,6 +9,10 @@ class Login extends React.Component {
     event.preventDefault();
   };
 
+  // componentDidMount() {
+  //   const isAuth = 1;
+  // }
+
   render() {
     return (
       <section className="auth">

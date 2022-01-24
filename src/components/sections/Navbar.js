@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// import logo from "../../assets/ekaCoffee.png";
-// import gajeel from "../../assets/gajeel.jpg";
-
-// import { FaBeer } from "react-icons/fa";
 import { HiViewList } from "react-icons/hi";
 
 class Navbar extends React.Component {
@@ -24,10 +20,7 @@ class Navbar extends React.Component {
               </h3>
             </Link>
 
-            <button
-              // onClick={this.myFunction}
-              className="flex lg:hidden justify-center items-center w-10 h-10 bg-yellow-900 hover:bg-yellow-800 rounded-md"
-            >
+            <button className="flex lg:hidden justify-center items-center w-10 h-10 bg-yellow-900 hover:bg-yellow-800 rounded-md">
               <HiViewList size={30} color="#fff" />
             </button>
 
