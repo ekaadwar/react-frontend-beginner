@@ -1,5 +1,3 @@
-import React from "react";
-
 import chickenFireWing from "./chickenFireWing.png";
 import chikenWing from "./chikenWing.png";
 import gajeel from "./gajeel.jpg";

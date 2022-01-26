@@ -6,15 +6,30 @@ const defaultContent = () => {
 
 function ButtonCircle({
   content = defaultContent,
-  size = 20,
-  color = "gray",
-  colorLevel = 300,
-  colorFocus = "gray",
-  colorFocusLevel = 500,
+  size = 10,
+  primary = false,
+  secondary = false,
+  rounded = "xl",
+  bg = "bg-gray-400",
+  bgHover = "",
+  bgFocus = "",
+  textColor = "",
+  textHoverColor = "",
+  textFocusColor = "",
 }) {
+  if (primary === true) {
+    bg = "bg-yellow-400";
+    bgHover = "bg-yellow-200";
+  }
+
+  if (secondary === true) {
+    bg = "bg-yellow-900";
+    bgHover = "bg-yellow-800";
+  }
+
   return (
     <button
-      className={`focus:outline-none h-${size} w-${size} bg-${color}-${colorLevel} focus:bg-${colorFocus}-${colorFocusLevel} rounded-full`}
+      className={`focus:outline-none w-${size} h-${size} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor}`}
     >
       {content()}
     </button>

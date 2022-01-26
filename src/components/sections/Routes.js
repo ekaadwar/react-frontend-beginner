@@ -17,8 +17,6 @@ class Routes extends React.Component {
   };
 
   componentDidMount() {
-    const parameter = this.data.isAuth;
-
     this.props.change(this.data);
   }
 

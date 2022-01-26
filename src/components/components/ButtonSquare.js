@@ -33,6 +33,7 @@ function ButtonSquare({
   return (
     <button
       className={`focus:outline-none py-${py} px-${px} w-${w} h-${h} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor}`}
+      value="oke"
     >
       {content()}
     </button>

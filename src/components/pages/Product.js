@@ -3,7 +3,9 @@ import axios from "axios";
 import qs from "querystring";
 
 import { Link } from "react-router-dom";
+import { RiDeleteBin6Line as Delete } from "react-icons/ri";
 
+import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
 
 class Product extends React.Component {
@@ -43,6 +45,16 @@ class Product extends React.Component {
         this.getData(this.state.searchEnd);
       });
     }
+  };
+
+  deleteItem = async (id) => {
+    const result = window.confirm("Want to delete?");
+
+    if (result) {
+      await axios.delete(`http://localhost:8080/items/${id}`);
+    }
+
+    this.getData();
   };
 
   componentDidUpdate() {
@@ -142,12 +154,15 @@ class Product extends React.Component {
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {this.state.items.map((items, idx) => {
                       return (
-                        <Link key={idx} to="/product/detail">
-                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
-                            <div className="absolute -top-12 my-auto w-full">
-                              <ItemImage category={items.category_id} />
-                            </div>
+                        <div
+                          key={idx}
+                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
+                        >
+                          <div className="absolute -top-12 my-auto w-full">
+                            <ItemImage category={items.category_id} />
+                          </div>
 
+                          <Link key={idx} to="/product/detail">
                             <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
                               <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
                                 {items.name}
@@ -157,8 +172,24 @@ class Product extends React.Component {
                                 IDR. {items.price}
                               </h6>
                             </div>
+                          </Link>
+
+                          <div
+                            onClick={() => this.deleteItem(items.id)}
+                            className="absolute -bottom-3 -right-3"
+                            value="oke"
+                          >
+                            <ButtonCircle
+                              secondary
+                              size={7}
+                              content={() => (
+                                <div className="flex justify-center items-center">
+                                  <Delete size={15} color="white" />
+                                </div>
+                              )}
+                            />
                           </div>
-                        </Link>
+                        </div>
                       );
                     })}
                   </div>
