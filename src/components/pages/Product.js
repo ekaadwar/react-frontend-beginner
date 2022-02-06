@@ -9,15 +9,47 @@ import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
 
 class Product extends React.Component {
-  state = {
-    items: [],
-    searchInput: "",
-    searchEnd: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      searchInput: "",
+      searchEnd: "",
+      id_category: 1,
+    };
+  }
+
+  listMenu = [
+    {
+      idCategory: 1,
+      category: "Favorite Product",
+    },
+    {
+      idCategory: 2,
+      category: "Coffee",
+    },
+    {
+      idCategory: 3,
+      category: "Non-Coffee",
+    },
+    {
+      idCategory: 4,
+      category: "Food",
+    },
+    {
+      idCategory: 5,
+      category: "Add-On",
+    },
+  ];
 
   onSearch = (event) => {
     if (event.keyCode === 13) {
-      this.props.history.push(`/product?search=${this.state.searchInput}`);
+      console.log(event.target);
+      let url = `/product`;
+      if (this.state.searchInput !== "") {
+        url += `?search=${this.state.searchInput}`;
+      }
+      this.props.history.push(url);
     }
   };
 
@@ -26,24 +58,49 @@ class Product extends React.Component {
   };
 
   componentDidMount() {
-    const { search } = this.parseQuery(this.props.location.search);
-    this.setState({ searchInput: search });
+    const queryString = this.props.location.search;
+
+    if (queryString) {
+      const { search } = this.parseQuery(this.props.location.search);
+
+      if (search) {
+        this.setState({ searchInput: search });
+      }
+    }
+
     this.getData();
   }
 
-  getData = async (search = "") => {
+  getData = async (dataUrl = this.state) => {
+    // let url = `http://localhost:8080/items?`;
+
+    // if (dataUrl.searchEnd) {
+    //   url += `search=${dataUrl.searchEnd}`;
+    // }
+
+    // if (dataUrl.id_category) {
+    //   url += `category=${dataUrl.id_category}`;
+    // }
+
+    // const { data } = await axios.get(url);
     const { data } = await axios.get(
-      `http://localhost:8080/items?search=${search}`
+      `http://localhost:8080/items?search=${dataUrl.searchEnd}`
     );
+
     this.setState({ items: data.results });
   };
 
   doSearch = () => {
-    const { search } = this.parseQuery(this.props.location.search);
-    if (this.state.searchEnd !== search) {
-      this.setState({ searchEnd: search }, () => {
-        this.getData(this.state.searchEnd);
-      });
+    const queryString = this.props.location.search;
+
+    if (queryString) {
+      const { search } = this.parseQuery(queryString);
+
+      if (this.state.searchEnd !== search) {
+        this.setState({ searchEnd: search }, () => {
+          this.getData();
+        });
+      }
     }
   };
 
@@ -55,6 +112,18 @@ class Product extends React.Component {
     }
 
     this.getData();
+  };
+
+  getCategory = (event) => {
+    this.setState({ id_category: event.target.value });
+
+    let url = "/product?";
+
+    if (this.state.id_category > 1) {
+      url += `category=${this.state.id_category}`;
+    }
+
+    this.props.history.push(url);
   };
 
   componentDidUpdate() {
@@ -128,25 +197,31 @@ class Product extends React.Component {
                 <div className="flex flex-col w-full h-full p-10">
                   <div className="h-10">
                     <ul className="flex justify-evenly">
-                      <li className="inline-block">Favorite Product</li>
-                      <li className="inline-block">Coffee</li>
-                      <li className="inline-block">Non Coffee</li>
-                      <li className="inline-block">Foods</li>
-                      <li className="inline-block">Add-on</li>
+                      {this.listMenu.map((menu, idx) => (
+                        <li
+                          value={menu.idCategory}
+                          className="inline-block cursor-pointer"
+                          key={idx}
+                          // onClick={(event) => console.log(event.target.value)}
+                          onClick={this.getCategory}
+                        >
+                          {menu.category}
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
                   <div className="flex flex-row">
                     <input
                       value={this.state.searchInput}
-                      className="border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
+                      className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
                       type="text"
                       onChange={(event) =>
                         this.setState({ searchInput: event.target.value })
                       }
                       onKeyDown={this.onSearch}
                     />
-                    <button className="h-10 w-10 border rounded-r-lg border-gray-500 hover:bg-gray-300">
+                    <button className="focus:outline-none h-10 w-10 border border-l-0 rounded-r-lg border-gray-500 hover:bg-gray-300">
                       +
                     </button>
                   </div>

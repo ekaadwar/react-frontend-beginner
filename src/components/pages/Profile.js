@@ -1,10 +1,15 @@
 import React from "react";
+import axios from "axios";
 
 import { gajeel } from "../../assets/img";
 
 import { FiEdit2 } from "react-icons/fi";
 
 class Profile extends React.Component {
+  state = {
+    data: {},
+  };
+
   data = {
     email: "ekafajhariadwar@gmail",
     phone: "123456789098",
@@ -16,7 +21,20 @@ class Profile extends React.Component {
     gender: "Male",
   };
 
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = async (dataUser = this.state) => {
+    const url = "http://localhost:8080/users/1";
+    const { data } = await axios.get(url);
+    // console.log(data.results);
+    this.setState({ data: data.results });
+    console.log(this.state.data);
+  };
+
   render() {
+    const profile = this.state.data;
     return (
       <section className="profile pt-20 bg-gray-200">
         <div className="container mx-auto pb-20 px-5 box-border">
@@ -38,9 +56,9 @@ class Profile extends React.Component {
 
               <div>
                 <h4 className="text-2xl font-bold text-center">
-                  {this.data.name_shown}
+                  {profile.display_name}
                 </h4>
-                <p className="text-sm text-center">{this.data.email}</p>
+                <p className="text-sm text-center">{profile.email}</p>
               </div>
 
               <p className="text-center">Let's order your product now!</p>
@@ -70,6 +88,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
+                          placeholder={profile.email}
                         />
                       </div>
 
@@ -79,7 +98,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          placeholder={this.data.phone}
+                          placeholder={profile.mobile_number}
                         />
                       </div>
                     </div>
@@ -90,7 +109,7 @@ class Profile extends React.Component {
                         className="py-2 w-full border-b border-black placeholder-gray-700"
                         type="text"
                         name="address"
-                        placeholder={this.data.address}
+                        placeholder={profile.address}
                         rows="3"
                       />
                     </div>
@@ -120,7 +139,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          placeholder={this.data.name_shown}
+                          placeholder={profile.display_name}
                         />
                       </div>
                       <div className="">
@@ -129,7 +148,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="firstName"
-                          placeholder={this.data.name_first}
+                          placeholder={profile.first_name}
                         />
                       </div>
                       <div className="">
@@ -138,7 +157,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="lastName"
                           name="lastName"
-                          placeholder={this.data.name_last}
+                          placeholder={profile.last_name}
                         />
                       </div>
                     </div>
@@ -150,7 +169,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={this.data.birth_date}
+                          placeholder={profile.birth}
                         />
                       </div>
                       <div className="sm:col-span-2 row-span-2 space-y-5">
@@ -160,7 +179,7 @@ class Profile extends React.Component {
                             id="male"
                             name="gender"
                             placeholder="male"
-                            checked={this.data.gender === "male" && true}
+                            checked={profile.gender === "male" && true}
                           />
                           <label
                             className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
@@ -177,7 +196,7 @@ class Profile extends React.Component {
                             id="female"
                             name="gender"
                             placeholder="female"
-                            checked={this.data.gender === "female" && true}
+                            checked={profile.gender === "female" && true}
                           />
                           <label
                             className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
