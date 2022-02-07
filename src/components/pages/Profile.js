@@ -7,18 +7,15 @@ import { FiEdit2 } from "react-icons/fi";
 
 class Profile extends React.Component {
   state = {
-    data: {},
-  };
-
-  data = {
-    email: "ekafajhariadwar@gmail",
-    phone: "123456789098",
-    address: "Jalan Kehidupan",
-    name_shown: "Killer Bee",
-    name_first: "Eka",
-    name_last: "Fajhari Adwar",
-    birth_date: "1 Januari 1991",
-    gender: "Male",
+    displayName: "",
+    email: "",
+    password: "",
+    mobileNumber: "",
+    address: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birth: "",
   };
 
   componentDidMount() {
@@ -28,13 +25,26 @@ class Profile extends React.Component {
   getData = async (dataUser = this.state) => {
     const url = "http://localhost:8080/users/1";
     const { data } = await axios.get(url);
-    // console.log(data.results);
-    this.setState({ data: data.results });
-    console.log(this.state.data);
+    this.setState({
+      displayName: data.results.display_name,
+      email: data.results.email,
+      password: data.results.password,
+      mobileNumber: data.results.mobile_number,
+      address: data.results.address,
+      firstName: data.results.first_name,
+      lastName: data.results.last_name,
+      gender: data.results.gender,
+      birth: data.results.birth,
+    });
+  };
+
+  submitData = async () => {
+    const url = "http://localhost:8080/users/1";
+    const { data } = await axios.put(url);
+    console.log(data);
   };
 
   render() {
-    const profile = this.state.data;
     return (
       <section className="profile pt-20 bg-gray-200">
         <div className="container mx-auto pb-20 px-5 box-border">
@@ -56,9 +66,9 @@ class Profile extends React.Component {
 
               <div>
                 <h4 className="text-2xl font-bold text-center">
-                  {profile.display_name}
+                  {this.state.displayName}
                 </h4>
-                <p className="text-sm text-center">{profile.email}</p>
+                <p className="text-sm text-center">{this.state.email}</p>
               </div>
 
               <p className="text-center">Let's order your product now!</p>
@@ -82,13 +92,14 @@ class Profile extends React.Component {
                       <div className="">
                         <p className="text-xl text-gray-400">Email address :</p>
                         <input
-                          onChange={(e) =>
-                            this.setState({ email: e.target.value })
-                          }
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
-                          placeholder={profile.email}
+                          // placeholder={profile.email}
+                          value={this.state.email}
+                          onChange={(event) =>
+                            this.setState({ email: event.target.value })
+                          }
                         />
                       </div>
 
@@ -98,7 +109,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          placeholder={profile.mobile_number}
+                          placeholder={this.state.mobileNumber}
                         />
                       </div>
                     </div>
@@ -109,7 +120,7 @@ class Profile extends React.Component {
                         className="py-2 w-full border-b border-black placeholder-gray-700"
                         type="text"
                         name="address"
-                        placeholder={profile.address}
+                        placeholder={this.state.address}
                         rows="3"
                       />
                     </div>
@@ -139,7 +150,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          placeholder={profile.display_name}
+                          placeholder={this.state.displayName}
                         />
                       </div>
                       <div className="">
@@ -148,16 +159,17 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="firstName"
-                          placeholder={profile.first_name}
+                          placeholder={this.state.firstName}
                         />
                       </div>
+
                       <div className="">
                         <p className="text-xl text-gray-400">Last Name:</p>
                         <input
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="lastName"
                           name="lastName"
-                          placeholder={profile.last_name}
+                          placeholder={this.state.lastName}
                         />
                       </div>
                     </div>
@@ -169,11 +181,11 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={profile.birth}
+                          placeholder={this.state.birth}
                         />
                       </div>
                       <div className="sm:col-span-2 row-span-2 space-y-5">
-                        <div>
+                        {/* <div>
                           <input
                             type="radio"
                             id="male"
@@ -188,9 +200,9 @@ class Profile extends React.Component {
                             Male
                           </label>
                           <br />
-                        </div>
+                        </div> */}
 
-                        <div>
+                        {/* <div>
                           <input
                             type="radio"
                             id="female"
@@ -205,7 +217,7 @@ class Profile extends React.Component {
                             Female
                           </label>
                           <br />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -222,7 +234,7 @@ class Profile extends React.Component {
 
               <div className="space-y-5 mb-5">
                 <button
-                  onClick={this.updateData}
+                  onClick={this.submitData}
                   className="bg-yellow-900 py-3 w-full text-white rounded-2xl hover:bg-yellow-800"
                 >
                   Save Change
