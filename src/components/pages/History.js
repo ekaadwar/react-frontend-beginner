@@ -17,7 +17,10 @@ class History extends React.Component {
 
           <div className="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-5 justify-items-center">
             {[...Array(12)].map((item, id) => (
-              <div className="flex justify-between p-5 bg-white rounded-2xl space-x-2 max-w-sm w-full">
+              <div
+                key={id}
+                className="flex justify-between p-5 bg-white rounded-2xl space-x-2 max-w-sm w-full"
+              >
                 <div>
                   <div className="h-20 w-20 overflow-hidden rounded-full bg-gray-300">
                     <img
