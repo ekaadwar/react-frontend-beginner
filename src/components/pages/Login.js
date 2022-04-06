@@ -1,17 +1,18 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+import { toggleAuth, authLogin } from "../../redux/actions/auth";
 import { coffeeLogo } from "../../assets/img";
 
 class Login extends React.Component {
+  componentDidMount() {
+    this.props.toggleAuth();
+  }
+
   submitData = (event) => {
     event.preventDefault();
   };
-
-  // componentDidMount() {
-  //   const isAuth = 1;
-  // }
 
   render() {
     return (
@@ -102,4 +103,6 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispachToProps = { toggleAuth, authLogin };
+
+export default connect(null, mapDispachToProps)(Login);
