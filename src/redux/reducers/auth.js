@@ -1,6 +1,7 @@
 const initialState = {
   onAuth: false,
   token: null,
+  errMsg: "",
 };
 
 const auth = (state = initialState, action) => {
@@ -15,6 +16,12 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
+      };
+    }
+    case "AUTH_LOGIN_FAILED": {
+      return {
+        ...state,
+        errMsg: action.payload,
       };
     }
     default: {

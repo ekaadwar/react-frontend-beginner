@@ -8,18 +8,25 @@ export const toggleAuth = () => {
   };
 };
 
-export const authLogin = (username, password) => {
+export const authLogin = (email, password) => {
   return async (dispatch) => {
     const form = new URLSearchParams();
 
-    form.append("username", username);
+    form.append("email", email);
     form.append("password", password);
 
-    const { data } = await http().post(`${URL}/auth/login`, form.toString());
+    try {
+      const { data } = await http().post(`${URL}/auth/login`, form.toString());
 
-    dispatch({
-      type: "AUTH_LOGIN",
-      payload: data.results.token,
-    });
+      dispatch({
+        type: "AUTH_LOGIN",
+        payload: data.results.token,
+      });
+    } catch (error) {
+      dispatch({
+        type: "AUTH_LOGIN_FAILED",
+        payload: error.response.data.message,
+      });
+    }
   };
 };
