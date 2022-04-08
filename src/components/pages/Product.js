@@ -3,7 +3,10 @@ import axios from "axios";
 import qs from "querystring";
 
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { RiDeleteBin6Line as Delete } from "react-icons/ri";
+
+import { getItems } from "../../redux/actions/items";
 
 import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
@@ -58,6 +61,8 @@ class Product extends React.Component {
   };
 
   componentDidMount() {
+    this.props.getItems();
+
     const queryString = this.props.location.search;
 
     if (queryString) {
@@ -70,6 +75,11 @@ class Product extends React.Component {
 
     this.getData();
   }
+
+  loadMore = () => {
+    const { nextPage } = this.props.items.pageInfo;
+    this.props.getItems(nextPage);
+  };
 
   getData = async (dataUrl = this.state) => {
     // let url = `http://localhost:8080/items?`;
@@ -131,6 +141,8 @@ class Product extends React.Component {
   }
 
   render() {
+    const { data } = this.props.items;
+    console.log(data);
     return (
       <section className="product pt-20">
         <div className="border-t border-gray-300">
@@ -227,24 +239,24 @@ class Product extends React.Component {
                   </div>
 
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
-                    {this.state.items.map((items, idx) => {
+                    {data.map((items) => {
                       return (
                         <div
-                          key={idx}
+                          key={items.id.toString()}
                           className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
                         >
                           <div className="absolute -top-12 my-auto w-full">
                             <ItemImage category={items.category_id} />
                           </div>
 
-                          <Link key={idx} to="/product/detail">
+                          <Link to="/product/detail">
                             <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
                               <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
                                 {items.name}
                               </h4>
 
                               <h6 className="text-sm font-bold text-yellow-900">
-                                IDR. {items.price}
+                                IDR. {items.price.toLocaleString("en")}
                               </h6>
                             </div>
                           </Link>
@@ -267,6 +279,15 @@ class Product extends React.Component {
                         </div>
                       );
                     })}
+
+                    <div>
+                      <button
+                        className="bg-yellow-400 px-11 py-2 rounded-md"
+                        onClick={this.loadMore}
+                      >
+                        Load More
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -278,4 +299,10 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+const mapDispatchToProps = { getItems };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
