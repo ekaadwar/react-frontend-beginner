@@ -15,10 +15,7 @@ const items = (state = initialState, action) => {
     case "ITEMS_GET_NEXT": {
       return {
         ...state,
-        data: {
-          ...state.data,
-          ...action.payload.items,
-        },
+        data: [...state.data, ...action.payload.items],
         pageInfo: action.payload.pageInfo,
       };
     }

@@ -78,21 +78,11 @@ class Product extends React.Component {
 
   loadMore = () => {
     const { nextPage } = this.props.items.pageInfo;
+    console.log(`nextPage : ${nextPage}`);
     this.props.getItems(nextPage);
   };
 
   getData = async (dataUrl = this.state) => {
-    // let url = `http://localhost:8080/items?`;
-
-    // if (dataUrl.searchEnd) {
-    //   url += `search=${dataUrl.searchEnd}`;
-    // }
-
-    // if (dataUrl.id_category) {
-    //   url += `category=${dataUrl.id_category}`;
-    // }
-
-    // const { data } = await axios.get(url);
     const { data } = await axios.get(
       `http://localhost:8080/items?search=${dataUrl.searchEnd}`
     );
@@ -143,6 +133,7 @@ class Product extends React.Component {
   render() {
     const { data } = this.props.items;
     console.log(data);
+
     return (
       <section className="product pt-20">
         <div className="border-t border-gray-300">
@@ -239,10 +230,11 @@ class Product extends React.Component {
                   </div>
 
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
-                    {data.map((items) => {
+                    {data.map((items, idx) => {
                       return (
                         <div
                           key={items.id.toString()}
+                          // key={idx}
                           className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
                         >
                           <div className="absolute -top-12 my-auto w-full">

@@ -10,7 +10,6 @@ import logo from "../../img/logo/coffee.png";
 import { gajeel } from "../../assets/img";
 
 const Navbar = ({ auth }) => {
-  console.log(auth);
   return (
     <nav className="h-20 py-4 fixed bg-white w-full shadow-md z-40">
       <div className="container mx-auto px-4 lg:px-10">
