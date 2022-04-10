@@ -6,6 +6,7 @@ function contentDefault() {
 
 function ButtonSquare({
   content = contentDefault,
+  onClick = {},
   primary = false,
   secondary = false,
   py = 3,
@@ -32,6 +33,7 @@ function ButtonSquare({
 
   return (
     <button
+      onClick={onClick}
       className={`focus:outline-none py-${py} px-${px} w-${w} h-${h} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor}`}
       value="oke"
     >

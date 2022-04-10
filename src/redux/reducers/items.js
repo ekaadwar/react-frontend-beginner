@@ -1,5 +1,6 @@
 const initialState = {
   data: [],
+  details: {},
   pageInfo: {},
 };
 
@@ -17,6 +18,12 @@ const items = (state = initialState, action) => {
         ...state,
         data: [...state.data, ...action.payload.items],
         pageInfo: action.payload.pageInfo,
+      };
+    }
+    case "ITEMS_GET_DETAILS": {
+      return {
+        ...state,
+        details: action.payload,
       };
     }
     default: {

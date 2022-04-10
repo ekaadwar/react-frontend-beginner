@@ -230,9 +230,12 @@ class Product extends React.Component {
                   </div>
 
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
-                    {data.map((items, idx) => {
+                    {data.map((items) => {
                       return (
-                        <Link key={items.id.toString()}>
+                        <Link
+                          to={`/product/${items.id}`}
+                          key={items.id.toString()}
+                        >
                           <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
                             <div className="absolute -top-12 my-auto w-full">
                               <ItemImage category={items.category_id} />

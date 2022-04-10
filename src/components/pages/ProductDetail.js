@@ -1,28 +1,36 @@
 import React from "react";
 
+import { connect } from "react-redux";
+
 import PictureCircle from "../components/PictureCircle";
 import ButtonCircle from "../components/ButtonCircle";
 import ButtonSquare from "../components/ButtonSquare";
 
+import { getDetails } from "../../redux/actions/items";
+import { addItems } from "../../redux/actions/carts";
 import { coldBrew } from "../../assets/img";
 
 class ProductDetail extends React.Component {
-  details = {
-    name: "cold brew",
-    price: 30000,
-  };
+  // details = {
+  //   name: "cold brew",
+  //   price: 30000,
+  // };
 
   image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />;
 
+  componentDidMount() {
+    this.props.getDetails(this.props.match.params.id);
+  }
+
   render() {
+    const { details } = this.props.items;
+
     return (
       <section className="detailProduct pt-20 pb-40 bg-gray-200">
         <div className="container mx-auto px-2 lg:px-10">
           <p className="font-bold mt-5">
             <span className="text-gray-500 pr-2">Favorite & Promo</span>
-            <span className="text-yellow-900 capitalize">
-              {this.details.name}
-            </span>
+            <span className="text-yellow-900 capitalize">{details?.name}</span>
           </p>
 
           <div className="font-poppins grid grid-cols-1 sm:grid-cols-9">
@@ -35,16 +43,15 @@ class ProductDetail extends React.Component {
 
                   <div className="space-y-3 lg:space-y-7 text-center">
                     <h2 className="text-4xl lg:text-6xl font-bold capitalize">
-                      {this.details.name}
+                      {details?.name}
                     </h2>
-                    <p className="text-2xl lg:text-4xl">
-                      IDR {this.details.price}
-                    </p>
+                    <p className="text-2xl lg:text-4xl">IDR {details?.price}</p>
                   </div>
 
                   <div className="space-y-3 lg:space-y-7">
                     <ButtonSquare
                       secondary
+                      onClick={() => this.props.addItems(details)}
                       content={() => (
                         <p className="text-white lg:text-2xl font-bold">
                           Add to Cart
@@ -83,7 +90,7 @@ class ProductDetail extends React.Component {
 
                   <div className="flex flex-wrap justify-between">
                     {["R", "L", "XL"].map((item, id) => (
-                      <div className="mb-3">
+                      <div key={id} className="mb-3">
                         <ButtonCircle
                           content={() => <p>{item}</p>}
                           size={16}
@@ -138,7 +145,7 @@ class ProductDetail extends React.Component {
 
                       <div>
                         <h5 className="text-2xl font-bold capitalize">
-                          {this.details.name}
+                          {details.name}
                         </h5>
                         <p className="text-xl">(Regular)</p>
                       </div>
@@ -176,4 +183,10 @@ class ProductDetail extends React.Component {
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+const mapDispatchToProps = { getDetails, addItems };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
