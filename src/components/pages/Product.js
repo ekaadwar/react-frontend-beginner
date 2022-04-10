@@ -232,16 +232,12 @@ class Product extends React.Component {
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {data.map((items, idx) => {
                       return (
-                        <div
-                          key={items.id.toString()}
-                          // key={idx}
-                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
-                        >
-                          <div className="absolute -top-12 my-auto w-full">
-                            <ItemImage category={items.category_id} />
-                          </div>
+                        <Link key={items.id.toString()}>
+                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
+                            <div className="absolute -top-12 my-auto w-full">
+                              <ItemImage category={items.category_id} />
+                            </div>
 
-                          <Link to="/product/detail">
                             <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
                               <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
                                 {items.name}
@@ -251,24 +247,24 @@ class Product extends React.Component {
                                 IDR. {items.price.toLocaleString("en")}
                               </h6>
                             </div>
-                          </Link>
 
-                          <div
-                            onClick={() => this.deleteItem(items.id)}
-                            className="absolute -bottom-3 -right-3"
-                            value="oke"
-                          >
-                            <ButtonCircle
-                              secondary
-                              size={7}
-                              content={() => (
-                                <div className="flex justify-center items-center">
-                                  <Delete size={15} color="white" />
-                                </div>
-                              )}
-                            />
+                            <div
+                              onClick={() => this.deleteItem(items.id)}
+                              className="absolute -bottom-3 -right-3"
+                              value="oke"
+                            >
+                              <ButtonCircle
+                                secondary
+                                size={7}
+                                content={() => (
+                                  <div className="flex justify-center items-center">
+                                    <Delete size={15} color="white" />
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
 
