@@ -24,4 +24,8 @@ yarn-error.log*
 
 # myfiles
 toDoList.txt
+<<<<<<< HEAD
 report.txt
+=======
+report.txt
+>>>>>>> dev

@@ -1,55 +1,74 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { ImFacebook, ImTwitter, ImInstagram } from "react-icons/im";
+import IconCircle from "../components/IconCircle";
+
+// const Icon = () => {
+//   return <ImTwitter color="#6A4029" />;
+// };
 
 class Footer extends React.Component {
+  twitter = () => {
+    return <ImTwitter color="#6A4029" />;
+  };
+
+  facebook = () => {
+    return <ImFacebook color="#6A4029" />;
+  };
+
+  instagram = () => {
+    return <ImInstagram color="#6A4029" />;
+  };
+
   render() {
     return (
-      <>
-        <footer class="bg-gray-200 py-10">
-          <div class="container mx-auto">
-            <div class="flex">
-              <div class="flex-1 space-y-7">
-                <div class="flex items-center">
-                  <img src={this.props.image} alt="Coffee Shop" />
-                  <h4 class="text-l font-bold ml-3">Coffee Shop</h4>
-                </div>
-                <p class="w-72 leading-8">
-                  Coffee Shop is a store that sells some good meals, and
-                  especially coffee. We provide high quality beans
-                </p>
-                <div class="flex space-x-3">
-                  <div class="flex justify-center items-center h-8 w-8 bg-yellow-500 rounded-full">
-                    <i class="text-yellow-800 fab fa-facebook-f"></i>
-                  </div>
-                  <div class="flex justify-center items-center h-8 w-8 bg-yellow-500 rounded-full">
-                    <i class="text-yellow-800 fab fa-twitter"></i>
-                  </div>
-                  <div class="flex justify-center items-center h-8 w-8 bg-yellow-500 rounded-full">
-                    <i class="text-yellow-800 fab fa-instagram"></i>
-                  </div>
-                </div>
+      <footer className="bg-gray-200 py-10">
+        <div className="container mx-auto px-2 lg:px-10">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:flex-1 space-y-7">
+              <Link to="/" className="flex items-center flex-row">
+                <img
+                  src={this.props.image}
+                  alt="Logo Eka Coffee"
+                  className="mr-3"
+                />
+                <h3 className="font-bold text-yellow-900">Eka Coffee</h3>
+              </Link>
+
+              <p className="leading-8 max-w-xs">
+                Coffee Shop is a store that sells some good meals, and
+                especially coffee. We provide high quality beans
+              </p>
+
+              <div className="flex space-x-3">
+                <IconCircle icon={this.facebook()} diametre={8} />
+                <IconCircle icon={this.twitter()} diametre={8} />
+                <IconCircle icon={this.instagram()} diametre={8} />
               </div>
-              <div class="flex-1 flex justify-end">
-                <div class="w-2/3">
-                  <div class="foot-info grid grid-cols-2">
-                    <div class="text-xl font-bold">Product</div>
-                    <div class="text-xl font-bold">Engage</div>
-                    <div>Download</div>
-                    <div>Coffe Shop?</div>
-                    <div>Pricing</div>
-                    <div>FAQ</div>
-                    <div>Location</div>
-                    <div>About Us</div>
-                    <div>Countries</div>
-                    <div>Privacy Policy</div>
-                    <div>Blog</div>
-                    <div>Term of Service</div>
-                  </div>
+            </div>
+
+            <div className="flex lg:justify-end mt-10 sm:mt-0">
+              <div className="">
+                <div className="foot-info grid grid-cols-2">
+                  <div className="text-xl font-bold">Product</div>
+                  <div className="text-xl font-bold">Engage</div>
+                  <div>Download</div>
+                  <div>Coffe Shop?</div>
+                  <div>Pricing</div>
+                  <div>FAQ</div>
+                  <div>Location</div>
+                  <div>About Us</div>
+                  <div>Countries</div>
+                  <div>Privacy Policy</div>
+                  <div>Blog</div>
+                  <div>Term of Service</div>
                 </div>
               </div>
             </div>
           </div>
-        </footer>
-      </>
+        </div>
+      </footer>
     );
   }
 }

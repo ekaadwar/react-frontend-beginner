@@ -2,18 +2,57 @@ import React from "react";
 import axios from "axios";
 import qs from "querystring";
 
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { RiDeleteBin6Line as Delete } from "react-icons/ri";
+
+import { getItems } from "../../redux/actions/items";
+
+import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
 
 class Product extends React.Component {
-  state = {
-    items: [],
-    searchInput: "",
-    searchEnd: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      searchInput: "",
+      searchEnd: "",
+      id_category: 1,
+    };
+  }
+
+  listMenu = [
+    {
+      idCategory: 1,
+      category: "Favorite Product",
+    },
+    {
+      idCategory: 2,
+      category: "Coffee",
+    },
+    {
+      idCategory: 3,
+      category: "Non-Coffee",
+    },
+    {
+      idCategory: 4,
+      category: "Food",
+    },
+    {
+      idCategory: 5,
+      category: "Add-On",
+    },
+  ];
 
   onSearch = (event) => {
     if (event.keyCode === 13) {
-      this.props.history.push(`/product?search=${this.state.searchInput}`);
+      console.log(event.target);
+      let url = `/product`;
+      if (this.state.searchInput !== "") {
+        url += `?search=${this.state.searchInput}`;
+      }
+      this.props.history.push(url);
     }
   };
 
@@ -22,25 +61,69 @@ class Product extends React.Component {
   };
 
   componentDidMount() {
-    const { search } = this.parseQuery(this.props.location.search);
-    this.setState({ searchInput: search });
+    this.props.getItems();
+
+    const queryString = this.props.location.search;
+
+    if (queryString) {
+      const { search } = this.parseQuery(this.props.location.search);
+
+      if (search) {
+        this.setState({ searchInput: search });
+      }
+    }
+
     this.getData();
   }
 
-  getData = async (search = "") => {
+  loadMore = () => {
+    const { nextPage } = this.props.items.pageInfo;
+    console.log(`nextPage : ${nextPage}`);
+    this.props.getItems(nextPage);
+  };
+
+  getData = async (dataUrl = this.state) => {
     const { data } = await axios.get(
-      `http://localhost:8080/items?search=${search}`
+      `http://localhost:8080/items?search=${dataUrl.searchEnd}`
     );
+
     this.setState({ items: data.results });
   };
 
   doSearch = () => {
-    const { search } = this.parseQuery(this.props.location.search);
-    if (this.state.searchEnd !== search) {
-      this.setState({ searchEnd: search }, () => {
-        this.getData(this.state.searchEnd);
-      });
+    const queryString = this.props.location.search;
+
+    if (queryString) {
+      const { search } = this.parseQuery(queryString);
+
+      if (this.state.searchEnd !== search) {
+        this.setState({ searchEnd: search }, () => {
+          this.getData();
+        });
+      }
     }
+  };
+
+  deleteItem = async (id) => {
+    const result = window.confirm("Want to delete?");
+
+    if (result) {
+      await axios.delete(`http://localhost:8080/items/${id}`);
+    }
+
+    this.getData();
+  };
+
+  getCategory = (event) => {
+    this.setState({ id_category: event.target.value });
+
+    let url = "/product?";
+
+    if (this.state.id_category > 1) {
+      url += `category=${this.state.id_category}`;
+    }
+
+    this.props.history.push(url);
   };
 
   componentDidUpdate() {
@@ -48,12 +131,15 @@ class Product extends React.Component {
   }
 
   render() {
+    const { data } = this.props.items;
+    console.log(data);
+
     return (
       <section className="product pt-20">
         <div className="border-t border-gray-300">
           <div className="container mx-auto">
-            <div className="content flex flex-row min-h-screen divide-x divide-gray-300 divide-solid">
-              <div className="side flex flex-col justify-between py-10">
+            <div className="content grid grid-cols-3 min-h-screen">
+              <div className="hidden lg:flex lg:flex-col lg:justify-between py-10 border-r border-gray-300">
                 <div className="space-y-5">
                   <div className="text-center">
                     <h3 className="text-2xl font-bold text-yellow-900">
@@ -99,7 +185,7 @@ class Product extends React.Component {
                   </button>
                 </div>
 
-                <div>
+                <div className="px-10">
                   <h5 className="font-bold">Term and Condition</h5>
                   <ol className="list-decimal">
                     <li>You can apply 1 coupon per day</li>
@@ -110,53 +196,89 @@ class Product extends React.Component {
                 </div>
               </div>
 
-              <div className="main h-full">
+              <div className="h-full col-span-3 lg:col-span-2">
                 <div className="flex flex-col w-full h-full p-10">
                   <div className="h-10">
                     <ul className="flex justify-evenly">
-                      <li className="inline-block">Favorite Product</li>
-                      <li className="inline-block">Coffee</li>
-                      <li className="inline-block">Non Coffee</li>
-                      <li className="inline-block">Foods</li>
-                      <li className="inline-block">Add-on</li>
+                      {this.listMenu.map((menu, idx) => (
+                        <li
+                          value={menu.idCategory}
+                          className="inline-block cursor-pointer"
+                          key={idx}
+                          // onClick={(event) => console.log(event.target.value)}
+                          onClick={this.getCategory}
+                        >
+                          {menu.category}
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
-                  <div>
+                  <div className="flex flex-row">
                     <input
                       value={this.state.searchInput}
-                      className="border border-gray-500 rounded w-full h-8 mb-5 px-2"
+                      className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
                       type="text"
                       onChange={(event) =>
                         this.setState({ searchInput: event.target.value })
                       }
                       onKeyDown={this.onSearch}
                     />
+                    <button className="focus:outline-none h-10 w-10 border border-l-0 rounded-r-lg border-gray-500 hover:bg-gray-300">
+                      +
+                    </button>
                   </div>
 
-                  <div className="item grid grid-cols-4 gap-y-20 gap-x-4 pt-16">
-                    {this.state.items.map((items, idx) => {
+                  <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
+                    {data.map((items) => {
                       return (
-                        <div
-                          key={idx}
-                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
+                        <Link
+                          to={`/product/${items.id}`}
+                          key={items.id.toString()}
                         >
-                          <div className="absolute -top-12 my-auto w-full">
-                            <ItemImage category={items.category_id} />
-                          </div>
+                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
+                            <div className="absolute -top-12 my-auto w-full">
+                              <ItemImage category={items.category_id} />
+                            </div>
 
-                          <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
-                            <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
-                              {items.name}
-                            </h4>
+                            <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
+                              <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
+                                {items.name}
+                              </h4>
 
-                            <h6 className="text-sm font-bold text-yellow-900">
-                              IDR. {items.price}
-                            </h6>
+                              <h6 className="text-sm font-bold text-yellow-900">
+                                IDR. {items.price.toLocaleString("en")}
+                              </h6>
+                            </div>
+
+                            <div
+                              onClick={() => this.deleteItem(items.id)}
+                              className="absolute -bottom-3 -right-3"
+                              value="oke"
+                            >
+                              <ButtonCircle
+                                secondary
+                                size={7}
+                                content={() => (
+                                  <div className="flex justify-center items-center">
+                                    <Delete size={15} color="white" />
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
+
+                    <div>
+                      <button
+                        className="bg-yellow-400 px-11 py-2 rounded-md"
+                        onClick={this.loadMore}
+                      >
+                        Load More
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -168,4 +290,10 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+const mapDispatchToProps = { getItems };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

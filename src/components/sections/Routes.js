@@ -7,18 +7,34 @@ import Cart from "../pages/Cart";
 import History from "../pages/History";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import Profile from "../pages/Profile";
+import ProductDetail from "../pages/ProductDetail";
+import ForgotPassword from "../pages/ForgotPassword";
 
-function Routes() {
-  return (
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/product" component={Product} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/history" component={History} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
-    </Switch>
-  );
+class Routes extends React.Component {
+  data = {
+    isAuth: 0,
+  };
+
+  componentDidMount() {
+    this.props.change(this.data);
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/product" exact component={Product} />
+        <Route path="/product/:id" component={ProductDetail} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/history" component={History} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/forgot-pass" component={ForgotPassword} />
+        <Route part="/profile" component={Profile} />
+      </Switch>
+    );
+  }
 }
 
 export default Routes;

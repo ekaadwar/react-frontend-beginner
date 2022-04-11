@@ -26,8 +26,8 @@ const PictureDefault = ({ category = 1 }) => {
 };
 
 const PictureCircle = ({
-  ImgDefault = PictureDefault,
-  category,
+  Img = PictureDefault,
+  category = 5,
   diametre = 24,
 }) => {
   const diametreStr = diametre.toString();
@@ -43,7 +43,7 @@ const PictureCircle = ({
         width
       }
     >
-      <ImgDefault category={category} />
+      <Img category={category} />
     </div>
   );
 };
