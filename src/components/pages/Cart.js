@@ -1,4 +1,7 @@
 import React from "react";
+
+import { connect } from "react-redux";
+
 import { FaCreditCard } from "react-icons/fa";
 import { AiFillBank } from "react-icons/ai";
 import { GrDeliver } from "react-icons/gr";
@@ -162,4 +165,4 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+export default connect()(Cart);
