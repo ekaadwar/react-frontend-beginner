@@ -1,4 +1,7 @@
 import React from "react";
+
+import { connect } from "react-redux";
+
 import { FaCreditCard } from "react-icons/fa";
 import { AiFillBank } from "react-icons/ai";
 import { GrDeliver } from "react-icons/gr";
@@ -93,7 +96,10 @@ class Cart extends React.Component {
                         name="payment"
                         value="card"
                       />
-                      <label className="flex items-center space-x-3" for="card">
+                      <label
+                        className="flex items-center space-x-3"
+                        htmlFor="card"
+                      >
                         <div>
                           <div className="flex justify-center items-center h-10 w-10 bg-yellow-600 rounded-md text-white">
                             <FaCreditCard />
@@ -110,7 +116,10 @@ class Cart extends React.Component {
                         name="payment"
                         value="bank"
                       />
-                      <label className="flex items-center space-x-3" for="bank">
+                      <label
+                        className="flex items-center space-x-3"
+                        htmlFor="bank"
+                      >
                         <div>
                           <div className="flex justify-center items-center h-10 w-10 bg-yellow-900 rounded-md text-white">
                             <AiFillBank />
@@ -127,7 +136,10 @@ class Cart extends React.Component {
                         name="payment"
                         value="cash"
                       />
-                      <label className="flex items-center space-x-3" for="cash">
+                      <label
+                        className="flex items-center space-x-3"
+                        htmlFor="cash"
+                      >
                         <div>
                           <div className="flex justify-center items-center h-10 w-10 bg-yellow-400 rounded-md text-white">
                             <GrDeliver />
@@ -153,4 +165,4 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+export default connect()(Cart);

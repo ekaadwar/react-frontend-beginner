@@ -38,9 +38,9 @@ export default function Partners() {
         </h3>
 
         <div className="flex justify-around space-x-3 sm:space-x-16 flex-wrap">
-          {logo.map((value) => {
+          {logo.map((value, idx) => {
             return (
-              <div className="flex-1">
+              <div key={idx} className="flex-1">
                 <img src={value.image} alt={value.name} />
               </div>
             );

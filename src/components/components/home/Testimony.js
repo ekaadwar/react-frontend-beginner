@@ -115,9 +115,9 @@ export default function Testimony() {
         <div className="flex justify-between items-center  px-4 lg:px-10">
           <div className="flex hidden">
             <div className="h-4 w-12 rounded-full bg-yellow-800 mr-3"></div>
-            {[...Array(3)].map((item, index) => (
+            {/* {[...Array(3)].map((item, index) => (
               <div className="h-4 w-4 rounded-full bg-gray-300 mr-3"></div>
-            ))}
+            ))} */}
           </div>
 
           <div className="flex">

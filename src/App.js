@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Navbar from "./components/sections/Navbar";
 import Routes from "./components/sections/Routes";
@@ -16,9 +17,11 @@ class App extends React.Component {
   };
 
   render() {
+    const { onAuth } = this.props.auth;
+
     return (
       <Router>
-        {this.state.isAuth === 0 && <Navbar image={Logo} />}
+        {!onAuth && <Navbar image={Logo} />}
         <Routes change={this.changeAuth} />
         <Footer image={Logo} />
       </Router>
@@ -26,4 +29,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(App);

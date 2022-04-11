@@ -3,7 +3,10 @@ import axios from "axios";
 import qs from "querystring";
 
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { RiDeleteBin6Line as Delete } from "react-icons/ri";
+
+import { getItems } from "../../redux/actions/items";
 
 import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
@@ -58,6 +61,8 @@ class Product extends React.Component {
   };
 
   componentDidMount() {
+    this.props.getItems();
+
     const queryString = this.props.location.search;
 
     if (queryString) {
@@ -71,18 +76,13 @@ class Product extends React.Component {
     this.getData();
   }
 
+  loadMore = () => {
+    const { nextPage } = this.props.items.pageInfo;
+    console.log(`nextPage : ${nextPage}`);
+    this.props.getItems(nextPage);
+  };
+
   getData = async (dataUrl = this.state) => {
-    // let url = `http://localhost:8080/items?`;
-
-    // if (dataUrl.searchEnd) {
-    //   url += `search=${dataUrl.searchEnd}`;
-    // }
-
-    // if (dataUrl.id_category) {
-    //   url += `category=${dataUrl.id_category}`;
-    // }
-
-    // const { data } = await axios.get(url);
     const { data } = await axios.get(
       `http://localhost:8080/items?search=${dataUrl.searchEnd}`
     );
@@ -131,6 +131,9 @@ class Product extends React.Component {
   }
 
   render() {
+    const { data } = this.props.items;
+    console.log(data);
+
     return (
       <section className="product pt-20">
         <div className="border-t border-gray-300">
@@ -227,46 +230,55 @@ class Product extends React.Component {
                   </div>
 
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
-                    {this.state.items.map((items, idx) => {
+                    {data.map((items) => {
                       return (
-                        <div
-                          key={idx}
-                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
+                        <Link
+                          to={`/product/${items.id}`}
+                          key={items.id.toString()}
                         >
-                          <div className="absolute -top-12 my-auto w-full">
-                            <ItemImage category={items.category_id} />
-                          </div>
+                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
+                            <div className="absolute -top-12 my-auto w-full">
+                              <ItemImage category={items.category_id} />
+                            </div>
 
-                          <Link key={idx} to="/product/detail">
                             <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
                               <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
                                 {items.name}
                               </h4>
 
                               <h6 className="text-sm font-bold text-yellow-900">
-                                IDR. {items.price}
+                                IDR. {items.price.toLocaleString("en")}
                               </h6>
                             </div>
-                          </Link>
 
-                          <div
-                            onClick={() => this.deleteItem(items.id)}
-                            className="absolute -bottom-3 -right-3"
-                            value="oke"
-                          >
-                            <ButtonCircle
-                              secondary
-                              size={7}
-                              content={() => (
-                                <div className="flex justify-center items-center">
-                                  <Delete size={15} color="white" />
-                                </div>
-                              )}
-                            />
+                            <div
+                              onClick={() => this.deleteItem(items.id)}
+                              className="absolute -bottom-3 -right-3"
+                              value="oke"
+                            >
+                              <ButtonCircle
+                                secondary
+                                size={7}
+                                content={() => (
+                                  <div className="flex justify-center items-center">
+                                    <Delete size={15} color="white" />
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
+
+                    <div>
+                      <button
+                        className="bg-yellow-400 px-11 py-2 rounded-md"
+                        onClick={this.loadMore}
+                      >
+                        Load More
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -278,4 +290,10 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+const mapDispatchToProps = { getItems };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

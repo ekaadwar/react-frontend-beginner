@@ -99,7 +99,6 @@ export default function Favorites() {
                         </h1>
 
                         <ul>
-                          {console.log(item.data)}
                           {item.data.map((data, index) => (
                             <li
                               key={index}

@@ -1,19 +1,41 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+import { toggleAuth, authLogin } from "../../redux/actions/auth";
 import { coffeeLogo } from "../../assets/img";
 
 class Login extends React.Component {
-  submitData = (event) => {
-    event.preventDefault();
+  state = {
+    username: "",
+    password: "",
   };
 
-  // componentDidMount() {
-  //   const isAuth = 1;
-  // }
+  componentDidMount() {
+    this.props.toggleAuth();
+  }
+
+  onLogin = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    this.props.authLogin(username, password);
+  };
+
+  componentDidUpdate() {
+    const { token } = this.props.auth;
+    if (token !== null) {
+      this.props.toggleAuth();
+      this.props.history.push("/");
+    }
+  }
+
+  // submitData = (event) => {
+  //   event.preventDefault();
+  // };
 
   render() {
+    const { errMsg } = this.props.auth;
+
     return (
       <section className="auth">
         <div className="bg-white md:bg-transparent min-h-screen">
@@ -44,9 +66,15 @@ class Login extends React.Component {
                     Login
                   </h3>
 
+                  {errMsg !== "" && (
+                    <div className="bg-red-300 text-red-900  font-bold p-2 rounded-md">
+                      {errMsg}
+                    </div>
+                  )}
+
                   <form
                     className="space-y-7 max-w-md mx-auto"
-                    onSubmit={this.submitData}
+                    onSubmit={this.onLogin}
                   >
                     <div>
                       <h4 className="bold">Email Address :</h4>
@@ -55,6 +83,9 @@ class Login extends React.Component {
                         type="email"
                         name="email"
                         placeholder="Enter your email address"
+                        onChange={(e) =>
+                          this.setState({ username: e.target.value })
+                        }
                       />
                     </div>
 
@@ -65,6 +96,9 @@ class Login extends React.Component {
                         type="password"
                         name="password"
                         placeholder="Enter your password"
+                        onChange={(e) =>
+                          this.setState({ password: e.target.value })
+                        }
                       />
                     </div>
 
@@ -75,14 +109,14 @@ class Login extends React.Component {
                       Forgot password?
                     </Link>
 
-                    <Link to="/profile">
-                      <button
-                        className="block bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-xl font-bold w-full"
-                        type="submit"
-                      >
-                        Login
-                      </button>
-                    </Link>
+                    {/* <Link to="/profile"> */}
+                    <button
+                      className="block bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-xl font-bold w-full"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+                    {/* </Link> */}
 
                     <div>
                       <Link to="signup">
@@ -102,4 +136,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispachToProps = { toggleAuth, authLogin };
+
+export default connect(mapStateToProps, mapDispachToProps)(Login);
