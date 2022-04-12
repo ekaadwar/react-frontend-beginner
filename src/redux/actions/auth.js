@@ -30,3 +30,12 @@ export const authLogin = (email, password) => {
     }
   };
 };
+
+export const setAuthToken = (token) => ({
+  type: "AUTH_LOGIN",
+  payload: token,
+});
+
+export const validateToken = () => ({
+  type: "AUTH_VALIDATE",
+});
