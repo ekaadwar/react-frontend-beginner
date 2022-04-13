@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
-import Product from "../pages/Product";
+import Products from "../pages/Products";
 import Cart from "../pages/Cart";
 import History from "../pages/History";
 import Login from "../pages/Login";
@@ -24,7 +24,7 @@ class Routes extends React.Component {
     return (
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/product" exact component={Product} />
+        <Route path="/product" exact component={Products} />
         <Route path="/product/:id" component={ProductDetail} />
         <Route path="/cart" component={Cart} />
         <Route path="/history" component={History} />

@@ -11,7 +11,7 @@ import { getItems } from "../../redux/actions/items";
 import ButtonCircle from "../components/ButtonCircle";
 import ItemImage from "../components/PictureCircle";
 
-class Product extends React.Component {
+class ProductClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -296,4 +296,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { getItems };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductClass);
