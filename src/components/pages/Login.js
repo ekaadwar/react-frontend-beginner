@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setAuthToken } from "../../redux/actions/auth";
+import { authLogin } from "../../redux/actions/auth";
 import { coffeeLogo } from "../../assets/img";
 
 function Login(props) {
@@ -14,12 +14,7 @@ function Login(props) {
 
   const login = (e) => {
     e.preventDefault();
-    if (email === "admin@mail.com" && password === "1234") {
-      props.setAuthToken("abc");
-      history.push("/");
-    } else {
-      window.alert("Wrong username or password!");
-    }
+    props.authLogin(email, password, history);
   };
 
   return (
@@ -115,17 +110,13 @@ function Login(props) {
 }
 
 Login.defaultProps = {
-  setAuthToken: () => {},
+  authLogin: () => {},
 };
 
 Login.propTypes = {
-  setAuthToken: propTypes.func,
+  authLogin: propTypes.func,
 };
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
-
-const mapDispachToProps = { setAuthToken };
+const mapDispachToProps = { authLogin };
 
 export default connect(null, mapDispachToProps)(Login);

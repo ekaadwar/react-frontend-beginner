@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { toggleAuth, authLogin } from "../../redux/actions/auth";
 import { coffeeLogo } from "../../assets/img";
 
-class LoginFunc extends React.Component {
+class LoginClass extends React.Component {
   state = {
     username: "",
     password: "",
@@ -137,4 +137,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispachToProps = { toggleAuth, authLogin };
 
-export default connect(mapStateToProps, mapDispachToProps)(LoginFunc);
+export default connect(mapStateToProps, mapDispachToProps)(LoginClass);
