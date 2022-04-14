@@ -175,15 +175,15 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
   );
 }
 
-ProductDetailFunc.defaultProps = {
-  products: {},
-  getDetailProduct: () => {},
-};
+// ProductDetailFunc.defaultProps = {
+//   products: {},
+//   getDetailProduct: () => {},
+// };
 
-ProductDetailFunc.propTypes = {
-  products: propTypes.object,
-  getDetailProduct: propTypes.func,
-};
+// ProductDetailFunc.propTypes = {
+//   products: propTypes.object,
+//   getDetailProduct: propTypes.func,
+// };
 
 const mapStateToProps = (state) => ({ products: state.products });
 
