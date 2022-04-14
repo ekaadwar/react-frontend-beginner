@@ -1,5 +1,6 @@
 const initialState = {
   data: [],
+  details: {},
   pageInfo: {},
 };
 
@@ -10,6 +11,12 @@ const products = (state = initialState, action) => {
         ...state,
         data: action.payload.results,
         pageInfo: action.payload.pageInfo,
+      };
+    }
+    case "PRODUCT_GET_DETAIL": {
+      return {
+        ...state,
+        details: action.payload,
       };
     }
     default: {

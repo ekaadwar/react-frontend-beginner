@@ -8,7 +8,8 @@ import History from "../pages/History";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
-import ProductDetail from "../pages/ProductDetail";
+// import ProductDetail from "../pages/ProductDetail";
+import ProductDetailFunc from "../pages/ProductDatailFunc";
 import ForgotPassword from "../pages/ForgotPassword";
 
 class Routes extends React.Component {
@@ -25,7 +26,7 @@ class Routes extends React.Component {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/product" exact component={Products} />
-        <Route path="/product/:id" component={ProductDetail} />
+        <Route path="/product/:id" component={ProductDetailFunc} />
         <Route path="/cart" component={Cart} />
         <Route path="/history" component={History} />
         <Route path="/login" component={Login} />

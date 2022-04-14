@@ -6,7 +6,7 @@ function contentDefault() {
 
 function ButtonSquare({
   content = contentDefault,
-  onClick = {},
+  onClick = () => {},
   primary = false,
   secondary = false,
   py = 3,

@@ -16,4 +16,14 @@ export const getProducts =
     }
   };
 
-export const getDetailProduct = () => {};
+export const getDetailProduct = (id) => async (dispatch) => {
+  try {
+    const { data } = await http().get(`${URL}/items/${id}`);
+    dispatch({
+      type: "PRODUCT_GET_DETAIL",
+      payload: data,
+    });
+  } catch (err) {
+    window.alert(err.response.data.message);
+  }
+};
