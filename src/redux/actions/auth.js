@@ -28,6 +28,10 @@ export const authLogin = (email, password, history) => {
   };
 };
 
+export const authLogout = () => ({
+  type: "AUTH_LOGOUT",
+});
+
 export const setAuthToken = (token) => ({
   type: "AUTH_LOGIN",
   payload: token,

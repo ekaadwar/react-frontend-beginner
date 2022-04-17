@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { authLogout } from "../../redux/actions/auth";
 import ButtonCircle from "../components/ButtonCircle";
 
 import { HiViewList } from "react-icons/hi";
@@ -9,7 +10,7 @@ import { HiViewList } from "react-icons/hi";
 import logo from "../../img/logo/coffee.png";
 import { gajeel } from "../../assets/img";
 
-const Navbar = ({ auth }) => {
+const Navbar = ({ auth, authLogout }) => {
   return (
     <nav className="h-20 py-4 fixed bg-white w-full shadow-md z-40">
       <div className="container mx-auto px-4 lg:px-10">
@@ -33,14 +34,23 @@ const Navbar = ({ auth }) => {
           </div>
 
           {auth.token !== null ? (
-            <ButtonCircle
-              content={() => (
-                <div className="flex justify-center">
-                  <img src={gajeel} alt="Gajeel" />
-                </div>
-              )}
-              rounded="full"
-            />
+            <>
+              <ButtonCircle
+                content={() => (
+                  <div className="flex justify-center">
+                    <img src={gajeel} alt="Gajeel" />
+                  </div>
+                )}
+                rounded="full"
+              />
+
+              <button
+                onClick={authLogout}
+                className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <div className="hidden lg:flex items-center space-x-16">
               <Link to="/login">Login</Link>
@@ -76,4 +86,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = {
+  authLogout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
