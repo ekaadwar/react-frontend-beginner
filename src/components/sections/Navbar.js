@@ -34,7 +34,7 @@ const Navbar = ({ auth, authLogout }) => {
           </div>
 
           {auth.token !== null ? (
-            <div className="flex flex-row space-x-5 items-center">
+            <div className="hidden lg:flex flex-row space-x-5 items-center">
               <ButtonCircle
                 to={"/profile"}
                 content={() => (

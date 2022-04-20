@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 
 import { connect } from "react-redux";
 import { getProfile } from "../../redux/actions/profile";
+import { authLogout } from "../../redux/actions/auth";
 import { gajeel } from "../../assets/img";
 import { FiEdit2 } from "react-icons/fi";
 
@@ -111,7 +112,9 @@ class Profile extends React.Component {
                         className="py-2 w-full border-b border-black placeholder-gray-700"
                         type="text"
                         name="address"
-                        placeholder={""}
+                        placeholder={
+                          this.state.address ? this.state.address : ""
+                        }
                         rows="3"
                       />
                     </div>
@@ -150,7 +153,9 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="firstName"
-                          placeholder={""}
+                          placeholder={
+                            this.state.first_name ? this.state.first_name : ""
+                          }
                         />
                       </div>
 
@@ -160,7 +165,9 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="lastName"
                           name="lastName"
-                          placeholder={""}
+                          placeholder={
+                            this.state.last_name ? this.state.last_name : ""
+                          }
                         />
                       </div>
                     </div>
@@ -172,7 +179,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={""}
+                          placeholder={this.state.birth ? this.state.birth : ""}
                         />
                       </div>
                       <div className="sm:col-span-2 row-span-2 space-y-5">
@@ -243,7 +250,7 @@ class Profile extends React.Component {
                 </button>
 
                 <button
-                  onClick={this.logOut}
+                  onClick={this.props.authLogout}
                   className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300"
                 >
                   <p>Log Out</p>
@@ -273,6 +280,9 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-const mapDispatchToProps = { getProfile };
+const mapDispatchToProps = {
+  getProfile,
+  authLogout,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
