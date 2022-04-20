@@ -5,6 +5,7 @@ import carts from "./carts";
 import auth from "./auth";
 import items from "./items";
 import products from "./products";
+import profile from "./profile";
 
 const persistAuth = {
   storage,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   auth: persistReducer(persistAuth, auth),
   items,
   products,
+  profile,
 });
 
 export default reducer;

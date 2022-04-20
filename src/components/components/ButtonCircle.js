@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const defaultContent = () => {
   return <p>Text</p>;
@@ -6,6 +7,7 @@ const defaultContent = () => {
 
 function ButtonCircle({
   content = defaultContent,
+  to = "#",
   size = 10,
   primary = false,
   secondary = false,
@@ -31,7 +33,7 @@ function ButtonCircle({
     <button
       className={`focus:outline-none w-${size} h-${size} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor} overflow-hidden`}
     >
-      {content()}
+      <Link to={to}>{content()}</Link>
     </button>
   );
 }
