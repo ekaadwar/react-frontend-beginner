@@ -30,6 +30,18 @@ const auth = (state = initialState, action) => {
         token: null,
       };
     }
+    case "AUTH_ON": {
+      return {
+        ...state,
+        onAuth: true,
+      };
+    }
+    case "AUTH_OFF": {
+      return {
+        ...state,
+        onAuth: false,
+      };
+    }
     default: {
       return {
         ...state,

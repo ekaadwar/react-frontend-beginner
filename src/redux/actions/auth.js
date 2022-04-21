@@ -32,6 +32,14 @@ export const authLogout = () => ({
   type: "AUTH_LOGOUT",
 });
 
+export const authOn = () => ({
+  type: "AUTH_ON",
+});
+
+export const authOff = () => ({
+  type: "AUTH_OFF",
+});
+
 export const setAuthToken = (token) => ({
   type: "AUTH_LOGIN",
   payload: token,

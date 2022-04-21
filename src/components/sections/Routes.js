@@ -11,28 +11,40 @@ import Profile from "../pages/Profile";
 // import ProductDetail from "../pages/ProductDetail";
 import ProductDetailFunc from "../pages/ProductDatailFunc";
 import ForgotPassword from "../pages/ForgotPassword";
+import PrivateRoute from "../components/PrivateRoute";
+import SpecialRoute from "../components/SpecialRoute";
 
 class Routes extends React.Component {
-  data = {
-    isAuth: 0,
-  };
-
-  componentDidMount() {
-    this.props.change(this.data);
-  }
-
   render() {
     return (
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/product" exact component={Products} />
-        <Route path="/product/:id" component={ProductDetailFunc} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/history" component={History} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/forgot-pass" component={ForgotPassword} />
-        <Route part="/profile" component={Profile} />
+        <SpecialRoute path="/" exact>
+          <Home />
+        </SpecialRoute>
+        <SpecialRoute path="/product">
+          <Products />
+        </SpecialRoute>
+        <SpecialRoute path="/product/:id">
+          <ProductDetailFunc />
+        </SpecialRoute>
+        <PrivateRoute path="/cart">
+          <Cart />
+        </PrivateRoute>
+        <PrivateRoute path="/history">
+          <History />
+        </PrivateRoute>
+        <SpecialRoute authPage path="/login">
+          <Login />
+        </SpecialRoute>
+        <SpecialRoute authPage path="/signup">
+          <Signup />
+        </SpecialRoute>
+        <SpecialRoute authPage path="/forgot-pass">
+          <ForgotPassword />
+        </SpecialRoute>
+        <PrivateRoute part="/profile">
+          <Profile />
+        </PrivateRoute>
       </Switch>
     );
   }

@@ -4,13 +4,20 @@ import propTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { authLogin } from "../../redux/actions/auth";
+import { authLogin, authOn, authOff } from "../../redux/actions/auth";
 import { coffeeLogo } from "../../assets/img";
 
 function Login(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const history = useHistory();
+
+  React.useEffect(() => {
+    props.authOn();
+    return function cleanup() {
+      props.authOff();
+    };
+  });
 
   const login = (e) => {
     e.preventDefault();
@@ -117,6 +124,6 @@ Login.propTypes = {
   authLogin: propTypes.func,
 };
 
-const mapDispachToProps = { authLogin };
+const mapDispachToProps = { authLogin, authOn, authOff };
 
 export default connect(null, mapDispachToProps)(Login);
