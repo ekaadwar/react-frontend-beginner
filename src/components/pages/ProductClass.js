@@ -47,7 +47,6 @@ class ProductClass extends React.Component {
 
   onSearch = (event) => {
     if (event.keyCode === 13) {
-      console.log(event.target);
       let url = `/product`;
       if (this.state.searchInput !== "") {
         url += `?search=${this.state.searchInput}`;
@@ -61,7 +60,7 @@ class ProductClass extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getItems();
+    // this.props.getItems();
 
     const queryString = this.props.location.search;
 
@@ -75,12 +74,6 @@ class ProductClass extends React.Component {
 
     this.getData();
   }
-
-  loadMore = () => {
-    const { nextPage } = this.props.items.pageInfo;
-    console.log(`nextPage : ${nextPage}`);
-    this.props.getItems(nextPage);
-  };
 
   getData = async (dataUrl = this.state) => {
     const { data } = await axios.get(
@@ -130,9 +123,13 @@ class ProductClass extends React.Component {
     this.doSearch();
   }
 
+  loadMore = () => {
+    const { nextPage } = this.props.items.pageInfo;
+    this.props.getItems(nextPage);
+  };
+
   render() {
     const { data } = this.props.items;
-    console.log(data);
 
     return (
       <section className="product pt-20">

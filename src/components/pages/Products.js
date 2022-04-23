@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import propTypes from "prop-types";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { RiDeleteBin6Line as Delete } from "react-icons/ri";
 
@@ -12,9 +12,15 @@ import ItemImage from "../components/PictureCircle";
 import { listMenu } from "../../dummyData/product";
 
 function Products({ getProducts: getItem, products, auth }) {
+  const [data, setData] = useState([]);
+  console.log(data);
+
   //componentDidMount versi hook
   React.useEffect(() => {
-    getItem(auth.token);
+    getItem(auth.token).then(() => {
+      setData(products.data);
+      console.log(data);
+    });
   }, []);
 
   const { data: items } = products;
@@ -88,8 +94,6 @@ function Products({ getProducts: getItem, products, auth }) {
                         value={menu.idCategory}
                         className="inline-block cursor-pointer"
                         key={idx}
-                        // onClick={(event) => console.log(event.target.value)}
-                        // onClick={this.getCategory}
                       >
                         {menu.category}
                       </li>
@@ -97,20 +101,20 @@ function Products({ getProducts: getItem, products, auth }) {
                   </ul>
                 </div>
 
-                {/* <div className="flex flex-row">
+                <div className="flex flex-row">
                   <input
-                    value={this.state.searchInput}
+                    // value={this.state.searchInput}
                     className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
                     type="text"
-                    onChange={(event) =>
-                      this.setState({ searchInput: event.target.value })
-                    }
-                    onKeyDown={onSearch}
+                    // onChange={(event) =>
+                    //   this.setState({ searchInput: event.target.value })
+                    // }
+                    // onKeyDown={this.onSearch}
                   />
                   <button className="focus:outline-none h-10 w-10 border border-l-0 rounded-r-lg border-gray-500 hover:bg-gray-300">
                     +
                   </button>
-                </div> */}
+                </div>
 
                 <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                   {items.map((items) => {
