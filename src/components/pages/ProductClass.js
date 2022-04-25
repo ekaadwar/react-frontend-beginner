@@ -20,6 +20,7 @@ class ProductClass extends React.Component {
       searchEnd: "",
       id_category: 1,
       search: "",
+      sort: "",
     };
   }
 
