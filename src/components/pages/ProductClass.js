@@ -25,11 +25,14 @@ class ProductClass extends React.Component {
 
   componentDidMount() {
     const { token } = this.props.auth;
-    const { search } = this.parseQuery(this.props.location.search);
-    this.setState({ search: search });
-    this.props.getProducts(token, search).then(() => {
-      this.setState({ items: this.props.products.data });
-    });
+    // const { search } = this.parseQuery(this.props.location.search);
+    const { search } = this.state;
+    // this.setState({ search: search });
+
+    // this.props.getProducts(token, search).then(() => {
+    //   this.setState({ items: this.props.products.data });
+    // })
+    this.props.getProducts(token, search);
 
     // const queryString = this.props.location.search;
     // console.log(this.props.location);
@@ -45,11 +48,14 @@ class ProductClass extends React.Component {
     // this.getData();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { token } = this.props.auth;
     const { search } = this.parseQuery(this.props.location.search);
-    if (search !== this.state.search) {
-      this.props.getProducts(token, this.state.search);
+    // if (search !== this.state.search) {
+    //   this.props.getProducts(token, this.state.search);
+    // }
+    if (prevProps.location.search !== this.props.location.search) {
+      this.props.getProducts(token, search);
     }
   }
 
@@ -127,7 +133,7 @@ class ProductClass extends React.Component {
   };
 
   render() {
-    const data = this.state.items;
+    const { data } = this.props.products;
 
     return (
       <section className="product pt-20">
