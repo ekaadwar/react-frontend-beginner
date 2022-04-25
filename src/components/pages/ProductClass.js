@@ -6,7 +6,10 @@ import ItemImage from "../components/PictureCircle";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { RiDeleteBin6Line as Delete } from "react-icons/ri";
+import {
+  RiDeleteBin6Line as Delete,
+  RiSearchLine as Search,
+} from "react-icons/ri";
 import { getItems } from "../../redux/actions/items";
 import { getProducts } from "../../redux/actions/products";
 import { listMenu } from "../../dummyData/product";
@@ -77,11 +80,63 @@ class ProductClass extends React.Component {
   redirect = (event) => {
     if (event.keyCode === 13) {
       let url = `/product`;
-      if (this.state.search !== "") {
-        url += `?search=${this.state.search}`;
+      // if (this.state.search !== "" ) {
+      //   url += `?search=${this.state.search}`;
+      // }
+      if (this.state.search !== "" && this.state.sort !== "") {
+        window.alert("okay!!!!");
+      } else if (this.state.search !== "") {
+        window.alert("search aja");
+      } else if (this.state.sort !== "") {
+        window.alert("sort aja");
       }
       this.props.history.push(url);
     }
+  };
+
+  submit = (event) => {
+    event.preventDefault();
+    const { search, sort } = this.state;
+    const initialUrl = `/product`;
+    let url;
+
+    if (search !== "" && sort !== "") {
+      let sortType;
+      if (sort === "name") {
+        sortType = "ASC";
+      } else {
+        sortType = "DESC";
+      }
+      url = initialUrl + `?search=${search}&sort[${sort}]=${sortType}`;
+    } else if (this.state.search !== "") {
+      url = initialUrl + `?search=${search}`;
+    } else if (this.state.sort !== "") {
+      let sortType;
+      if (sort === "name") {
+        sortType = "ASC";
+      } else {
+        sortType = "DESC";
+      }
+      url = initialUrl + `?sort[${sort}]=${sortType}`;
+    } else {
+      url = initialUrl;
+    }
+    this.props.history.push(url);
+  };
+
+  data = () => {
+    let url = `/product`;
+    // if (this.state.search !== "" ) {
+    //   url += `?search=${this.state.search}`;
+    // }
+    if (this.state.search !== "" && this.state.sort !== "") {
+      window.alert("okay!!!!");
+    } else if (this.state.search !== "") {
+      window.alert("search aja");
+    } else if (this.state.search !== "") {
+      window.alert("sort aja");
+    }
+    this.props.history.push(url);
   };
 
   // getData = async (dataUrl = this.state) => {
@@ -216,22 +271,41 @@ class ProductClass extends React.Component {
                     </ul>
                   </div>
 
-                  <div className="flex flex-row">
+                  <form
+                    onSubmit={this.submit}
+                    className="flex flex-row border shadow-lg h-12 rounded-lg shadow-md mb-10"
+                  >
                     <input
-                      onKeyDown={(event) => this.redirect(event)}
+                      // onKeyDown={(event) => this.redirect(event)}
                       value={this.state.search}
                       onChange={(event) =>
                         this.setState({ search: event.target.value })
                       }
-                      className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
+                      className="focus:outline-none w-full mb-5 px-2 h-10 rounded-lg"
                       id="search"
                       type="text"
                       placeholder="search"
                     />
-                    <button className="focus:outline-none h-10 w-10 border border-l-0 rounded-r-lg border-gray-500 hover:bg-gray-300">
-                      +
+
+                    <select
+                      className="focus:outline-none mb-5 px-2 h-10 bg-white mr-5"
+                      value={this.state.sort}
+                      onChange={(event) => {
+                        this.setState({ sort: event.target.value });
+                      }}
+                    >
+                      <option value="">Sort</option>
+                      <option value="name">Product</option>
+                      <option value="price">Price</option>
+                    </select>
+
+                    <button
+                      type="submit"
+                      className="focus:outline-none flex flex-row justify-center items-center h-10 w-10 bg-gray-300 rounded-r-lg"
+                    >
+                      <Search size={15} />
                     </button>
-                  </div>
+                  </form>
 
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {data.map((items) => {
