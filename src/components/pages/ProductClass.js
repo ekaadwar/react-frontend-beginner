@@ -24,19 +24,22 @@ class ProductClass extends React.Component {
       id_category: 1,
       search: "",
       sort: "",
+      sortType: "",
     };
   }
 
   componentDidMount() {
+    // console.log(this.props.location);
+    console.log(this.state);
     const { token } = this.props.auth;
     // const { search } = this.parseQuery(this.props.location.search);
-    const { search } = this.state;
+    const { search, sort, sortType } = this.state;
     // this.setState({ search: search });
 
     // this.props.getProducts(token, search).then(() => {
     //   this.setState({ items: this.props.products.data });
     // })
-    this.props.getProducts(token, search);
+    this.props.getProducts(token, search, sort, sortType);
 
     // const queryString = this.props.location.search;
     // console.log(this.props.location);
@@ -53,13 +56,15 @@ class ProductClass extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.state);
     const { token } = this.props.auth;
-    const { search } = this.parseQuery(this.props.location.search);
+    // const { search } = this.parseQuery(this.props.location.search);
+    const { search, sort, sortType } = this.state;
     // if (search !== this.state.search) {
     //   this.props.getProducts(token, this.state.search);
     // }
     if (prevProps.location.search !== this.props.location.search) {
-      this.props.getProducts(token, search);
+      this.props.getProducts(token, search, sort, sortType);
     }
   }
 
@@ -77,22 +82,20 @@ class ProductClass extends React.Component {
     return qs.parse(str.slice("1"));
   };
 
-  redirect = (event) => {
-    if (event.keyCode === 13) {
-      let url = `/product`;
-      // if (this.state.search !== "" ) {
-      //   url += `?search=${this.state.search}`;
-      // }
-      if (this.state.search !== "" && this.state.sort !== "") {
-        window.alert("okay!!!!");
-      } else if (this.state.search !== "") {
-        window.alert("search aja");
-      } else if (this.state.sort !== "") {
-        window.alert("sort aja");
-      }
-      this.props.history.push(url);
-    }
-  };
+  // redirect = (event) => {
+  //   if (event.keyCode === 13) {
+  //     let url = `/product`;
+
+  //     if (this.state.search !== "" && this.state.sort !== "") {
+  //       window.alert("okay!!!!");
+  //     } else if (this.state.search !== "") {
+  //       window.alert("search aja");
+  //     } else if (this.state.sort !== "") {
+  //       window.alert("sort aja");
+  //     }
+  //     this.props.history.push(url);
+  //   }
+  // };
 
   submit = (event) => {
     event.preventDefault();
@@ -107,6 +110,7 @@ class ProductClass extends React.Component {
       } else {
         sortType = "DESC";
       }
+      this.setState({ sortType: sortType });
       url = initialUrl + `?search=${search}&sort[${sort}]=${sortType}`;
     } else if (this.state.search !== "") {
       url = initialUrl + `?search=${search}`;
@@ -117,24 +121,10 @@ class ProductClass extends React.Component {
       } else {
         sortType = "DESC";
       }
+      this.setState({ sortType: sortType });
       url = initialUrl + `?sort[${sort}]=${sortType}`;
     } else {
       url = initialUrl;
-    }
-    this.props.history.push(url);
-  };
-
-  data = () => {
-    let url = `/product`;
-    // if (this.state.search !== "" ) {
-    //   url += `?search=${this.state.search}`;
-    // }
-    if (this.state.search !== "" && this.state.sort !== "") {
-      window.alert("okay!!!!");
-    } else if (this.state.search !== "") {
-      window.alert("search aja");
-    } else if (this.state.search !== "") {
-      window.alert("sort aja");
     }
     this.props.history.push(url);
   };

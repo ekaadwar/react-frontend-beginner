@@ -3,13 +3,25 @@ import http from "../../helpers/http";
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const getProducts =
-  (token = null, search = "") =>
+  (token = null, search = "", sort = "", sortType = "ASC") =>
   async (dispatch) => {
-    let url = `${URL}/items`;
-    if (search !== "") {
-      url += `?search=${search}`;
-      console.log(url);
+    const initialUrl = `${URL}/items`;
+    let url;
+    // if (search !== "") {
+    //   url += `?search=${search}`;
+    //   console.log(url);
+    // }
+
+    if (search !== "" && sort !== "") {
+      url = initialUrl + `?search=${search}&sort[${sort}]=${sortType}`;
+    } else if (search !== "") {
+      url = initialUrl + `?search=${search}`;
+    } else if (sort !== "") {
+      url = initialUrl + `?sort[${sort}]=${sortType}`;
+    } else {
+      url = initialUrl;
     }
+
     try {
       const { data } = await http(token).get(url);
       dispatch({
