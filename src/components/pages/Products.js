@@ -19,7 +19,6 @@ function Products({ getProducts: getItem, products, auth }) {
   React.useEffect(() => {
     getItem(auth.token).then(() => {
       setData(products.data);
-      console.log(data);
     });
   }, []);
 

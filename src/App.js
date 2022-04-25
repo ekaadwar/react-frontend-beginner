@@ -10,12 +10,9 @@ import Footer from "./components/sections/Footer";
 import Logo from "./img/logo/coffee.png";
 
 class App extends React.Component {
-  state = { isAuth: false };
-
   render() {
     return (
       <Router>
-        {/* <Navbar image={Logo} /> */}
         <Routes change={this.changeAuth} />
         <Footer image={Logo} />
       </Router>

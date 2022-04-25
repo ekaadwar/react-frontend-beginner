@@ -3,10 +3,15 @@ import http from "../../helpers/http";
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const getProducts =
-  (token = null) =>
+  (token = null, search = "") =>
   async (dispatch) => {
+    let url = `${URL}/items`;
+    if (search !== "") {
+      url += `?search=${search}`;
+      console.log(url);
+    }
     try {
-      const { data } = await http(token).get(`${URL}/items`);
+      const { data } = await http(token).get(url);
       dispatch({
         type: "PRODUCT_GET_LIST",
         payload: data,

@@ -1,15 +1,15 @@
 import React from "react";
 import axios from "axios";
 import qs from "querystring";
+import ButtonCircle from "../components/ButtonCircle";
+import ItemImage from "../components/PictureCircle";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { RiDeleteBin6Line as Delete } from "react-icons/ri";
-
 import { getItems } from "../../redux/actions/items";
-
-import ButtonCircle from "../components/ButtonCircle";
-import ItemImage from "../components/PictureCircle";
+import { getProducts } from "../../redux/actions/products";
+import { listMenu } from "../../dummyData/product";
 
 class ProductClass extends React.Component {
   constructor(props) {
@@ -19,83 +19,85 @@ class ProductClass extends React.Component {
       searchInput: "",
       searchEnd: "",
       id_category: 1,
+      search: "",
     };
   }
 
-  listMenu = [
-    {
-      idCategory: 1,
-      category: "Favorite Product",
-    },
-    {
-      idCategory: 2,
-      category: "Coffee",
-    },
-    {
-      idCategory: 3,
-      category: "Non-Coffee",
-    },
-    {
-      idCategory: 4,
-      category: "Food",
-    },
-    {
-      idCategory: 5,
-      category: "Add-On",
-    },
-  ];
+  componentDidMount() {
+    const { token } = this.props.auth;
+    const { search } = this.parseQuery(this.props.location.search);
+    this.setState({ search: search });
+    this.props.getProducts(token, search).then(() => {
+      this.setState({ items: this.props.products.data });
+    });
 
-  onSearch = (event) => {
-    if (event.keyCode === 13) {
-      let url = `/product`;
-      if (this.state.searchInput !== "") {
-        url += `?search=${this.state.searchInput}`;
-      }
-      this.props.history.push(url);
+    // const queryString = this.props.location.search;
+    // console.log(this.props.location);
+
+    // if (queryString) {
+    //   const { search } = this.parseQuery(this.props.location.search);
+
+    //   if (search) {
+    //     this.setState({ searchInput: search });
+    //   }
+    // }
+
+    // this.getData();
+  }
+
+  componentDidUpdate() {
+    const { token } = this.props.auth;
+    const { search } = this.parseQuery(this.props.location.search);
+    if (search !== this.state.search) {
+      this.props.getProducts(token, this.state.search);
     }
-  };
+  }
+
+  // onSearch = (event) => {
+  //   if (event.keyCode === 13) {
+  //     let url = `/product`;
+  //     if (this.state.searchInput !== "") {
+  //       url += `?search=${this.state.searchInput}`;
+  //     }
+  //     this.props.history.push(url);
+  //   }
+  // };
 
   parseQuery = (str) => {
     return qs.parse(str.slice("1"));
   };
 
-  componentDidMount() {
-    // this.props.getItems();
-
-    const queryString = this.props.location.search;
-
-    if (queryString) {
-      const { search } = this.parseQuery(this.props.location.search);
-
-      if (search) {
-        this.setState({ searchInput: search });
+  redirect = (event) => {
+    if (event.keyCode === 13) {
+      let url = `/product`;
+      if (this.state.search !== "") {
+        url += `?search=${this.state.search}`;
       }
-    }
-
-    this.getData();
-  }
-
-  getData = async (dataUrl = this.state) => {
-    const { data } = await axios.get(
-      `http://localhost:8080/items?search=${dataUrl.searchEnd}`
-    );
-
-    this.setState({ items: data.results });
-  };
-
-  doSearch = () => {
-    const queryString = this.props.location.search;
-
-    if (queryString) {
-      const { search } = this.parseQuery(queryString);
-
-      if (this.state.searchEnd !== search) {
-        this.setState({ searchEnd: search }, () => {
-          this.getData();
-        });
-      }
+      this.props.history.push(url);
     }
   };
+
+  // getData = async (dataUrl = this.state) => {
+  //   const { data } = await axios.get(
+  //     `http://localhost:8080/items?search=${dataUrl.searchEnd}`
+  //   );
+
+  //   this.setState({ items: data.results });
+  // };
+
+  // doSearch = () => {
+  //   const queryString = this.props.location.search;
+
+  //   if (queryString) {
+  //     const { search } = this.parseQuery(queryString);
+
+  //     if (this.state.searchEnd !== search) {
+  //       this.setState({ searchEnd: search }, () => {
+  //         this.getData();
+  //       });
+  //     }
+  //   }
+  // };
 
   deleteItem = async (id) => {
     const result = window.confirm("Want to delete?");
@@ -107,21 +109,17 @@ class ProductClass extends React.Component {
     this.getData();
   };
 
-  getCategory = (event) => {
-    this.setState({ id_category: event.target.value });
+  // getCategory = (event) => {
+  //   this.setState({ id_category: event.target.value });
 
-    let url = "/product?";
+  //   let url = "/product?";
 
-    if (this.state.id_category > 1) {
-      url += `category=${this.state.id_category}`;
-    }
+  //   if (this.state.id_category > 1) {
+  //     url += `category=${this.state.id_category}`;
+  //   }
 
-    this.props.history.push(url);
-  };
-
-  componentDidUpdate() {
-    this.doSearch();
-  }
+  //   this.props.history.push(url);
+  // };
 
   loadMore = () => {
     const { nextPage } = this.props.items.pageInfo;
@@ -129,7 +127,7 @@ class ProductClass extends React.Component {
   };
 
   render() {
-    const { data } = this.props.items;
+    const data = this.state.items;
 
     return (
       <section className="product pt-20">
@@ -197,7 +195,7 @@ class ProductClass extends React.Component {
                 <div className="flex flex-col w-full h-full p-10">
                   <div className="h-10">
                     <ul className="flex justify-evenly">
-                      {this.listMenu.map((menu, idx) => (
+                      {listMenu.map((menu, idx) => (
                         <li
                           value={menu.idCategory}
                           className="inline-block cursor-pointer"
@@ -213,13 +211,15 @@ class ProductClass extends React.Component {
 
                   <div className="flex flex-row">
                     <input
-                      value={this.state.searchInput}
-                      className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
-                      type="text"
+                      onKeyDown={(event) => this.redirect(event)}
+                      value={this.state.search}
                       onChange={(event) =>
-                        this.setState({ searchInput: event.target.value })
+                        this.setState({ search: event.target.value })
                       }
-                      onKeyDown={this.onSearch}
+                      className="focus:outline-none border border-gray-500 rounded-l-lg w-full h-8 mb-5 px-2 h-10"
+                      id="search"
+                      type="text"
+                      placeholder="search"
                     />
                     <button className="focus:outline-none h-10 w-10 border border-l-0 rounded-r-lg border-gray-500 hover:bg-gray-300">
                       +
@@ -288,9 +288,11 @@ class ProductClass extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   items: state.items,
+  products: state.products,
 });
 
-const mapDispatchToProps = { getItems };
+const mapDispatchToProps = { getItems, getProducts };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductClass);
