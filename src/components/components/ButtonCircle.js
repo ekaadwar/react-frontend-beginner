@@ -36,7 +36,6 @@ function ButtonCircle({
       className={`focus:outline-none flex flex-row justify-center items-center w-${size} h-${size} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor} overflow-hidden`}
       value={value}
       onClick={onClick}
-      type="submit"
     >
       <Link to={to}>{content()}</Link>
     </button>

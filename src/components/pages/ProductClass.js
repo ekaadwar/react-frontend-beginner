@@ -34,22 +34,44 @@ class ProductClass extends React.Component {
       currentPage: 1,
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
+      pageInfo: {},
+      params: {},
     };
   }
 
   componentDidMount() {
     const { token } = this.props.auth;
-    const { search, sort, sortType } = this.state;
-    this.props.getProducts(token, search, sort, sortType);
+    let params = {};
+    if (this.props.location.search) {
+      params = this.parseQuery(this.props.location.search);
+    }
+    this.props.getProducts(token, params).then(() => {
+      this.setState({
+        items: this.props.products.data,
+        pageInfo: this.props.products.pageInfo,
+        params,
+      });
+    });
   }
 
   componentDidUpdate(prevProps) {
     const { token } = this.props.auth;
-    const { search, sort, sortType } = this.state;
+    const { params } = this.state;
+    console.log(prevProps.location.search);
     if (prevProps.location.search !== this.props.location.search) {
-      this.props.getProducts(token, search, sort, sortType);
+      this.props.getProducts(token, params).then(() => {
+        this.setState({
+          items: this.props.products.data,
+          pageInfo: this.props.products.pageInfo,
+          params,
+        });
+      });
     }
   }
+
+  // componentDidUpdate() {
+  //   console.log(this.state.params);
+  // }
 
   parseQuery = (str) => {
     return qs.parse(str.slice("1"));
@@ -57,33 +79,28 @@ class ProductClass extends React.Component {
 
   submit = (event) => {
     event.preventDefault();
-    const { search, sort } = this.state;
+    const { pageInfo, params } = this.state;
     const initialUrl = `/product`;
-    let url;
 
-    if (search !== "" && sort !== "") {
-      let sortType;
-      if (sort === "name") {
-        sortType = "ASC";
-      } else {
-        sortType = "DESC";
+    const { currentPage: page } = pageInfo;
+    let paramKeys = Object.keys(params);
+    let paramValues = Object.values(params);
+
+    const length = paramKeys.length;
+
+    let url = initialUrl + `?page=${page}`;
+
+    if (length > 0) {
+      for (let i = 0; i < length; i++) {
+        if (paramKeys[i] === "sort") {
+          const sortArray = paramValues[i].split("-");
+          paramKeys[i] = `sort[${sortArray[0]}]`;
+          paramValues[i] = sortArray[1];
+        }
+        url += `&${paramKeys[i]}=${paramValues[i]}`;
       }
-      this.setState({ sortType: sortType });
-      url = initialUrl + `?search=${search}&sort[${sort}]=${sortType}`;
-    } else if (this.state.search !== "") {
-      url = initialUrl + `?search=${search}`;
-    } else if (this.state.sort !== "") {
-      let sortType;
-      if (sort === "name") {
-        sortType = "ASC";
-      } else {
-        sortType = "DESC";
-      }
-      this.setState({ sortType: sortType });
-      url = initialUrl + `?sort[${sort}]=${sortType}`;
-    } else {
-      url = initialUrl;
     }
+
     this.props.history.push(url);
   };
 
@@ -102,13 +119,15 @@ class ProductClass extends React.Component {
     console.log(event.target.value);
   };
 
-  loadMore = () => {
-    const { nextPage } = this.props.items.pageInfo;
-    this.props.getItems(nextPage);
-  };
+  // loadMore = () => {
+  //   const { nextPage } = this.props.items.pageInfo;
+  //   this.props.getItems(nextPage);
+  // };
 
   render() {
-    const { data } = this.props.products;
+    // const { data } = this.props.products;
+    const { items: data } = this.state;
+    console.log(this.state);
 
     return (
       <section className="product pt-20">
@@ -196,9 +215,14 @@ class ProductClass extends React.Component {
                   >
                     <input
                       // onKeyDown={(event) => this.redirect(event)}
-                      value={this.state.search}
+                      value={this.state.params.search}
                       onChange={(event) =>
-                        this.setState({ search: event.target.value })
+                        this.setState((prevState) => ({
+                          params: {
+                            ...prevState.parama,
+                            search: event.target.value,
+                          },
+                        }))
                       }
                       className="focus:outline-none w-full mb-5 px-2 h-10 rounded-lg"
                       id="search"
@@ -208,14 +232,21 @@ class ProductClass extends React.Component {
 
                     <select
                       className="focus:outline-none mb-5 px-2 h-10 bg-white mr-5"
-                      value={this.state.sort}
+                      value={this.state.params.sort}
                       onChange={(event) => {
-                        this.setState({ sort: event.target.value });
+                        this.setState((prevState) => ({
+                          params: {
+                            ...prevState.params,
+                            sort: event.target.value,
+                          },
+                        }));
                       }}
                     >
                       <option value="">Sort</option>
-                      <option value="name">Product</option>
-                      <option value="price">Price</option>
+                      <option value="name-ASC">Product (ASC)</option>
+                      <option value="name-DESC">Product (DESC)</option>
+                      <option value="price-ASC">Price (ASC)</option>
+                      <option value="price-DESC">Price (DESC)</option>
                     </select>
 
                     <button
@@ -273,7 +304,7 @@ class ProductClass extends React.Component {
                     <p className="text-yellow-900 mt-14">Your Page</p>
                   </div>
 
-                  <form className="flex flex-row justify-center items-center space-x-5 w-full mt-2">
+                  <div className="flex flex-row justify-center items-center space-x-5 w-full mt-2">
                     <ButtonCircle
                       bg={
                         this.state.prevPage !== null
@@ -294,12 +325,6 @@ class ProductClass extends React.Component {
                       {this.state.currentPage}
                     </p>
 
-                    <input
-                      type="button"
-                      value="oke"
-                      onClick={(e) => console.log(e.target)}
-                    />
-
                     <ButtonCircle
                       bg={
                         this.state.nextPage !== null
@@ -310,8 +335,12 @@ class ProductClass extends React.Component {
                       content={() => <Next color="#78350f" />}
                       rounded="full"
                       size={8}
+                      value={this.state.nextPage}
+                      onClick={(event) => {
+                        console.log(event.currentTarget.value);
+                      }}
                     />
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

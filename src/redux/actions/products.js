@@ -3,24 +3,31 @@ import http from "../../helpers/http";
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const getProducts =
-  (token = null, search = "", sort = "", sortType = "ASC") =>
+  (token = null, params = {}) =>
   async (dispatch) => {
     const initialUrl = `${URL}/items`;
-    let url;
-    // if (search !== "") {
-    //   url += `?search=${search}`;
-    //   console.log(url);
-    // }
+    let url = initialUrl;
 
-    if (search !== "" && sort !== "") {
-      url = initialUrl + `?search=${search}&sort[${sort}]=${sortType}`;
-    } else if (search !== "") {
-      url = initialUrl + `?search=${search}`;
-    } else if (sort !== "") {
-      url = initialUrl + `?sort[${sort}]=${sortType}`;
-    } else {
-      url = initialUrl;
+    const paramKeys = Object.keys(params);
+    const paramValues = Object.values(params);
+    const paramLength = paramKeys.length;
+
+    if (paramLength > 0) {
+      url += "?";
+      for (let i = 0; i < paramLength; i++) {
+        if (i > 0) {
+          url += "&";
+        }
+        if (paramKeys[i] === "sort") {
+          const sortArray = paramValues[i].split("-");
+          paramKeys[i] = `sort[${sortArray[0]}]`;
+          paramValues[i] = sortArray[1];
+        }
+        url += `${paramKeys[i]}=${paramValues[i]}`;
+      }
     }
+
+    console.log(url);
 
     try {
       const { data } = await http(token).get(url);
