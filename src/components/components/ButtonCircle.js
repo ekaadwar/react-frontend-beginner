@@ -18,6 +18,8 @@ function ButtonCircle({
   textColor = "",
   textHoverColor = "",
   textFocusColor = "",
+  onClick = () => {},
+  value = "check",
 }) {
   if (primary === true) {
     bg = "bg-yellow-400";
@@ -31,7 +33,10 @@ function ButtonCircle({
 
   return (
     <button
-      className={`focus:outline-none w-${size} h-${size} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor} overflow-hidden`}
+      className={`focus:outline-none flex flex-row justify-center items-center w-${size} h-${size} ${bg} hover:${bgHover} focus:${bgFocus} rounded-${rounded} ${textColor} hover:${textHoverColor} focus:${textFocusColor} overflow-hidden`}
+      value={value}
+      onClick={onClick}
+      type="submit"
     >
       <Link to={to}>{content()}</Link>
     </button>

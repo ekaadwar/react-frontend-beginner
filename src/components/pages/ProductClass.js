@@ -10,9 +10,15 @@ import {
   RiDeleteBin6Line as Delete,
   RiSearchLine as Search,
 } from "react-icons/ri";
+import {
+  IoIosArrowBack as Back,
+  IoIosArrowForward as Next,
+} from "react-icons/io";
 import { getItems } from "../../redux/actions/items";
 import { getProducts } from "../../redux/actions/products";
 import { listMenu } from "../../dummyData/product";
+
+const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 class ProductClass extends React.Component {
   constructor(props) {
@@ -25,77 +31,29 @@ class ProductClass extends React.Component {
       search: "",
       sort: "",
       sortType: "",
+      currentPage: 1,
+      nextPage: `${URL}/items?page=2`,
+      prevPage: null,
     };
   }
 
   componentDidMount() {
-    // console.log(this.props.location);
-    console.log(this.state);
     const { token } = this.props.auth;
-    // const { search } = this.parseQuery(this.props.location.search);
     const { search, sort, sortType } = this.state;
-    // this.setState({ search: search });
-
-    // this.props.getProducts(token, search).then(() => {
-    //   this.setState({ items: this.props.products.data });
-    // })
     this.props.getProducts(token, search, sort, sortType);
-
-    // const queryString = this.props.location.search;
-    // console.log(this.props.location);
-
-    // if (queryString) {
-    //   const { search } = this.parseQuery(this.props.location.search);
-
-    //   if (search) {
-    //     this.setState({ searchInput: search });
-    //   }
-    // }
-
-    // this.getData();
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.state);
     const { token } = this.props.auth;
-    // const { search } = this.parseQuery(this.props.location.search);
     const { search, sort, sortType } = this.state;
-    // if (search !== this.state.search) {
-    //   this.props.getProducts(token, this.state.search);
-    // }
     if (prevProps.location.search !== this.props.location.search) {
       this.props.getProducts(token, search, sort, sortType);
     }
   }
 
-  // onSearch = (event) => {
-  //   if (event.keyCode === 13) {
-  //     let url = `/product`;
-  //     if (this.state.searchInput !== "") {
-  //       url += `?search=${this.state.searchInput}`;
-  //     }
-  //     this.props.history.push(url);
-  //   }
-  // };
-
   parseQuery = (str) => {
     return qs.parse(str.slice("1"));
   };
-
-  // redirect = (event) => {
-  //   if (event.keyCode === 13) {
-  //     let url = `/product`;
-
-  //     if (this.state.search !== "" && this.state.sort !== "") {
-  //       window.alert("okay!!!!");
-  //     } else if (this.state.search !== "") {
-  //       window.alert("search aja");
-  //     } else if (this.state.sort !== "") {
-  //       window.alert("sort aja");
-  //     }
-  //     this.props.history.push(url);
-  //   }
-  // };
 
   submit = (event) => {
     event.preventDefault();
@@ -129,28 +87,6 @@ class ProductClass extends React.Component {
     this.props.history.push(url);
   };
 
-  // getData = async (dataUrl = this.state) => {
-  //   const { data } = await axios.get(
-  //     `http://localhost:8080/items?search=${dataUrl.searchEnd}`
-  //   );
-
-  //   this.setState({ items: data.results });
-  // };
-
-  // doSearch = () => {
-  //   const queryString = this.props.location.search;
-
-  //   if (queryString) {
-  //     const { search } = this.parseQuery(queryString);
-
-  //     if (this.state.searchEnd !== search) {
-  //       this.setState({ searchEnd: search }, () => {
-  //         this.getData();
-  //       });
-  //     }
-  //   }
-  // };
-
   deleteItem = async (id) => {
     const result = window.confirm("Want to delete?");
 
@@ -161,17 +97,10 @@ class ProductClass extends React.Component {
     this.getData();
   };
 
-  // getCategory = (event) => {
-  //   this.setState({ id_category: event.target.value });
-
-  //   let url = "/product?";
-
-  //   if (this.state.id_category > 1) {
-  //     url += `category=${this.state.id_category}`;
-  //   }
-
-  //   this.props.history.push(url);
-  // };
+  prevButton = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+  };
 
   loadMore = () => {
     const { nextPage } = this.props.items.pageInfo;
@@ -338,16 +267,51 @@ class ProductClass extends React.Component {
                         </Link>
                       );
                     })}
-
-                    <div>
-                      <button
-                        className="bg-yellow-400 px-11 py-2 rounded-md"
-                        onClick={this.loadMore}
-                      >
-                        Load More
-                      </button>
-                    </div>
                   </div>
+
+                  <div className="flex flex-row justify-center items-center space-x-5 w-full">
+                    <p className="text-yellow-900 mt-14">Your Page</p>
+                  </div>
+
+                  <form className="flex flex-row justify-center items-center space-x-5 w-full mt-2">
+                    <ButtonCircle
+                      bg={
+                        this.state.prevPage !== null
+                          ? "bg-yellow-900"
+                          : "bg-gray-300"
+                      }
+                      bgHover={this.state.nextPage !== null && "bg-yellow-600"}
+                      content={() => <Back color="#78350f" />}
+                      rounded="full"
+                      size={8}
+                      value={this.state.prevPage}
+                      onClick={(event) => {
+                        console.log(event.currentTarget.value);
+                      }}
+                    />
+
+                    <p className="text-yellow-900 font-bold">
+                      {this.state.currentPage}
+                    </p>
+
+                    <input
+                      type="button"
+                      value="oke"
+                      onClick={(e) => console.log(e.target)}
+                    />
+
+                    <ButtonCircle
+                      bg={
+                        this.state.nextPage !== null
+                          ? "bg-yellow-400"
+                          : "bg-gray-300"
+                      }
+                      bgHover={this.state.nextPage !== null && "bg-yellow-600"}
+                      content={() => <Next color="#78350f" />}
+                      rounded="full"
+                      size={8}
+                    />
+                  </form>
                 </div>
               </div>
             </div>
