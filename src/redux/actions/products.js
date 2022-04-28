@@ -3,9 +3,16 @@ import http from "../../helpers/http";
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
 export const getProducts =
-  (token = null, params = {}) =>
+  (token = null, params = {}, targetPage = "") =>
   async (dispatch) => {
-    const initialUrl = `${URL}/items`;
+    let initialUrl;
+
+    if (targetPage !== "") {
+      initialUrl = targetPage;
+    } else {
+      initialUrl = `${URL}/items`;
+    }
+
     let url = initialUrl;
 
     const paramKeys = Object.keys(params);
@@ -13,7 +20,10 @@ export const getProducts =
     const paramLength = paramKeys.length;
 
     if (paramLength > 0) {
-      url += "?";
+      if (targetPage === "") {
+        url += "?";
+      }
+
       for (let i = 0; i < paramLength; i++) {
         if (i > 0) {
           url += "&";
@@ -26,8 +36,6 @@ export const getProducts =
         url += `${paramKeys[i]}=${paramValues[i]}`;
       }
     }
-
-    console.log(url);
 
     try {
       const { data } = await http(token).get(url);

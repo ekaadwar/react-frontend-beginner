@@ -57,7 +57,7 @@ class ProductClass extends React.Component {
   componentDidUpdate(prevProps) {
     const { token } = this.props.auth;
     const { params } = this.state;
-    console.log(prevProps.location.search);
+
     if (prevProps.location.search !== this.props.location.search) {
       this.props.getProducts(token, params).then(() => {
         this.setState({
@@ -69,37 +69,54 @@ class ProductClass extends React.Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   console.log(this.state.params);
-  // }
-
   parseQuery = (str) => {
     return qs.parse(str.slice("1"));
+  };
+
+  getUrl = (params = {}, pagination = false) => {
+    let url = "/product";
+
+    if (pagination) {
+      delete params.page;
+    }
+
+    let paramKeys = Object.keys(params);
+    const paramLength = paramKeys.length;
+
+    if (paramLength > 0) {
+      url += "?";
+      let paramValues = Object.values(params);
+      for (let i = 0; i < paramLength; i++) {
+        if (i > 0) {
+          url += "&";
+        }
+        if (paramKeys[i] === "sort") {
+          const splitSort = paramValues[i].split("-");
+          paramKeys[i] = `sort[${splitSort[0]}]`;
+          paramValues[i] = splitSort[1];
+        }
+        url += `${paramKeys[i]}=${paramValues[i]}`;
+      }
+    }
+
+    return url;
   };
 
   submit = (event) => {
     event.preventDefault();
     const { pageInfo, params } = this.state;
-    const initialUrl = `/product`;
+
+    let url = this.getUrl(params);
 
     const { currentPage: page } = pageInfo;
-    let paramKeys = Object.keys(params);
-    let paramValues = Object.values(params);
 
-    const length = paramKeys.length;
-
-    let url = initialUrl + `?page=${page}`;
-
-    if (length > 0) {
-      for (let i = 0; i < length; i++) {
-        if (paramKeys[i] === "sort") {
-          const sortArray = paramValues[i].split("-");
-          paramKeys[i] = `sort[${sortArray[0]}]`;
-          paramValues[i] = sortArray[1];
-        }
-        url += `&${paramKeys[i]}=${paramValues[i]}`;
-      }
+    if (params !== {}) {
+      url += "&";
+    } else {
+      url += "?";
     }
+
+    url += `page=${page}`;
 
     this.props.history.push(url);
   };
@@ -114,20 +131,53 @@ class ProductClass extends React.Component {
     this.getData();
   };
 
-  prevButton = (event) => {
-    event.preventDefault();
-    console.log(event.target.value);
+  changePage = (event) => {
+    if (event.currentTarget.value) {
+      const pagination = true;
+
+      const { token } = this.props.auth;
+      const { params, pageInfo } = this.state;
+      let url = this.getUrl(params, pagination);
+      let targetPage;
+      let page;
+
+      targetPage = event.currentTarget.value;
+      if (targetPage === pageInfo.prevPage) {
+        page = pageInfo.currentPage - 1;
+      } else if (targetPage === pageInfo.nextPage) {
+        page = pageInfo.currentPage + 1;
+      } else {
+        page = pageInfo.currentPage;
+      }
+
+      const paramLength = Object.keys(params).length;
+
+      if (paramLength > 0) {
+        url += `&page=${page}`;
+      } else {
+        url += `?page=${page}`;
+      }
+
+      this.props.getProducts(token, params, targetPage).then(() => {
+        this.setState((prevState) => ({
+          params: {
+            ...prevState.params,
+            page: page,
+          },
+          items: this.props.products.data,
+          pageInfo: this.props.products.pageInfo,
+        }));
+        this.props.history.push(url);
+      });
+    } else {
+      event.preventDefault();
+      console.log("oh noooo....");
+    }
   };
 
-  // loadMore = () => {
-  //   const { nextPage } = this.props.items.pageInfo;
-  //   this.props.getItems(nextPage);
-  // };
-
   render() {
-    // const { data } = this.props.products;
     const { items: data } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <section className="product pt-20">
@@ -307,38 +357,38 @@ class ProductClass extends React.Component {
                   <div className="flex flex-row justify-center items-center space-x-5 w-full mt-2">
                     <ButtonCircle
                       bg={
-                        this.state.prevPage !== null
-                          ? "bg-yellow-900"
+                        this.state.pageInfo.prevPage !== null
+                          ? "bg-yellow-400"
                           : "bg-gray-300"
                       }
-                      bgHover={this.state.nextPage !== null && "bg-yellow-600"}
+                      bgHover={
+                        this.state.pageInfo.prevPage !== null && "bg-yellow-600"
+                      }
                       content={() => <Back color="#78350f" />}
                       rounded="full"
                       size={8}
-                      value={this.state.prevPage}
-                      onClick={(event) => {
-                        console.log(event.currentTarget.value);
-                      }}
+                      value={this.state.pageInfo.prevPage}
+                      onClick={this.changePage}
                     />
 
                     <p className="text-yellow-900 font-bold">
-                      {this.state.currentPage}
+                      {this.state.pageInfo.currentPage}
                     </p>
 
                     <ButtonCircle
                       bg={
-                        this.state.nextPage !== null
+                        this.state.pageInfo.nextPage !== null
                           ? "bg-yellow-400"
                           : "bg-gray-300"
                       }
-                      bgHover={this.state.nextPage !== null && "bg-yellow-600"}
+                      bgHover={
+                        this.state.pageInfo.nextPage !== null && "bg-yellow-600"
+                      }
                       content={() => <Next color="#78350f" />}
                       rounded="full"
                       size={8}
-                      value={this.state.nextPage}
-                      onClick={(event) => {
-                        console.log(event.currentTarget.value);
-                      }}
+                      value={this.state.pageInfo.nextPage}
+                      onClick={this.changePage}
                     />
                   </div>
                 </div>
