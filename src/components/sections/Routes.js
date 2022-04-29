@@ -9,7 +9,8 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 // import ProductDetail from "../pages/ProductDetail";
-import ProductDetailFunc from "../pages/ProductDatailFunc";
+// import ProductDetailFunc from "../pages/ProductDatailFunc";
+import ProductDetail from "../pages/ProductDatail";
 import ForgotPassword from "../pages/ForgotPassword";
 import PrivateRoute from "../components/PrivateRoute";
 import SpecialRoute from "../components/SpecialRoute";
@@ -26,7 +27,7 @@ class Routes extends React.Component {
         </SpecialRoute> */}
         <Route path="/product" component={Products} />
         <SpecialRoute path="/product/:id">
-          <ProductDetailFunc />
+          <ProductDetail />
         </SpecialRoute>
         <PrivateRoute path="/cart">
           <Cart />
