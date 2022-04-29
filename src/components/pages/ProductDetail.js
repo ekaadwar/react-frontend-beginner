@@ -11,11 +11,6 @@ import { addItems } from "../../redux/actions/carts";
 import { coldBrew } from "../../assets/img";
 
 class ProductDetail extends React.Component {
-  // details = {
-  //   name: "cold brew",
-  //   price: 30000,
-  // };
-
   image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />;
 
   componentDidMount() {
@@ -29,7 +24,7 @@ class ProductDetail extends React.Component {
       <section className="detailProduct pt-20 pb-40 bg-gray-200">
         <div className="container mx-auto px-2 lg:px-10">
           <p className="font-bold mt-5">
-            <span className="text-gray-500 pr-2">Favorite & Promo</span>
+            <span className="text-gray-500 pr-2">Favorite & Promo uye</span>
             <span className="text-yellow-900 capitalize">{details?.name}</span>
           </p>
 
