@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-import NavButton from "../NavButton";
+import NavButton from '../NavButton'
 
-import { MdStar } from "react-icons/md";
-import asianBeauty from "../../../assets/img/asianBeauty.png";
+import { MdStar } from 'react-icons/md'
+import asianBeauty from '../../../assets/img/asianBeauty.png'
 
 export default function Testimony() {
   return (
@@ -127,5 +127,5 @@ export default function Testimony() {
         </div>
       </div>
     </section>
-  );
+  )
 }

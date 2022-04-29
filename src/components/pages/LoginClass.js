@@ -1,35 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { toggleAuth, authLogin } from "../../redux/actions/auth";
-import { coffeeLogo } from "../../assets/img";
+import { toggleAuth, authLogin } from '../../redux/actions/auth'
+import { coffeeLogo } from '../../assets/img'
 
 class LoginClass extends React.Component {
   state = {
-    username: "",
-    password: "",
-  };
+    username: '',
+    password: '',
+  }
 
   componentDidMount() {
-    this.props.toggleAuth();
+    this.props.toggleAuth()
   }
 
   onLogin = (e) => {
-    e.preventDefault();
-    const { username, password } = this.state;
-    this.props.authLogin(username, password);
-  };
+    e.preventDefault()
+    const { username, password } = this.state
+    this.props.authLogin(username, password)
+  }
 
   componentDidUpdate() {
-    const { token } = this.props.auth;
+    const { token } = this.props.auth
     if (token !== null) {
-      this.props.toggleAuth();
-      this.props.history.push("/");
+      this.props.toggleAuth()
+      this.props.history.push('/')
     }
   }
   render() {
-    const { errMsg } = this.props.auth;
+    const { errMsg } = this.props.auth
 
     return (
       <section className="auth">
@@ -61,7 +61,7 @@ class LoginClass extends React.Component {
                     Login
                   </h3>
 
-                  {errMsg !== "" && (
+                  {errMsg !== '' && (
                     <div className="bg-red-300 text-red-900  font-bold p-2 rounded-md">
                       {errMsg}
                     </div>
@@ -127,14 +127,14 @@ class LoginClass extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-});
+})
 
-const mapDispachToProps = { toggleAuth, authLogin };
+const mapDispachToProps = { toggleAuth, authLogin }
 
-export default connect(mapStateToProps, mapDispachToProps)(LoginClass);
+export default connect(mapStateToProps, mapDispachToProps)(LoginClass)

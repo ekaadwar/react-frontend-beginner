@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-import { coffeeLogo } from "../../assets/img";
+import { coffeeLogo } from '../../assets/img'
 
 class Signup extends React.Component {
   submitData = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   render() {
     return (
@@ -95,8 +95,8 @@ class Signup extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default Signup;
+export default Signup

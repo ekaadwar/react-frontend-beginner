@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react'
 
-import { connect } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
-import Navbar from "../sections/Navbar";
+import { connect } from 'react-redux'
+import { Route, Redirect } from 'react-router-dom'
+import Navbar from '../sections/Navbar'
 
 const PrivateRoute = ({ authPage = false, children, auth, ...rest }) => {
-  const { token } = auth;
+  const { token } = auth
   return (
     <>
       {!authPage && <Navbar />}
       <Route
         {...rest}
-        render={(props) => {
+        render={() => {
           if (token !== null) {
-            return children;
+            return children
           } else {
-            return <Redirect to="/login" />;
+            return <Redirect to="/login" />
           }
         }}
       />
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-});
+})
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute)

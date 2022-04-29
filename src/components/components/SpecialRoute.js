@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 
-import { connect } from "react-redux";
-import { Route } from "react-router-dom";
-import Navbar from "../sections/Navbar";
+import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
+import Navbar from '../sections/Navbar'
 
 const SpecialRoute = ({ authPage = false, children, ...rest }) => {
   return (
@@ -10,12 +10,12 @@ const SpecialRoute = ({ authPage = false, children, ...rest }) => {
       {!authPage && <Navbar />}
       <Route
         {...rest}
-        render={(props) => {
-          return children;
+        render={() => {
+          return children
         }}
       />
     </>
-  );
-};
+  )
+}
 
-export default connect()(SpecialRoute);
+export default connect()(SpecialRoute)

@@ -1,34 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const defaultContent = () => {
-  return <p>Text</p>;
-};
+  return <p>Text</p>
+}
 
+// eslint-disable-next-line react/prop-types
 function ButtonCircle({
   content = defaultContent,
-  to = "#",
+  to = '#',
   size = 10,
   primary = false,
   secondary = false,
-  rounded = "xl",
-  bg = "bg-gray-400",
-  bgHover = "",
-  bgFocus = "",
-  textColor = "",
-  textHoverColor = "",
-  textFocusColor = "",
+  rounded = 'xl',
+  bg = 'bg-gray-400',
+  bgHover = '',
+  bgFocus = '',
+  textColor = '',
+  textHoverColor = '',
+  textFocusColor = '',
   onClick = () => {},
-  value = "check",
+  value = 'check',
 }) {
   if (primary === true) {
-    bg = "bg-yellow-400";
-    bgHover = "bg-yellow-200";
+    bg = 'bg-yellow-400'
+    bgHover = 'bg-yellow-200'
   }
 
   if (secondary === true) {
-    bg = "bg-yellow-900";
-    bgHover = "bg-yellow-800";
+    bg = 'bg-yellow-900'
+    bgHover = 'bg-yellow-800'
   }
 
   return (
@@ -39,7 +40,7 @@ function ButtonCircle({
     >
       <Link to={to}>{content()}</Link>
     </button>
-  );
+  )
 }
 
-export default ButtonCircle;
+export default ButtonCircle

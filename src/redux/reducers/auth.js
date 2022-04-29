@@ -1,53 +1,53 @@
 const initialState = {
   onAuth: false,
   token: null,
-  errMsg: "",
-};
+  errMsg: '',
+}
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case "AUTH_TOGGLE": {
+    case 'AUTH_TOGGLE': {
       return {
         ...state,
         onAuth: !state.onAuth,
-      };
+      }
     }
-    case "AUTH_LOGIN": {
+    case 'AUTH_LOGIN': {
       return {
         ...state,
         token: action.payload,
-      };
+      }
     }
-    case "AUTH_LOGIN_FAILED": {
+    case 'AUTH_LOGIN_FAILED': {
       return {
         ...state,
         errMsg: action.payload,
-      };
+      }
     }
-    case "AUTH_LOGOUT": {
+    case 'AUTH_LOGOUT': {
       return {
         ...state,
         token: null,
-      };
+      }
     }
-    case "AUTH_ON": {
+    case 'AUTH_ON': {
       return {
         ...state,
         onAuth: true,
-      };
+      }
     }
-    case "AUTH_OFF": {
+    case 'AUTH_OFF': {
       return {
         ...state,
         onAuth: false,
-      };
+      }
     }
     default: {
       return {
         ...state,
-      };
+      }
     }
   }
-};
+}
 
-export default auth;
+export default auth

@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react'
 
 class FormLogin extends React.Component {
   state = {
-    username: "",
-    password: "",
-    error: "",
-  };
+    username: '',
+    password: '',
+    error: '',
+  }
 
   componentDidUpdate() {
-    console.log(this.state);
+    console.log(this.state)
   }
 
   submitData = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   onPasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+    this.setState({ password: event.target.value })
     if (this.state.password.length < 6) {
-      this.setState({ error: "Password length must be greater than 6!" });
+      this.setState({ error: 'Password length must be greater than 6!' })
     } else {
-      this.setState({ error: "" });
+      this.setState({ error: '' })
     }
-  };
+  }
 
   render() {
     return (
@@ -37,8 +37,8 @@ class FormLogin extends React.Component {
         <div>{this.state.error && this.state.error}</div>
         <button>Submit</button>
       </form>
-    );
+    )
   }
 }
 
-export default FormLogin;
+export default FormLogin

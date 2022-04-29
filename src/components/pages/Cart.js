@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 
-import { FaCreditCard } from "react-icons/fa";
-import { AiFillBank } from "react-icons/ai";
-import { GrDeliver } from "react-icons/gr";
-import { chickenFireWing, hazelnutLatte } from "../../assets/img";
+import { FaCreditCard } from 'react-icons/fa'
+import { AiFillBank } from 'react-icons/ai'
+import { GrDeliver } from 'react-icons/gr'
+import { chickenFireWing, hazelnutLatte } from '../../assets/img'
 
 class Cart extends React.Component {
   render() {
@@ -161,8 +161,8 @@ class Cart extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default connect()(Cart);
+export default connect()(Cart)

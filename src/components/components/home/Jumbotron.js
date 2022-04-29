@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 // import qs from "querystring";
 
 class Jumbotron extends React.Component {
   state = {
     data: [],
-    searchInput: "Search",
-    searchEnd: "",
-  };
+    searchInput: 'Search',
+    searchEnd: '',
+  }
 
   componentDidMount() {}
 
@@ -42,8 +42,8 @@ class Jumbotron extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default Jumbotron;
+export default Jumbotron

@@ -1,24 +1,24 @@
-import React from "react";
+import React from 'react'
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 
-import PictureCircle from "../components/PictureCircle";
-import ButtonCircle from "../components/ButtonCircle";
-import ButtonSquare from "../components/ButtonSquare";
+import PictureCircle from '../components/PictureCircle'
+import ButtonCircle from '../components/ButtonCircle'
+import ButtonSquare from '../components/ButtonSquare'
 
-import { getDetails } from "../../redux/actions/items";
-import { addItems } from "../../redux/actions/carts";
-import { coldBrew } from "../../assets/img";
+import { getDetails } from '../../redux/actions/items'
+import { addItems } from '../../redux/actions/carts'
+import { coldBrew } from '../../assets/img'
 
 class ProductDetail extends React.Component {
-  image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />;
+  image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />
 
   componentDidMount() {
-    this.props.getDetails(this.props.match.params.id);
+    this.props.getDetails(this.props.match.params.id)
   }
 
   render() {
-    const { details } = this.props.items;
+    const { details } = this.props.items
 
     return (
       <section className="detailProduct pt-20 pb-40 bg-gray-200">
@@ -33,7 +33,7 @@ class ProductDetail extends React.Component {
               <div className="py-10 sm:py-24 lg:pr-24">
                 <div className="flex flex-col items-center space-y-8 lg:space-y-16">
                   <div className="h-40 lg:h-80 w-40 lg:w-80">
-                    <PictureCircle Img={this.image} diametre={"full"} />
+                    <PictureCircle Img={this.image} diametre={'full'} />
                   </div>
 
                   <div className="space-y-3 lg:space-y-7 text-center">
@@ -68,8 +68,8 @@ class ProductDetail extends React.Component {
             <div className="col-span-5">
               <div className="w-full bg-white p-5 lg:px-24 lg:pt-24 lg:pb-16 rounded-xl space-y-12">
                 <p className="text-xl text-yellow-900">
-                  Delivery only on{" "}
-                  <span className="font-bold">Monday to Friday</span> at{" "}
+                  Delivery only on{' '}
+                  <span className="font-bold">Monday to Friday</span> at{' '}
                   <span className="font-bold">1-7 pm</span>
                 </p>
 
@@ -84,7 +84,7 @@ class ProductDetail extends React.Component {
                   <p className="text-center">Choose a size</p>
 
                   <div className="flex flex-wrap justify-between">
-                    {["R", "L", "XL"].map((item, id) => (
+                    {['R', 'L', 'XL'].map((item, id) => (
                       <div key={id} className="mb-3">
                         <ButtonCircle
                           content={() => <p>{item}</p>}
@@ -106,7 +106,7 @@ class ProductDetail extends React.Component {
                 </p>
 
                 <div className="flex flex-wrap max-w-sm mx-auto">
-                  {["Dine In", "Door Delivery", "Pick Up"].map((item, id) => (
+                  {['Dine In', 'Door Delivery', 'Pick Up'].map((item, id) => (
                     <div key={id} className="m-2">
                       <button className="px-5 py-2 bg-white focus:bg-yellow-900 border border-gray-400 focus:border-yellow-900 rounded-xl text-sm lg:text-l font-bold text-gray-600 focus:text-white focus:outline-none">
                         {item}
@@ -174,14 +174,14 @@ class ProductDetail extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   items: state.items,
-});
+})
 
-const mapDispatchToProps = { getDetails, addItems };
+const mapDispatchToProps = { getDetails, addItems }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)

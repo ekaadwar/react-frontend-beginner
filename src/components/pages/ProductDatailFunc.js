@@ -1,22 +1,22 @@
-import React from "react";
-import propTypes from "prop-types";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from 'react'
+import propTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import PictureCircle from "../components/PictureCircle";
-import ButtonCircle from "../components/ButtonCircle";
-import ButtonSquare from "../components/ButtonSquare";
-import { getDetailProduct } from "../../redux/actions/products";
-import { coldBrew } from "../../assets/img";
+import PictureCircle from '../components/PictureCircle'
+import ButtonCircle from '../components/ButtonCircle'
+import ButtonSquare from '../components/ButtonSquare'
+import { getDetailProduct } from '../../redux/actions/products'
+import { coldBrew } from '../../assets/img'
 
 function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
-  const { id } = useParams();
-  const { results: details } = products.details;
+  const { id } = useParams()
+  const { results: details } = products.details
   React.useEffect(() => {
-    getDetail(id);
-  }, []);
+    getDetail(id)
+  }, [])
 
-  const image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />;
+  const image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />
 
   return (
     <section className="detailProduct pt-20 pb-40 bg-gray-200">
@@ -31,7 +31,7 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
             <div className="py-10 sm:py-24 lg:pr-24">
               <div className="flex flex-col items-center space-y-8 lg:space-y-16">
                 <div className="h-40 lg:h-80 w-40 lg:w-80">
-                  <PictureCircle Img={image} diametre={"full"} />
+                  <PictureCircle Img={image} diametre={'full'} />
                 </div>
 
                 <div className="space-y-3 lg:space-y-7 text-center">
@@ -66,8 +66,8 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
           <div className="col-span-5">
             <div className="w-full bg-white p-5 lg:px-24 lg:pt-24 lg:pb-16 rounded-xl space-y-12">
               <p className="text-xl text-yellow-900">
-                Delivery only on{" "}
-                <span className="font-bold">Monday to Friday</span> at{" "}
+                Delivery only on{' '}
+                <span className="font-bold">Monday to Friday</span> at{' '}
                 <span className="font-bold">1-7 pm</span>
               </p>
 
@@ -82,7 +82,7 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
                 <p className="text-center">Choose a size</p>
 
                 <div className="flex flex-wrap justify-between">
-                  {["R", "L", "XL"].map((item, id) => (
+                  {['R', 'L', 'XL'].map((item, id) => (
                     <div key={id} className="mb-3">
                       <ButtonCircle
                         content={() => <p>{item}</p>}
@@ -104,7 +104,7 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
               </p>
 
               <div className="flex flex-wrap max-w-sm mx-auto">
-                {["Dine In", "Door Delivery", "Pick Up"].map((item, id) => (
+                {['Dine In', 'Door Delivery', 'Pick Up'].map((item, id) => (
                   <div key={id} className="m-2">
                     <button className="px-5 py-2 bg-white focus:bg-yellow-900 border border-gray-400 focus:border-yellow-900 rounded-xl text-sm lg:text-l font-bold text-gray-600 focus:text-white focus:outline-none">
                       {item}
@@ -172,23 +172,23 @@ function ProductDetailFunc({ getDetailProduct: getDetail, products }) {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 ProductDetailFunc.defaultProps = {
   products: {},
   getDetailProduct: () => {},
-};
+}
 
 ProductDetailFunc.propTypes = {
   products: propTypes.object,
   getDetailProduct: propTypes.func,
-};
+}
 
-const mapStateToProps = (state) => ({ products: state.products });
+const mapStateToProps = (state) => ({ products: state.products })
 
 const mapDispatchToProps = {
   getDetailProduct,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailFunc);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailFunc)

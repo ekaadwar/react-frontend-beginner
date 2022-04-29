@@ -1,28 +1,28 @@
-import React from "react";
-import propTypes from "prop-types";
+import React from 'react'
+import propTypes from 'prop-types'
 
-import { Link, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { Link, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { authLogin, authOn, authOff } from "../../redux/actions/auth";
-import { coffeeLogo } from "../../assets/img";
+import { authLogin, authOn, authOff } from '../../redux/actions/auth'
+import { coffeeLogo } from '../../assets/img'
 
 function Login(props) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const history = useHistory();
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const history = useHistory()
 
   React.useEffect(() => {
-    props.authOn();
+    props.authOn()
     return function cleanup() {
-      props.authOff();
-    };
-  });
+      props.authOff()
+    }
+  })
 
   const login = (e) => {
-    e.preventDefault();
-    props.authLogin(email, password, history);
-  };
+    e.preventDefault()
+    props.authLogin(email, password, history)
+  }
 
   return (
     <section className="auth">
@@ -113,17 +113,17 @@ function Login(props) {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 Login.defaultProps = {
   authLogin: () => {},
-};
+}
 
 Login.propTypes = {
   authLogin: propTypes.func,
-};
+}
 
-const mapDispachToProps = { authLogin, authOn, authOff };
+const mapDispachToProps = { authLogin, authOn, authOff }
 
-export default connect(null, mapDispachToProps)(Login);
+export default connect(null, mapDispachToProps)(Login)

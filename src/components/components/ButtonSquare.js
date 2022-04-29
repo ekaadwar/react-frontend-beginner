@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 function contentDefault() {
-  return <p>Text</p>;
+  return <p>Text</p>
 }
 
 function ButtonSquare({
@@ -11,24 +11,24 @@ function ButtonSquare({
   secondary = false,
   py = 3,
   px = 0,
-  w = "full",
-  h = "auto",
-  rounded = "xl",
-  bg = "bg-gray-400",
-  bgHover = "",
-  bgFocus = "",
-  textColor = "",
-  textHoverColor = "",
-  textFocusColor = "",
+  w = 'full',
+  h = 'auto',
+  rounded = 'xl',
+  bg = 'bg-gray-400',
+  bgHover = '',
+  bgFocus = '',
+  textColor = '',
+  textHoverColor = '',
+  textFocusColor = '',
 }) {
   if (primary === true) {
-    bg = "bg-yellow-400";
-    bgHover = "bg-yellow-200";
+    bg = 'bg-yellow-400'
+    bgHover = 'bg-yellow-200'
   }
 
   if (secondary === true) {
-    bg = "bg-yellow-900";
-    bgHover = "bg-yellow-800";
+    bg = 'bg-yellow-900'
+    bgHover = 'bg-yellow-800'
   }
 
   return (
@@ -39,7 +39,7 @@ function ButtonSquare({
     >
       {content()}
     </button>
-  );
+  )
 }
 
-export default ButtonSquare;
+export default ButtonSquare

@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { ImFacebook, ImTwitter, ImInstagram } from "react-icons/im";
-import IconCircle from "../components/IconCircle";
+import { ImFacebook, ImTwitter, ImInstagram } from 'react-icons/im'
+import IconCircle from '../components/IconCircle'
 
 // const Icon = () => {
 //   return <ImTwitter color="#6A4029" />;
@@ -10,16 +10,16 @@ import IconCircle from "../components/IconCircle";
 
 class Footer extends React.Component {
   twitter = () => {
-    return <ImTwitter color="#6A4029" />;
-  };
+    return <ImTwitter color="#6A4029" />
+  }
 
   facebook = () => {
-    return <ImFacebook color="#6A4029" />;
-  };
+    return <ImFacebook color="#6A4029" />
+  }
 
   instagram = () => {
-    return <ImInstagram color="#6A4029" />;
-  };
+    return <ImInstagram color="#6A4029" />
+  }
 
   render() {
     return (
@@ -69,8 +69,8 @@ class Footer extends React.Component {
           </div>
         </div>
       </footer>
-    );
+    )
   }
 }
 
-export default Footer;
+export default Footer

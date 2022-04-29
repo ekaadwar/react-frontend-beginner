@@ -1,16 +1,16 @@
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-import carts from "./carts";
-import auth from "./auth";
-import items from "./items";
-import products from "./products";
-import profile from "./profile";
+import storage from 'redux-persist/lib/storage'
+import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
+import carts from './carts'
+import auth from './auth'
+import items from './items'
+import products from './products'
+import profile from './profile'
 
 const persistAuth = {
   storage,
-  key: "auth",
-};
+  key: 'auth',
+}
 
 const reducer = combineReducers({
   carts,
@@ -18,6 +18,6 @@ const reducer = combineReducers({
   items,
   products,
   profile,
-});
+})
 
-export default reducer;
+export default reducer

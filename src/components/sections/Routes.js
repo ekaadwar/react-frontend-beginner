@@ -1,19 +1,19 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import Home from "../pages/Home";
-import Products from "../pages/ProductClass";
-import Cart from "../pages/Cart";
-import History from "../pages/History";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Profile from "../pages/Profile";
+import Home from '../pages/Home'
+import Products from '../pages/ProductClass'
+import Cart from '../pages/Cart'
+import History from '../pages/History'
+import Login from '../pages/Login'
+import Signup from '../pages/Signup'
+import Profile from '../pages/Profile'
 // import ProductDetail from "../pages/ProductDetail";
 // import ProductDetailFunc from "../pages/ProductDatailFunc";
-import ProductDetail from "../pages/ProductDetail";
-import ForgotPassword from "../pages/ForgotPassword";
-import PrivateRoute from "../components/PrivateRoute";
-import SpecialRoute from "../components/SpecialRoute";
+import ProductDetail from '../pages/ProductDetail'
+import ForgotPassword from '../pages/ForgotPassword'
+import PrivateRoute from '../components/PrivateRoute'
+import SpecialRoute from '../components/SpecialRoute'
 
 class Routes extends React.Component {
   render() {
@@ -48,8 +48,8 @@ class Routes extends React.Component {
           <Profile />
         </PrivateRoute>
       </Switch>
-    );
+    )
   }
 }
 
-export default Routes;
+export default Routes

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import { vergieTomatto } from "../../assets/img";
+import { vergieTomatto } from '../../assets/img'
 
 class History extends React.Component {
   render() {
@@ -46,8 +46,8 @@ class History extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default History;
+export default History

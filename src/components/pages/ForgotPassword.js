@@ -1,7 +1,7 @@
-import React from "react";
-import { BiSearch } from "react-icons/bi";
+import React from 'react'
+import { BiSearch } from 'react-icons/bi'
 
-import ButtonSquare from "../components/ButtonSquare";
+import ButtonSquare from '../components/ButtonSquare'
 
 class ForgotPassword extends React.Component {
   render() {
@@ -69,8 +69,8 @@ class ForgotPassword extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default ForgotPassword;
+export default ForgotPassword

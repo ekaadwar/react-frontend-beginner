@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import Jumbotron from "../components/home/Jumbotron";
-import Advantages from "../components/home/Advantages";
-import Favorites from "../components/home/Favorites";
-import Spots from "../components/home/Spots";
-import Partners from "../components/home/Partners";
-import Testimony from "../components/home/Testimony";
+import Jumbotron from '../components/home/Jumbotron'
+import Advantages from '../components/home/Advantages'
+import Favorites from '../components/home/Favorites'
+import Spots from '../components/home/Spots'
+import Partners from '../components/home/Partners'
+import Testimony from '../components/home/Testimony'
 
 class Home extends React.Component {
   render() {
@@ -18,8 +18,8 @@ class Home extends React.Component {
         <Partners />
         <Testimony />
       </>
-    );
+    )
   }
 }
 
-export default Home;
+export default Home

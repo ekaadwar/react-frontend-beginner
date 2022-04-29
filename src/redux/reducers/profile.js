@@ -1,19 +1,19 @@
 const initialState = {
   data: {},
-};
+}
 
 const profile = (state = initialState, action) => {
   switch (action.type) {
-    case "PROFILE_GET": {
+    case 'PROFILE_GET': {
       return {
         ...state,
         data: action.payload,
-      };
+      }
     }
     default: {
-      return state;
+      return state
     }
   }
-};
+}
 
-export default profile;
+export default profile

@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { authLogout } from "../../redux/actions/auth";
-import ButtonCircle from "../components/ButtonCircle";
+import { authLogout } from '../../redux/actions/auth'
+import ButtonCircle from '../components/ButtonCircle'
 
-import { HiViewList } from "react-icons/hi";
+import { HiViewList } from 'react-icons/hi'
 
-import logo from "../../img/logo/coffee.png";
-import { gajeel } from "../../assets/img";
+import logo from '../../img/logo/coffee.png'
+import { gajeel } from '../../assets/img'
 
 const Navbar = ({ auth, authLogout }) => {
   return (
@@ -36,7 +36,7 @@ const Navbar = ({ auth, authLogout }) => {
           {auth.token !== null ? (
             <div className="hidden lg:flex flex-row space-x-5 items-center">
               <ButtonCircle
-                to={"/profile"}
+                to={'/profile'}
                 content={() => (
                   <div className="flex justify-center">
                     <img src={gajeel} alt="Gajeel" />
@@ -80,15 +80,15 @@ const Navbar = ({ auth, authLogout }) => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-});
+})
 
 const mapDispatchToProps = {
   authLogout,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

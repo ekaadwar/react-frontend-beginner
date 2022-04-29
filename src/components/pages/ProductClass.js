@@ -1,62 +1,62 @@
-import React from "react";
-import axios from "axios";
-import qs from "querystring";
-import ButtonCircle from "../components/ButtonCircle";
-import ItemImage from "../components/PictureCircle";
+import React from 'react'
+import axios from 'axios'
+import qs from 'querystring'
+import ButtonCircle from '../components/ButtonCircle'
+import ItemImage from '../components/PictureCircle'
 
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import {
   RiDeleteBin6Line as Delete,
   RiSearchLine as Search,
-} from "react-icons/ri";
+} from 'react-icons/ri'
 import {
   IoIosArrowBack as Back,
   IoIosArrowForward as Next,
-} from "react-icons/io";
-import { getItems } from "../../redux/actions/items";
-import { getProducts } from "../../redux/actions/products";
-import { listMenu } from "../../dummyData/product";
+} from 'react-icons/io'
+import { getItems } from '../../redux/actions/items'
+import { getProducts } from '../../redux/actions/products'
+import { listMenu } from '../../dummyData/product'
 
-const { REACT_APP_BACKEND_URL: URL } = process.env;
+const { REACT_APP_BACKEND_URL: URL } = process.env
 
 class ProductClass extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       items: [],
-      searchInput: "",
-      searchEnd: "",
+      searchInput: '',
+      searchEnd: '',
       id_category: 1,
-      search: "",
-      sort: "",
-      sortType: "",
+      search: '',
+      sort: '',
+      sortType: '',
       currentPage: 1,
       nextPage: `${URL}/items?page=2`,
       prevPage: null,
       pageInfo: {},
       params: {},
-    };
+    }
   }
 
   componentDidMount() {
-    const { token } = this.props.auth;
-    let params = {};
+    const { token } = this.props.auth
+    let params = {}
     if (this.props.location.search) {
-      params = this.parseQuery(this.props.location.search);
+      params = this.parseQuery(this.props.location.search)
     }
     this.props.getProducts(token, params).then(() => {
       this.setState({
         items: this.props.products.data,
         pageInfo: this.props.products.pageInfo,
         params,
-      });
-    });
+      })
+    })
   }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props.auth;
-    const { params } = this.state;
+    const { token } = this.props.auth
+    const { params } = this.state
 
     if (prevProps.location.search !== this.props.location.search) {
       this.props.getProducts(token, params).then(() => {
@@ -64,98 +64,98 @@ class ProductClass extends React.Component {
           items: this.props.products.data,
           pageInfo: this.props.products.pageInfo,
           params,
-        });
-      });
+        })
+      })
     }
   }
 
   parseQuery = (str) => {
-    return qs.parse(str.slice("1"));
-  };
+    return qs.parse(str.slice('1'))
+  }
 
   getUrl = (params = {}, pagination = false) => {
-    let url = "/product";
+    let url = '/product'
 
     if (pagination) {
-      delete params.page;
+      delete params.page
     }
 
-    let paramKeys = Object.keys(params);
-    const paramLength = paramKeys.length;
+    let paramKeys = Object.keys(params)
+    const paramLength = paramKeys.length
 
     if (paramLength > 0) {
-      url += "?";
-      let paramValues = Object.values(params);
+      url += '?'
+      let paramValues = Object.values(params)
       for (let i = 0; i < paramLength; i++) {
         if (i > 0) {
-          url += "&";
+          url += '&'
         }
-        if (paramKeys[i] === "sort") {
-          const splitSort = paramValues[i].split("-");
-          paramKeys[i] = `sort[${splitSort[0]}]`;
-          paramValues[i] = splitSort[1];
+        if (paramKeys[i] === 'sort') {
+          const splitSort = paramValues[i].split('-')
+          paramKeys[i] = `sort[${splitSort[0]}]`
+          paramValues[i] = splitSort[1]
         }
-        url += `${paramKeys[i]}=${paramValues[i]}`;
+        url += `${paramKeys[i]}=${paramValues[i]}`
       }
     }
 
-    return url;
-  };
+    return url
+  }
 
   submit = (event) => {
-    event.preventDefault();
-    const { pageInfo, params } = this.state;
+    event.preventDefault()
+    const { pageInfo, params } = this.state
 
-    let url = this.getUrl(params);
+    let url = this.getUrl(params)
 
-    const { currentPage: page } = pageInfo;
+    const { currentPage: page } = pageInfo
 
     if (params !== {}) {
-      url += "&";
+      url += '&'
     } else {
-      url += "?";
+      url += '?'
     }
 
-    url += `page=${page}`;
+    url += `page=${page}`
 
-    this.props.history.push(url);
-  };
+    this.props.history.push(url)
+  }
 
   deleteItem = async (id) => {
-    const result = window.confirm("Want to delete?");
+    const result = window.confirm('Want to delete?')
 
     if (result) {
-      await axios.delete(`http://localhost:8080/items/${id}`);
+      await axios.delete(`http://localhost:8080/items/${id}`)
     }
 
-    this.getData();
-  };
+    this.getData()
+  }
 
   changePage = (event) => {
     if (event.currentTarget.value) {
-      const pagination = true;
+      const pagination = true
 
-      const { token } = this.props.auth;
-      const { params, pageInfo } = this.state;
-      let url = this.getUrl(params, pagination);
-      let targetPage;
-      let page;
+      const { token } = this.props.auth
+      const { params, pageInfo } = this.state
+      let url = this.getUrl(params, pagination)
+      let targetPage
+      let page
 
-      targetPage = event.currentTarget.value;
+      targetPage = event.currentTarget.value
       if (targetPage === pageInfo.prevPage) {
-        page = pageInfo.currentPage - 1;
+        page = pageInfo.currentPage - 1
       } else if (targetPage === pageInfo.nextPage) {
-        page = pageInfo.currentPage + 1;
+        page = pageInfo.currentPage + 1
       } else {
-        page = pageInfo.currentPage;
+        page = pageInfo.currentPage
       }
 
-      const paramLength = Object.keys(params).length;
+      const paramLength = Object.keys(params).length
 
       if (paramLength > 0) {
-        url += `&page=${page}`;
+        url += `&page=${page}`
       } else {
-        url += `?page=${page}`;
+        url += `?page=${page}`
       }
 
       this.props.getProducts(token, params, targetPage).then(() => {
@@ -166,17 +166,17 @@ class ProductClass extends React.Component {
           },
           items: this.props.products.data,
           pageInfo: this.props.products.pageInfo,
-        }));
-        this.props.history.push(url);
-      });
+        }))
+        this.props.history.push(url)
+      })
     } else {
-      event.preventDefault();
-      console.log("oh noooo....");
+      event.preventDefault()
+      console.log('oh noooo....')
     }
-  };
+  }
 
   render() {
-    const { items: data } = this.state;
+    const { items: data } = this.state
 
     return (
       <section className="product pt-20">
@@ -286,7 +286,7 @@ class ProductClass extends React.Component {
                             ...prevState.params,
                             sort: event.target.value,
                           },
-                        }));
+                        }))
                       }}
                     >
                       <option value="">Sort</option>
@@ -331,7 +331,7 @@ class ProductClass extends React.Component {
                             </h4>
 
                             <h6 className="text-sm font-bold text-yellow-900">
-                              IDR. {items.price.toLocaleString("en")}
+                              IDR. {items.price.toLocaleString('en')}
                             </h6>
                           </div>
 
@@ -352,7 +352,7 @@ class ProductClass extends React.Component {
                           </div>
                         </div>
                         // </Link>
-                      );
+                      )
                     })}
                   </div>
 
@@ -364,11 +364,11 @@ class ProductClass extends React.Component {
                     <ButtonCircle
                       bg={
                         this.state.pageInfo.prevPage !== null
-                          ? "bg-yellow-400"
-                          : "bg-gray-300 hidden"
+                          ? 'bg-yellow-400'
+                          : 'bg-gray-300 hidden'
                       }
                       bgHover={
-                        this.state.pageInfo.prevPage !== null && "bg-yellow-600"
+                        this.state.pageInfo.prevPage !== null && 'bg-yellow-600'
                       }
                       content={() => <Back color="#78350f" />}
                       rounded="full"
@@ -384,11 +384,11 @@ class ProductClass extends React.Component {
                     <ButtonCircle
                       bg={
                         this.state.pageInfo.nextPage !== null
-                          ? "bg-yellow-400"
-                          : "bg-gray-300 hidden"
+                          ? 'bg-yellow-400'
+                          : 'bg-gray-300 hidden'
                       }
                       bgHover={
-                        this.state.pageInfo.nextPage !== null && "bg-yellow-600"
+                        this.state.pageInfo.nextPage !== null && 'bg-yellow-600'
                       }
                       content={() => <Next color="#78350f" />}
                       rounded="full"
@@ -403,7 +403,7 @@ class ProductClass extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
@@ -411,8 +411,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   items: state.items,
   products: state.products,
-});
+})
 
-const mapDispatchToProps = { getItems, getProducts };
+const mapDispatchToProps = { getItems, getProducts }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductClass);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductClass)

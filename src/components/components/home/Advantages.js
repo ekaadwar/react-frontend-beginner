@@ -1,48 +1,48 @@
-import React from "react";
+import React from 'react'
 
-import IconCircle from "../IconCircle";
+import IconCircle from '../IconCircle'
 
-import { BsPersonFill } from "react-icons/bs";
-import { MdLocationOn, MdFavoriteBorder, MdCheckCircle } from "react-icons/md";
+import { BsPersonFill } from 'react-icons/bs'
+import { MdLocationOn, MdFavoriteBorder, MdCheckCircle } from 'react-icons/md'
 
-import teamWork from "../../../assets/img/teamWork.png";
+import teamWork from '../../../assets/img/teamWork.png'
 
 const personil = () => {
-  return <BsPersonFill size={30} color="#78350f" />;
-};
+  return <BsPersonFill size={30} color="#78350f" />
+}
 
 const location = () => {
-  return <MdLocationOn size={30} color="#78350f" />;
-};
+  return <MdLocationOn size={30} color="#78350f" />
+}
 
 const favorite = () => {
-  return <MdFavoriteBorder size={30} color="#78350f" />;
-};
+  return <MdFavoriteBorder size={30} color="#78350f" />
+}
 
 const advantagesData = [
-  "High quality beans",
-  "Healthy meals, you can request the ingredients",
-  "Chat with our staff to get better experience for ordering",
-  "Free member card a minimum purchase of IDR 200.000",
-];
+  'High quality beans',
+  'Healthy meals, you can request the ingredients',
+  'Chat with our staff to get better experience for ordering',
+  'Free member card a minimum purchase of IDR 200.000',
+]
 
 const flyingData = [
   {
     icon: personil(),
     value: 90,
-    title: "Staff",
+    title: 'Staff',
   },
   {
     icon: location(),
     value: 30,
-    title: "Store",
+    title: 'Store',
   },
   {
     icon: favorite(),
     value: 800,
-    title: "Customers",
+    title: 'Customers',
   },
-];
+]
 
 export default function Advantages() {
   return (
@@ -102,5 +102,5 @@ export default function Advantages() {
         </div>
       </div>
     </section>
-  );
+  )
 }

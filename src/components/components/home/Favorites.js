@@ -1,67 +1,67 @@
-import React from "react";
+import React from 'react'
 
-import { MdCheck } from "react-icons/md";
+import { MdCheck } from 'react-icons/md'
 
-import { hazelnutLatte, pinkyPromise, chikenWing } from "../../../assets/img";
+import { hazelnutLatte, pinkyPromise, chikenWing } from '../../../assets/img'
 
-import PictureCircle from "../PictureCircle";
+import PictureCircle from '../PictureCircle'
 
 const hazelnut = () => {
-  return <img className="h-full" src={hazelnutLatte} alt="Hazelnut Latte" />;
-};
+  return <img className="h-full" src={hazelnutLatte} alt="Hazelnut Latte" />
+}
 
 const pinky = () => {
-  return <img className="h-full" src={pinkyPromise} alt="Pinky Promise" />;
-};
+  return <img className="h-full" src={pinkyPromise} alt="Pinky Promise" />
+}
 
 const chicken = () => {
-  return <img className="h-full" src={chikenWing} alt="Chicken Wing" />;
-};
+  return <img className="h-full" src={chikenWing} alt="Chicken Wing" />
+}
 
 const favoriteData = [
   {
-    name: "Hazelnut Latte",
+    name: 'Hazelnut Latte',
     price: 25000,
     img: hazelnut,
     imgSize: 36,
     category: 3,
     data: [
-      "Hazelnut Syrup",
-      "Vanilla Whiped Cream",
-      "Ice/ Hot",
-      "Slice Banana on Top",
+      'Hazelnut Syrup',
+      'Vanilla Whiped Cream',
+      'Ice/ Hot',
+      'Slice Banana on Top',
     ],
   },
   {
-    name: "Pinky Promise",
+    name: 'Pinky Promise',
     price: 30000,
     img: pinky,
     imgSize: 36,
     category: 3,
     data: [
-      "1 Shot of Coffee",
-      "Vanilla Whiped Cream",
-      "Chocolate Biscuit",
-      "Strawberry Syrup",
-      "Slice Strawberry on Top",
+      '1 Shot of Coffee',
+      'Vanilla Whiped Cream',
+      'Chocolate Biscuit',
+      'Strawberry Syrup',
+      'Slice Strawberry on Top',
     ],
   },
   {
-    name: "Chicken Wing",
+    name: 'Chicken Wing',
     price: 40000,
     img: chicken,
     imgSize: 36,
     category: 4,
     data: [
-      "Wings",
-      "Drum Sticks",
-      "Mayonnaise and Lemon",
-      "Hot Fried",
-      "Secret Recipe",
-      "Buy 1 get 1 only on Dine in",
+      'Wings',
+      'Drum Sticks',
+      'Mayonnaise and Lemon',
+      'Hot Fried',
+      'Secret Recipe',
+      'Buy 1 get 1 only on Dine in',
     ],
   },
-];
+]
 
 export default function Favorites() {
   return (
@@ -130,5 +130,5 @@ export default function Favorites() {
         </div>
       </div>
     </section>
-  );
+  )
 }

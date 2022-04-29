@@ -1,27 +1,27 @@
-import React from "react";
-import propTypes from "prop-types";
+import React from 'react'
+import propTypes from 'prop-types'
 
-import { connect } from "react-redux";
-import { getProfile } from "../../redux/actions/profile";
-import { authLogout } from "../../redux/actions/auth";
-import { gajeel } from "../../assets/img";
-import { FiEdit2 } from "react-icons/fi";
+import { connect } from 'react-redux'
+import { getProfile } from '../../redux/actions/profile'
+import { authLogout } from '../../redux/actions/auth'
+import { gajeel } from '../../assets/img'
+import { FiEdit2 } from 'react-icons/fi'
 
 class Profile extends React.Component {
   state = {
-    photo: "",
-    display_name: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    birth: "",
-    gender: "",
-    mobile_number: "",
-    address: "",
-  };
+    photo: '',
+    display_name: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+    birth: '',
+    gender: '',
+    mobile_number: '',
+    address: '',
+  }
 
   componentDidMount() {
-    const { token } = this.props.auth;
+    const { token } = this.props.auth
     this.props.getProfile(token).then(() => {
       this.setState({
         photo: this.props.profile.data.photo,
@@ -33,12 +33,12 @@ class Profile extends React.Component {
         gender: this.props.profile.data.gender,
         mobile_number: this.props.profile.data.mobile_number,
         address: this.props.profile.data.address,
-      });
-    });
+      })
+    })
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.state)
     // console.log(this.props.profile);
     return (
       <section className="profile pt-20 bg-gray-200">
@@ -113,7 +113,7 @@ class Profile extends React.Component {
                         type="text"
                         name="address"
                         placeholder={
-                          this.state.address ? this.state.address : ""
+                          this.state.address ? this.state.address : ''
                         }
                         rows="3"
                       />
@@ -154,7 +154,7 @@ class Profile extends React.Component {
                           type="text"
                           name="firstName"
                           placeholder={
-                            this.state.first_name ? this.state.first_name : ""
+                            this.state.first_name ? this.state.first_name : ''
                           }
                         />
                       </div>
@@ -166,7 +166,7 @@ class Profile extends React.Component {
                           type="lastName"
                           name="lastName"
                           placeholder={
-                            this.state.last_name ? this.state.last_name : ""
+                            this.state.last_name ? this.state.last_name : ''
                           }
                         />
                       </div>
@@ -179,7 +179,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={this.state.birth ? this.state.birth : ""}
+                          placeholder={this.state.birth ? this.state.birth : ''}
                         />
                       </div>
                       <div className="sm:col-span-2 row-span-2 space-y-5">
@@ -246,7 +246,7 @@ class Profile extends React.Component {
               <div className="space-y-5 mb-5">
                 <button className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300">
                   <p>Edit Password</p>
-                  <span>{`>`}</span>
+                  <span>{'>'}</span>
                 </button>
 
                 <button
@@ -254,35 +254,35 @@ class Profile extends React.Component {
                   className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300"
                 >
                   <p>Log Out</p>
-                  <span>{`>`}</span>
+                  <span>{'>'}</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
 Profile.defaultProps = {
   auth: {},
   getProfile: () => {},
-};
+}
 
 Profile.propTypes = {
   auth: propTypes.object,
   getProfile: propTypes.func,
-};
+}
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-});
+})
 
 const mapDispatchToProps = {
   getProfile,
   authLogout,
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
