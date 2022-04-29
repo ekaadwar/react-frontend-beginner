@@ -1,50 +1,45 @@
 import React from "react";
-import axios from "axios";
+import propTypes from "prop-types";
 
+import { connect } from "react-redux";
+import { getProfile } from "../../redux/actions/profile";
+import { authLogout } from "../../redux/actions/auth";
 import { gajeel } from "../../assets/img";
-
 import { FiEdit2 } from "react-icons/fi";
 
 class Profile extends React.Component {
   state = {
-    displayName: "",
+    photo: "",
+    display_name: "",
     email: "",
-    password: "",
-    mobileNumber: "",
-    address: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
+    first_name: "",
+    last_name: "",
     birth: "",
+    gender: "",
+    mobile_number: "",
+    address: "",
   };
 
   componentDidMount() {
-    this.getData();
+    const { token } = this.props.auth;
+    this.props.getProfile(token).then(() => {
+      this.setState({
+        photo: this.props.profile.data.photo,
+        display_name: this.props.profile.data.display_name,
+        email: this.props.profile.data.email,
+        first_name: this.props.profile.data.first_name,
+        last_name: this.props.profile.data.last_name,
+        birth: this.props.profile.data.birth,
+        gender: this.props.profile.data.gender,
+        mobile_number: this.props.profile.data.mobile_number,
+        address: this.props.profile.data.address,
+      });
+    });
   }
 
-  getData = async (dataUser = this.state) => {
-    const url = "http://localhost:8080/users/1";
-    const { data } = await axios.get(url);
-    this.setState({
-      displayName: data.results.display_name,
-      email: data.results.email,
-      password: data.results.password,
-      mobileNumber: data.results.mobile_number,
-      address: data.results.address,
-      firstName: data.results.first_name,
-      lastName: data.results.last_name,
-      gender: data.results.gender,
-      birth: data.results.birth,
-    });
-  };
-
-  submitData = async () => {
-    const url = "http://localhost:8080/users/1";
-    const { data } = await axios.put(url);
-    console.log(data);
-  };
-
   render() {
+    console.log(this.state);
+    // console.log(this.props.profile);
     return (
       <section className="profile pt-20 bg-gray-200">
         <div className="container mx-auto pb-20 px-5 box-border">
@@ -66,7 +61,7 @@ class Profile extends React.Component {
 
               <div>
                 <h4 className="text-2xl font-bold text-center">
-                  {this.state.displayName}
+                  {this.state.display_name}
                 </h4>
                 <p className="text-sm text-center">{this.state.email}</p>
               </div>
@@ -95,11 +90,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
-                          // placeholder={profile.email}
-                          value={this.state.email}
-                          onChange={(event) =>
-                            this.setState({ email: event.target.value })
-                          }
+                          placeholder={this.state.email}
                         />
                       </div>
 
@@ -109,7 +100,8 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          placeholder={this.state.mobileNumber}
+                          // placeholder={this.state.mobile_number}
+                          placeholder={this.state.mobile_number}
                         />
                       </div>
                     </div>
@@ -120,7 +112,9 @@ class Profile extends React.Component {
                         className="py-2 w-full border-b border-black placeholder-gray-700"
                         type="text"
                         name="address"
-                        placeholder={this.state.address}
+                        placeholder={
+                          this.state.address ? this.state.address : ""
+                        }
                         rows="3"
                       />
                     </div>
@@ -150,7 +144,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          placeholder={this.state.displayName}
+                          placeholder={this.state.display_name}
                         />
                       </div>
                       <div className="">
@@ -159,7 +153,9 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="firstName"
-                          placeholder={this.state.firstName}
+                          placeholder={
+                            this.state.first_name ? this.state.first_name : ""
+                          }
                         />
                       </div>
 
@@ -169,7 +165,9 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="lastName"
                           name="lastName"
-                          placeholder={this.state.lastName}
+                          placeholder={
+                            this.state.last_name ? this.state.last_name : ""
+                          }
                         />
                       </div>
                     </div>
@@ -181,7 +179,7 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={this.state.birth}
+                          placeholder={this.state.birth ? this.state.birth : ""}
                         />
                       </div>
                       <div className="sm:col-span-2 row-span-2 space-y-5">
@@ -252,7 +250,7 @@ class Profile extends React.Component {
                 </button>
 
                 <button
-                  onClick={this.logOut}
+                  onClick={this.props.authLogout}
                   className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300"
                 >
                   <p>Log Out</p>
@@ -267,4 +265,24 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+Profile.defaultProps = {
+  auth: {},
+  getProfile: () => {},
+};
+
+Profile.propTypes = {
+  auth: propTypes.object,
+  getProfile: propTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+const mapDispatchToProps = {
+  getProfile,
+  authLogout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

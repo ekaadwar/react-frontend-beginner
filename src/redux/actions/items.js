@@ -1,4 +1,4 @@
-import { http } from "../../helpers/http";
+import http from "../../helpers/http";
 
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
@@ -6,7 +6,6 @@ export const getItems = (url) => {
   if (!url) {
     return async (dispatch) => {
       const { data } = await http().get(`${URL}/items`);
-      // const { data } = await http().get(`http://localhost:8080/items/?page=1`);
       dispatch({
         type: "ITEMS_GET",
         payload: {
