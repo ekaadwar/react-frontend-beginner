@@ -307,42 +307,51 @@ class ProductClass extends React.Component {
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {data.map((items) => {
                       return (
-                        <Link
-                          to={`/product/${items.id}`}
+                        // <Link
+                        //   to={`/product/${items.id}`}
+                        //   key={items.id.toString()}
+                        // >
+                        <div
                           key={items.id.toString()}
+                          className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
                         >
-                          <div className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative">
+                          <Link
+                            to={`/product/${items.id}`}
+                            key={items.id.toString()}
+                          >
                             <div className="absolute -top-12 my-auto w-full">
                               <ItemImage category={items.category_id} />
+                              {/* <p>oke</p> */}
                             </div>
+                          </Link>
 
-                            <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
-                              <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
-                                {items.name}
-                              </h4>
+                          <div className="flex flex-col justify-between px-4 h-full pt-12 pb-4">
+                            <h4 className="flex-1 flex flex-col justify-center text-lg font-bold capitalize">
+                              {items.name}
+                            </h4>
 
-                              <h6 className="text-sm font-bold text-yellow-900">
-                                IDR. {items.price.toLocaleString("en")}
-                              </h6>
-                            </div>
-
-                            <div
-                              onClick={() => this.deleteItem(items.id)}
-                              className="absolute -bottom-3 -right-3"
-                              value="oke"
-                            >
-                              <ButtonCircle
-                                secondary
-                                size={7}
-                                content={() => (
-                                  <div className="flex justify-center items-center">
-                                    <Delete size={15} color="white" />
-                                  </div>
-                                )}
-                              />
-                            </div>
+                            <h6 className="text-sm font-bold text-yellow-900">
+                              IDR. {items.price.toLocaleString("en")}
+                            </h6>
                           </div>
-                        </Link>
+
+                          <div
+                            onClick={() => this.deleteItem(items.id)}
+                            className="absolute -bottom-3 -right-3"
+                            value="oke"
+                          >
+                            <ButtonCircle
+                              secondary
+                              size={7}
+                              content={() => (
+                                <div className="flex justify-center items-center">
+                                  <Delete size={15} color="white" />
+                                </div>
+                              )}
+                            />
+                          </div>
+                        </div>
+                        // </Link>
                       );
                     })}
                   </div>

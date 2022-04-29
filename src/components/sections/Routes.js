@@ -10,7 +10,7 @@ import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 // import ProductDetail from "../pages/ProductDetail";
 // import ProductDetailFunc from "../pages/ProductDatailFunc";
-import ProductDetail from "../pages/ProductDatail";
+import ProductDetail from "../pages/ProductDetail";
 import ForgotPassword from "../pages/ForgotPassword";
 import PrivateRoute from "../components/PrivateRoute";
 import SpecialRoute from "../components/SpecialRoute";
