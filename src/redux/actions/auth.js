@@ -1,4 +1,4 @@
-import { http } from "../../helpers/http";
+import http from "../../helpers/http";
 
 const { REACT_APP_BACKEND_URL: URL } = process.env;
 
@@ -8,7 +8,7 @@ export const toggleAuth = () => {
   };
 };
 
-export const authLogin = (email, password) => {
+export const authLogin = (email, password, history) => {
   return async (dispatch) => {
     const form = new URLSearchParams();
 
@@ -17,16 +17,34 @@ export const authLogin = (email, password) => {
 
     try {
       const { data } = await http().post(`${URL}/auth/login`, form.toString());
-
       dispatch({
         type: "AUTH_LOGIN",
         payload: data.results.token,
       });
+      history.push("/");
     } catch (error) {
-      dispatch({
-        type: "AUTH_LOGIN_FAILED",
-        payload: error.response.data.message,
-      });
+      window.alert(error.response.data.message);
     }
   };
 };
+
+export const authLogout = () => ({
+  type: "AUTH_LOGOUT",
+});
+
+export const authOn = () => ({
+  type: "AUTH_ON",
+});
+
+export const authOff = () => ({
+  type: "AUTH_OFF",
+});
+
+export const setAuthToken = (token) => ({
+  type: "AUTH_LOGIN",
+  payload: token,
+});
+
+export const validateToken = () => ({
+  type: "AUTH_VALIDATE",
+});

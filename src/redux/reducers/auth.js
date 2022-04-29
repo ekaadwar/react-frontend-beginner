@@ -24,6 +24,24 @@ const auth = (state = initialState, action) => {
         errMsg: action.payload,
       };
     }
+    case "AUTH_LOGOUT": {
+      return {
+        ...state,
+        token: null,
+      };
+    }
+    case "AUTH_ON": {
+      return {
+        ...state,
+        onAuth: true,
+      };
+    }
+    case "AUTH_OFF": {
+      return {
+        ...state,
+        onAuth: false,
+      };
+    }
     default: {
       return {
         ...state,
