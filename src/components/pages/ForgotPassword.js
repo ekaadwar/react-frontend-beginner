@@ -39,7 +39,7 @@ class ForgotPassword extends React.Component {
                           <p className="hidden sm:block font-bold text-yellow-900">
                             Send
                           </p>
-                          <div class="flex justify-center sm:hidden">
+                          <div className="flex justify-center sm:hidden">
                             <BiSearch color="#713f12" size={25} />
                           </div>
                         </div>
