@@ -177,7 +177,6 @@ class ProductClass extends React.Component {
 
   render() {
     const { items: data } = this.state;
-    // console.log(this.state);
 
     return (
       <section className="product pt-20">
@@ -250,7 +249,6 @@ class ProductClass extends React.Component {
                           value={menu.idCategory}
                           className="inline-block cursor-pointer"
                           key={idx}
-                          // onClick={(event) => console.log(event.target.value)}
                           onClick={this.getCategory}
                         >
                           {menu.category}
@@ -264,7 +262,6 @@ class ProductClass extends React.Component {
                     className="flex flex-row border shadow-lg h-12 rounded-lg shadow-md mb-10"
                   >
                     <input
-                      // onKeyDown={(event) => this.redirect(event)}
                       value={this.state.params.search}
                       onChange={(event) =>
                         this.setState((prevState) => ({
@@ -359,7 +356,7 @@ class ProductClass extends React.Component {
                       bg={
                         this.state.pageInfo.prevPage !== null
                           ? "bg-yellow-400"
-                          : "bg-gray-300"
+                          : "bg-gray-300 hidden"
                       }
                       bgHover={
                         this.state.pageInfo.prevPage !== null && "bg-yellow-600"
@@ -379,7 +376,7 @@ class ProductClass extends React.Component {
                       bg={
                         this.state.pageInfo.nextPage !== null
                           ? "bg-yellow-400"
-                          : "bg-gray-300"
+                          : "bg-gray-300 hidden"
                       }
                       bgHover={
                         this.state.pageInfo.nextPage !== null && "bg-yellow-600"
