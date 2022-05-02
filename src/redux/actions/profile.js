@@ -14,3 +14,20 @@ export const getProfile = (token) => async (dispatch) => {
     console.log(err)
   }
 }
+
+export const updateProfile = (token, key, value) => {
+  return async (dispatch) => {
+    const form = new URLSearchParams()
+    form.append(key, value)
+
+    try {
+      const { data } = await http(token).patch(`${URL}/users`, form.toString())
+      dispatch({
+        action: 'PROFILE_UPDATE',
+        payload: data.message,
+      })
+    } catch (error) {
+      window.alert(error.response.data.message)
+    }
+  }
+}

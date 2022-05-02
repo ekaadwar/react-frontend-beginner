@@ -1,5 +1,6 @@
 const initialState = {
   data: {},
+  msg: '',
 }
 
 const profile = (state = initialState, action) => {
@@ -8,6 +9,12 @@ const profile = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
+      }
+    }
+    case 'PROFILE_UPDATE': {
+      return {
+        ...state,
+        msg: action.payload,
       }
     }
     default: {

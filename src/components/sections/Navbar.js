@@ -10,7 +10,7 @@ import { HiViewList } from 'react-icons/hi'
 import logo from '../../img/logo/coffee.png'
 import { gajeel } from '../../assets/img'
 
-const Navbar = ({ auth, authLogout }) => {
+const Navbar = ({ auth }) => {
   return (
     <nav className="h-24 py-4 fixed bg-white w-full shadow-md z-40">
       <div className="container mx-auto px-4 lg:px-10">
@@ -44,13 +44,6 @@ const Navbar = ({ auth, authLogout }) => {
                 )}
                 rounded="full"
               />
-
-              <button
-                onClick={authLogout}
-                className="bg-yellow-500 hover:bg-yellow-300 px-5 py-2 rounded-full font-bold inline-block h-12"
-              >
-                Logout
-              </button>
             </div>
           ) : (
             <div className="hidden lg:flex items-center space-x-16">

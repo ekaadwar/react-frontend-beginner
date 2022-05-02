@@ -2,43 +2,62 @@ import React from 'react'
 import propTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { getProfile } from '../../redux/actions/profile'
+import { getProfile, updateProfile } from '../../redux/actions/profile'
 import { authLogout } from '../../redux/actions/auth'
 import { gajeel } from '../../assets/img'
 import { FiEdit2 } from 'react-icons/fi'
 
 class Profile extends React.Component {
-  state = {
-    photo: '',
-    display_name: '',
-    email: '',
-    first_name: '',
-    last_name: '',
-    birth: '',
-    gender: '',
-    mobile_number: '',
-    address: '',
+  constructor(props) {
+    super(props)
+    this.state = {
+      // photo: 'oke',
+      // display_name: 'john doe',
+      // email: 'johndoe@doe.com',
+      // first_name: 'john',
+      // last_name: 'doe',
+      // birth: '1 January 1990',
+      // gender: '',
+      // mobile_number: '999999999999',
+      // address: 'neraka',
+      data: {},
+    }
   }
 
   componentDidMount() {
     const { token } = this.props.auth
     this.props.getProfile(token).then(() => {
       this.setState({
-        photo: this.props.profile.data.photo,
-        display_name: this.props.profile.data.display_name,
-        email: this.props.profile.data.email,
-        first_name: this.props.profile.data.first_name,
-        last_name: this.props.profile.data.last_name,
-        birth: this.props.profile.data.birth,
-        gender: this.props.profile.data.gender,
-        mobile_number: this.props.profile.data.mobile_number,
-        address: this.props.profile.data.address,
+        data: this.props.profile.data,
       })
     })
   }
 
+  componentDidUpdate() {
+    console.log(this.state.data.email)
+  }
+
+  save = (event) => {
+    event.preventDefault()
+    const { token } = this.props.auth
+    // console.log(this.state.data)
+    const prevKeys = Object.keys(this.props.profile.data)
+    const prevValues = Object.values(this.props.profile.data)
+    const realKeys = Object.keys(this.state.data)
+    const realValues = Object.values(this.state.data)
+    const length = prevKeys.length
+
+    for (let i = 0; i < length; i++) {
+      if (prevValues[i] !== realValues[i]) {
+        this.props.updateProfile(token, realKeys[i], realValues[i])
+      } else {
+        console.log(`nothing change on ${realKeys[i]}`)
+      }
+    }
+  }
+
   render() {
-    console.log(this.state)
+    // console.log(this.state.data)
     // console.log(this.props.profile);
     return (
       <section className="profile pt-20 bg-gray-200">
@@ -47,7 +66,10 @@ class Profile extends React.Component {
             User Profile
           </h3>
 
-          <div className="data grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+          <form
+            onSubmit={(event) => this.save(event)}
+            className="data grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20"
+          >
             <div className="flex flex-col justify-between items-center py-10 w-full bg-white border-b-8 border-yellow-900 rounded-2xl max-w-xs md:max-w-none mx-auto px-2">
               <div className="z-10 relative">
                 <div className="overflow-hidden h-28 w-28 bg-blue-200 rounded-full">
@@ -61,9 +83,9 @@ class Profile extends React.Component {
 
               <div>
                 <h4 className="text-2xl font-bold text-center">
-                  {this.state.display_name}
+                  {this.state.data.display_name}
                 </h4>
-                <p className="text-sm text-center">{this.state.email}</p>
+                <p className="text-sm text-center">{this.state.data.email}</p>
               </div>
 
               <p className="text-center">Let's order your product now!</p>
@@ -90,7 +112,15 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
-                          placeholder={this.state.email}
+                          placeholder={this.state.data.email}
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                email: event.target.value,
+                              },
+                            }))
+                          }
                         />
                       </div>
 
@@ -100,8 +130,16 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          // placeholder={this.state.mobile_number}
-                          placeholder={this.state.mobile_number}
+                          // placeholder={this.state.data.mobile_number}
+                          placeholder={this.state.data.mobile_number}
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                mobile_number: event.target.value,
+                              },
+                            }))
+                          }
                         />
                       </div>
                     </div>
@@ -113,7 +151,7 @@ class Profile extends React.Component {
                         type="text"
                         name="address"
                         placeholder={
-                          this.state.address ? this.state.address : ''
+                          this.state.data.address ? this.state.data.address : ''
                         }
                         rows="3"
                       />
@@ -144,9 +182,10 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          placeholder={this.state.display_name}
+                          placeholder={this.state.data.display_name}
                         />
                       </div>
+
                       <div className="">
                         <p className="text-xl text-gray-400">First Name:</p>
                         <input
@@ -154,7 +193,9 @@ class Profile extends React.Component {
                           type="text"
                           name="firstName"
                           placeholder={
-                            this.state.first_name ? this.state.first_name : ''
+                            this.state.data.first_name
+                              ? this.state.data.first_name
+                              : ''
                           }
                         />
                       </div>
@@ -166,7 +207,9 @@ class Profile extends React.Component {
                           type="lastName"
                           name="lastName"
                           placeholder={
-                            this.state.last_name ? this.state.last_name : ''
+                            this.state.data.last_name
+                              ? this.state.data.last_name
+                              : ''
                           }
                         />
                       </div>
@@ -179,9 +222,12 @@ class Profile extends React.Component {
                           className="py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={this.state.birth ? this.state.birth : ''}
+                          placeholder={
+                            this.state.data.birth ? this.state.data.birth : ''
+                          }
                         />
                       </div>
+
                       <div className="sm:col-span-2 row-span-2 space-y-5">
                         {/* <div>
                           <input
@@ -258,7 +304,7 @@ class Profile extends React.Component {
                 </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
     )
@@ -268,11 +314,13 @@ class Profile extends React.Component {
 Profile.defaultProps = {
   auth: {},
   getProfile: () => {},
+  updateProfile: () => {},
 }
 
 Profile.propTypes = {
   auth: propTypes.object,
   getProfile: propTypes.func,
+  updateProfile: propTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -282,6 +330,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getProfile,
+  updateProfile,
   authLogout,
 }
 
