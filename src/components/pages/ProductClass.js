@@ -200,7 +200,7 @@ class ProductClass extends React.Component {
                   <div className="flex items-center pl-10">
                     <div className="card flex flex-col bg-yellow-300 w-72 rounded-3xl">
                       <div className="main flex flex-col justify-evenly items-center border-dashed border-b border-black text-center">
-                        <ItemImage category={4} diametre={32} />
+                        <ItemImage category="foods" diametre={32} />
 
                         <div>
                           <h3 className="text-2xl font-bold">Beef Spaghetti</h3>
@@ -308,10 +308,6 @@ class ProductClass extends React.Component {
                   <div className="item grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-y-20 gap-x-4 justify-items-center pt-16">
                     {data.map((items) => {
                       return (
-                        // <Link
-                        //   to={`/product/${items.id}`}
-                        //   key={items.id.toString()}
-                        // >
                         <div
                           key={items.id.toString()}
                           className="h-44 w-36 bg-white border rounded-2xl text-center shadow-2xl relative"
@@ -321,8 +317,10 @@ class ProductClass extends React.Component {
                             key={items.id.toString()}
                           >
                             <div className="absolute -top-12 my-auto w-full">
-                              <ItemImage category={items.category_id} />
-                              {/* <p>oke</p> */}
+                              <ItemImage
+                                category={items.category_name}
+                                picture={items.picture}
+                              />
                             </div>
                           </Link>
 

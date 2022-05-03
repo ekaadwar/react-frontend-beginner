@@ -5,21 +5,25 @@ import nonCoffe from '../../assets/flatIcons/non-coffee.png'
 import food from '../../assets/flatIcons/food.png'
 import addOn from '../../assets/flatIcons/add-on.png'
 
-const PictureDefault = ({ category = 1 }) => {
+const PictureDefault = ({ category, picture }) => {
   let icon
 
-  switch (category) {
-    case 2:
-      icon = coffee
-      break
-    case 3:
-      icon = nonCoffe
-      break
-    case 4:
-      icon = food
-      break
-    default:
-      icon = addOn
+  if (picture === null) {
+    switch (category) {
+      case 'coffee':
+        icon = coffee
+        break
+      case 'non coffee':
+        icon = nonCoffe
+        break
+      case 'foods':
+        icon = food
+        break
+      default:
+        icon = addOn
+    }
+  } else {
+    icon = picture
   }
 
   return <img className="h-full" src={icon} alt="coffee" />
@@ -29,6 +33,7 @@ const PictureCircle = ({
   Img = PictureDefault,
   category = 5,
   diametre = 24,
+  picture = null,
 }) => {
   const diametreStr = diametre.toString()
   const height = 'h-' + diametreStr
@@ -43,7 +48,7 @@ const PictureCircle = ({
         width
       }
     >
-      <Img category={category} />
+      <Img category={category} picture={picture} />
     </div>
   )
 }
