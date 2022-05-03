@@ -61,7 +61,14 @@ class Profile extends React.Component {
             <div className="flex flex-col justify-between items-center py-10 w-full bg-white border-b-8 border-yellow-900 rounded-2xl max-w-xs md:max-w-none mx-auto px-2">
               <div className="z-10 relative">
                 <div className="overflow-hidden h-28 w-28 bg-blue-200 rounded-full">
-                  <img src={gajeel} alt="My Profile" />
+                  <img
+                    src={
+                      this.state.data.photo !== null
+                        ? this.state.data.photo
+                        : gajeel
+                    }
+                    alt="My Profile"
+                  />
                 </div>
 
                 <button className="z-10 absolute flex justify-center items-center -mt-10 ml-20 h-10 w-10 bg-yellow-900 hover:bg-yellow-700 rounded-full">
