@@ -2,6 +2,7 @@ const initialState = {
   onAuth: false,
   token: null,
   errMsg: '',
+  msg: '',
 }
 
 const auth = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         errMsg: action.payload,
+      }
+    }
+    case 'AUTH_REGISTER': {
+      return {
+        ...state,
+        msg: action.payload,
       }
     }
     case 'AUTH_LOGOUT': {

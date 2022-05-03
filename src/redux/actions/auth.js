@@ -29,6 +29,34 @@ export const authLogin = (email, password, history) => {
   }
 }
 
+export const authRegister = (email, password, mobile_number, history) => {
+  return async (dispatch) => {
+    const form = new URLSearchParams()
+
+    form.append('email', email)
+    form.append('password', password)
+    form.append('mobileNumber', mobile_number)
+
+    console.log(mobile_number)
+
+    try {
+      const { data } = await http().post(
+        `${URL}/auth/register`,
+        form.toString()
+      )
+      dispatch({
+        type: 'AUTH_REGISTER',
+        payload: data.message,
+      })
+
+      history.push('/login')
+      window.alert(data.message)
+    } catch (error) {
+      window.alert(error.response.data.message)
+    }
+  }
+}
+
 export const authLogout = () => ({
   type: 'AUTH_LOGOUT',
 })

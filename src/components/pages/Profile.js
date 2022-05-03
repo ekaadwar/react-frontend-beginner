@@ -11,15 +11,6 @@ class Profile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // photo: 'oke',
-      // display_name: 'john doe',
-      // email: 'johndoe@doe.com',
-      // first_name: 'john',
-      // last_name: 'doe',
-      // birth: '1 January 1990',
-      // gender: '',
-      // mobile_number: '999999999999',
-      // address: 'neraka',
       data: {},
     }
   }
@@ -40,7 +31,6 @@ class Profile extends React.Component {
   save = (event) => {
     event.preventDefault()
     const { token } = this.props.auth
-    // console.log(this.state.data)
     const prevKeys = Object.keys(this.props.profile.data)
     const prevValues = Object.values(this.props.profile.data)
     const realKeys = Object.keys(this.state.data)
@@ -57,8 +47,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    // console.log(this.state.data)
-    // console.log(this.props.profile);
     return (
       <section className="profile pt-20 bg-gray-200">
         <div className="container mx-auto pb-20 px-5 box-border">
@@ -109,10 +97,10 @@ class Profile extends React.Component {
                       <div className="">
                         <p className="text-xl text-gray-400">Email address :</p>
                         <input
-                          className="py-2 w-full border-b border-black  placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
-                          placeholder={this.state.data.email}
+                          value={this.state.data.email}
                           onChange={(event) =>
                             this.setState((prevState) => ({
                               data: {
@@ -127,11 +115,10 @@ class Profile extends React.Component {
                       <div className="">
                         <p className="text-xl text-gray-400">Mobile Number :</p>
                         <input
-                          className="py-2 w-full border-b border-black placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          // placeholder={this.state.data.mobile_number}
-                          placeholder={this.state.data.mobile_number}
+                          value={this.state.data.mobile_number}
                           onChange={(event) =>
                             this.setState((prevState) => ({
                               data: {
@@ -147,11 +134,19 @@ class Profile extends React.Component {
                     <div>
                       <p className="text-xl text-gray-400">Delivery Address:</p>
                       <textarea
-                        className="py-2 w-full border-b border-black placeholder-gray-700"
+                        className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                         type="text"
                         name="address"
-                        placeholder={
+                        value={
                           this.state.data.address ? this.state.data.address : ''
+                        }
+                        onChange={(event) =>
+                          this.setState((prevState) => ({
+                            data: {
+                              ...prevState.data,
+                              address: event.target.value,
+                            },
+                          }))
                         }
                         rows="3"
                       />
@@ -162,7 +157,7 @@ class Profile extends React.Component {
             </div>
 
             <div className="lg:col-span-2">
-              <div className="card w-full bg-white border-b-8 border-yellow-900 rounded-2xl">
+              <div className="focus:outline-none card w-full bg-white border-b-8 border-yellow-900 rounded-2xl">
                 <div className="flex flex-col justify-between h-full px-5 pt-5 pb-10">
                   <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-10">
                     <h3 className="text-3xl font-bold text-gray-600">
@@ -179,23 +174,39 @@ class Profile extends React.Component {
                       <div>
                         <p className="text-xl text-gray-400">Display Name</p>
                         <input
-                          className="py-2 w-full border-b border-black  placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          placeholder={this.state.data.display_name}
+                          value={this.state.data.display_name}
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                display_name: event.target.value,
+                              },
+                            }))
+                          }
                         />
                       </div>
 
                       <div className="">
                         <p className="text-xl text-gray-400">First Name:</p>
                         <input
-                          className="py-2 w-full border-b border-black placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="firstName"
-                          placeholder={
+                          value={
                             this.state.data.first_name
                               ? this.state.data.first_name
                               : ''
+                          }
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                first_name: event.target.value,
+                              },
+                            }))
                           }
                         />
                       </div>
@@ -203,13 +214,21 @@ class Profile extends React.Component {
                       <div className="">
                         <p className="text-xl text-gray-400">Last Name:</p>
                         <input
-                          className="py-2 w-full border-b border-black placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                           type="lastName"
                           name="lastName"
-                          placeholder={
+                          value={
                             this.state.data.last_name
                               ? this.state.data.last_name
                               : ''
+                          }
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                last_name: event.target.value,
+                              },
+                            }))
                           }
                         />
                       </div>
@@ -219,11 +238,19 @@ class Profile extends React.Component {
                       <div className="sm:col-span-2">
                         <p className="text-xl text-gray-400">DD/MM/YY</p>
                         <input
-                          className="py-2 w-full border-b border-black placeholder-gray-700"
+                          className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="birth_date"
-                          placeholder={
+                          value={
                             this.state.data.birth ? this.state.data.birth : ''
+                          }
+                          onChange={(event) =>
+                            this.setState((prevState) => ({
+                              data: {
+                                ...prevState.data,
+                                birth: event.target.value,
+                              },
+                            }))
                           }
                         />
                       </div>
