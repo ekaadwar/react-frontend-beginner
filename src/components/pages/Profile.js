@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { getProfile, updateProfile } from '../../redux/actions/profile'
-import { authLogout } from '../../redux/actions/auth'
+import { authLogout, authOff } from '../../redux/actions/auth'
 import { gajeel } from '../../assets/img'
 import { FiEdit2 } from 'react-icons/fi'
 
@@ -16,6 +16,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    this.props.authOff()
     const { token } = this.props.auth
     this.props.getProfile(token).then(() => {
       this.setState({
@@ -366,6 +367,7 @@ const mapDispatchToProps = {
   getProfile,
   updateProfile,
   authLogout,
+  authOff,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

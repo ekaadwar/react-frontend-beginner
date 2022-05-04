@@ -7,6 +7,7 @@ import ItemImage from '../components/PictureCircle'
 
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { authOff } from '../../redux/actions/auth'
 import {
   RiDeleteBin6Line as Delete,
   RiSearchLine as Search,
@@ -20,6 +21,7 @@ import { getProducts } from '../../redux/actions/products'
 import { listMenu } from '../../dummyData/product'
 
 const { REACT_APP_BACKEND_URL: URL } = process.env
+import spaghetti from '../../assets/img/product/beefspagetti.jpg'
 
 class ProductClass extends React.Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class ProductClass extends React.Component {
   }
 
   componentDidMount() {
+    this.props.authOff()
     const { token } = this.props.auth
     let params = {}
     if (this.props.location.search) {
@@ -200,7 +203,11 @@ class ProductClass extends React.Component {
                   <div className="flex items-center pl-10">
                     <div className="card flex flex-col bg-yellow-300 w-72 rounded-3xl">
                       <div className="main flex flex-col justify-evenly items-center border-dashed border-b border-black text-center">
-                        <ItemImage category="foods" diametre={32} />
+                        <ItemImage
+                          category="foods"
+                          diametre={32}
+                          picture={spaghetti}
+                        />
 
                         <div>
                           <h3 className="text-2xl font-bold">Beef Spaghetti</h3>
@@ -412,6 +419,6 @@ const mapStateToProps = (state) => ({
   products: state.products,
 })
 
-const mapDispatchToProps = { getItems, getProducts }
+const mapDispatchToProps = { getItems, getProducts, authOff }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductClass)

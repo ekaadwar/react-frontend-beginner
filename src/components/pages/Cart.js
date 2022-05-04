@@ -2,12 +2,16 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
+import { authOff } from '../../redux/actions/auth'
 import { FaCreditCard } from 'react-icons/fa'
 import { AiFillBank } from 'react-icons/ai'
 import { GrDeliver } from 'react-icons/gr'
 import { chickenFireWing, hazelnutLatte } from '../../assets/img'
 
 class Cart extends React.Component {
+  componentDidMount() {
+    this.props.authOff()
+  }
   render() {
     return (
       <section className="cart pt-20">
@@ -165,4 +169,6 @@ class Cart extends React.Component {
   }
 }
 
-export default connect()(Cart)
+const mapDispatchToProps = { authOff }
+
+export default connect(null, mapDispatchToProps)(Cart)

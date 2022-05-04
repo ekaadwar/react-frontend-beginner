@@ -1,9 +1,14 @@
 import React from 'react'
-import { BiSearch } from 'react-icons/bi'
-
 import ButtonSquare from '../components/ButtonSquare'
 
+import { connect } from 'react-redux'
+import { authOn } from '../../redux/actions/auth'
+import { BiSearch } from 'react-icons/bi'
+
 class ForgotPassword extends React.Component {
+  componentDidMount() {
+    this.props.authOn()
+  }
   render() {
     return (
       <section className="forgot">
@@ -73,4 +78,6 @@ class ForgotPassword extends React.Component {
   }
 }
 
-export default ForgotPassword
+const mapDispachToProps = { authOn }
+
+export default connect(null, mapDispachToProps)(ForgotPassword)

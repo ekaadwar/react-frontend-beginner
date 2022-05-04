@@ -1,8 +1,13 @@
 import React from 'react'
 
+import { connect } from 'react-redux'
+import { authOff } from '../../redux/actions/auth'
 import { vergieTomatto } from '../../assets/img'
 
 class History extends React.Component {
+  componentDidMount() {
+    this.props.authOff
+  }
   render() {
     return (
       <section className="history pt-20 pb-40 bg-gray-200">
@@ -50,4 +55,8 @@ class History extends React.Component {
   }
 }
 
-export default History
+const mapDispatchToProps = {
+  authOff,
+}
+
+export default connect(null, mapDispatchToProps)(History)

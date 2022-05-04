@@ -2,13 +2,17 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { authRegister } from '../../redux/actions/auth'
+import { authRegister, authOn } from '../../redux/actions/auth'
 import { coffeeLogo } from '../../assets/img'
 
 function Signup(props) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [mobile_number, setMobileNumber] = React.useState('')
+
+  React.useEffect(() => {
+    props.authOn()
+  }, [])
 
   const history = useHistory()
 
@@ -111,6 +115,6 @@ function Signup(props) {
   )
 }
 
-const mapDispatchToProps = { authRegister }
+const mapDispatchToProps = { authRegister, authOn }
 
 export default connect(null, mapDispatchToProps)(Signup)

@@ -6,6 +6,7 @@ import PictureCircle from '../components/PictureCircle'
 import ButtonCircle from '../components/ButtonCircle'
 import ButtonSquare from '../components/ButtonSquare'
 
+import { authOff } from '../../redux/actions/auth'
 import { getDetails } from '../../redux/actions/items'
 import { addItems } from '../../redux/actions/carts'
 import { coldBrew } from '../../assets/img'
@@ -14,6 +15,7 @@ class ProductDetail extends React.Component {
   image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />
 
   componentDidMount() {
+    this.props.authOff()
     this.props.getDetails(this.props.match.params.id)
   }
 
@@ -182,6 +184,6 @@ const mapStateToProps = (state) => ({
   items: state.items,
 })
 
-const mapDispatchToProps = { getDetails, addItems }
+const mapDispatchToProps = { getDetails, addItems, authOff }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)

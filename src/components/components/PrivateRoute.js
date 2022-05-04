@@ -4,7 +4,13 @@ import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import Navbar from '../sections/Navbar'
 
-const PrivateRoute = ({ authPage = false, children, auth, ...rest }) => {
+const PrivateRoute = ({
+  authPage = false,
+  children,
+  auth,
+  priv = true,
+  ...rest
+}) => {
   const { token } = auth
   return (
     <>
@@ -12,10 +18,14 @@ const PrivateRoute = ({ authPage = false, children, auth, ...rest }) => {
       <Route
         {...rest}
         render={() => {
-          if (token !== null) {
-            return children
+          if (priv !== false) {
+            if (token !== null) {
+              return children
+            } else {
+              return <Redirect to="/login" />
+            }
           } else {
-            return <Redirect to="/login" />
+            return children
           }
         }}
       />
