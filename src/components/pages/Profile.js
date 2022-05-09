@@ -25,10 +25,6 @@ class Profile extends React.Component {
     })
   }
 
-  componentDidUpdate() {
-    console.log(this.state.data.email)
-  }
-
   save = (event) => {
     event.preventDefault()
     const { token } = this.props.auth

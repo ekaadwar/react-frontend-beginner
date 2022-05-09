@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import { authLogout } from '../../redux/actions/auth'
 import ButtonCircle from '../components/ButtonCircle'
 
-import { HiViewList } from 'react-icons/hi'
+import { HiViewList, HiSearch as Search } from 'react-icons/hi'
+import { TiMessages } from 'react-icons/ti'
 
 import logo from '../../img/logo/coffee.png'
 import { gajeel } from '../../assets/img'
 
-const Navbar = ({ auth }) => {
+const Navbar = ({ auth, profile }) => {
   return (
     <nav className="h-24 py-4 fixed bg-white w-full shadow-md z-40">
       <div className="container mx-auto px-4 lg:px-10">
@@ -35,11 +36,24 @@ const Navbar = ({ auth }) => {
 
           {auth.token !== null ? (
             <div className="hidden lg:flex flex-row space-x-5 items-center">
+              <Search size={30} />
+              <TiMessages size={30} />
               <ButtonCircle
                 to={'/profile'}
                 content={() => (
                   <div className="flex justify-center">
-                    <img src={gajeel} alt="Gajeel" />
+                    <img
+                      src={
+                        profile.data.photo !== null
+                          ? profile.data.photo
+                          : gajeel
+                      }
+                      alt={
+                        profile.data.display_name !== null
+                          ? profile.data.display_name
+                          : 'Gajeel'
+                      }
+                    />
                   </div>
                 )}
                 rounded="full"
@@ -78,6 +92,7 @@ const Navbar = ({ auth }) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile,
 })
 
 const mapDispatchToProps = {

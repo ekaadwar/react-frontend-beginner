@@ -9,10 +9,14 @@ import Testimony from '../components/home/Testimony'
 
 import { connect } from 'react-redux'
 import { authOff } from '../../redux/actions/auth'
+import { getProfile } from '../../redux/actions/profile'
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.authOff
+    this.props.authOff()
+    if (this.props.auth.token !== null) {
+      this.props.getProfile(this.props.auth.token)
+    }
   }
   render() {
     return (
@@ -28,8 +32,13 @@ class Home extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+})
+
 const mapDispatchToProps = {
   authOff,
+  getProfile,
 }
 
-export default connect(null, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

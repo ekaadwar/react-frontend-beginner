@@ -1,10 +1,11 @@
 import React from 'react'
-import propTypes from 'prop-types'
+// import propTypes from 'prop-types'
 
 import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { authLogin, authOn, authOff } from '../../redux/actions/auth'
+import { getProfile } from '../../redux/actions/profile'
 import { coffeeLogo } from '../../assets/img'
 
 function Login(props) {
@@ -14,10 +15,7 @@ function Login(props) {
 
   React.useEffect(() => {
     props.authOn()
-    return function cleanup() {
-      props.authOff()
-    }
-  })
+  }, [])
 
   const login = (e) => {
     e.preventDefault()
@@ -116,14 +114,19 @@ function Login(props) {
   )
 }
 
-Login.defaultProps = {
-  authLogin: () => {},
-}
+// Login.defaultProps = {
+//   authLogin: () => {},
+// }
 
-Login.propTypes = {
-  authLogin: propTypes.func,
-}
+// Login.propTypes = {
+//   authLogin: propTypes.func,
+// }
 
-const mapDispachToProps = { authLogin, authOn, authOff }
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+})
 
-export default connect(null, mapDispachToProps)(Login)
+const mapDispachToProps = { authLogin, authOn, authOff, getProfile }
+
+export default connect(mapStateToProps, mapDispachToProps)(Login)

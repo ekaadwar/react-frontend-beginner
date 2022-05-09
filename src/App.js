@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Navbar />
+        {this.props.auth.onAuth !== true && <Navbar />}
         <Routes change={this.changeAuth} />
         <Footer image={Logo} />
       </Router>
