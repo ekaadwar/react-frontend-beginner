@@ -2,6 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import {
   getProfile,
   updateProfile,
@@ -21,6 +22,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     this.props.authOff()
     const { token } = this.props.auth
     this.props.getProfile(token).then(() => {
@@ -68,13 +70,20 @@ class Profile extends React.Component {
           keys += ', '
         }
         keys += `${prevKeys[i]}`
-        this.props.updateProfile(token, realKeys[i], realValues[i])
+        this.props.updateProfile(token, realKeys[i], realValues[i]).then(() => {
+          this.setState({ data: this.props.profile.data })
+        })
       }
     }
 
     if (keys !== '') {
       window.alert(`${keys} have been updated`)
+      this.redirect()
     }
+  }
+
+  redirect = () => {
+    return <Redirect to="/" />
   }
 
   render() {
@@ -102,12 +111,20 @@ class Profile extends React.Component {
                   />
                 </div>
 
-                <button className="z-10 absolute flex justify-center items-center -mt-10 ml-20 h-10 w-10 bg-yellow-900 hover:bg-yellow-700 rounded-full">
+                <label
+                  htmlFor="inputFile"
+                  className="z-10 absolute flex justify-center items-center -mt-10 ml-20 h-10 w-10 bg-yellow-900 hover:bg-yellow-700 rounded-full"
+                >
                   <FiEdit2 size={20} color="#fff" />
-                </button>
+                </label>
               </div>
 
-              <input type="file" onChange={this.onFileChange} />
+              <input
+                className="hidden"
+                id="inputFile"
+                type="file"
+                onChange={this.onFileChange}
+              />
 
               <div>
                 <h4 className="text-2xl font-bold text-center">
