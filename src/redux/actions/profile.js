@@ -15,19 +15,35 @@ export const getProfile = (token) => async (dispatch) => {
   }
 }
 
-export const updateProfile = (token, key, value) => {
+export const updateProfile = (token, key, value, file = null) => {
   return async (dispatch) => {
     const form = new URLSearchParams()
     form.append(key, value)
 
+    const formData = new FormData()
+    if (key !== null) {
+      formData.append(key, value)
+    }
+
+    if (file !== null) {
+      formData.append('photo', file)
+      console.log(formData)
+    }
+
     try {
-      const { data } = await http(token).patch(`${URL}/users`, form.toString())
+      const { data } = await http(token).patch(`${URL}/users`, formData)
       dispatch({
-        action: 'PROFILE_UPDATE',
+        type: 'PROFILE_UPDATE',
         payload: data.message,
       })
     } catch (error) {
-      window.alert(error.response.data.message)
+      console.log(error)
     }
   }
 }
+
+// export const updatePhotoProfile = (token, file) => {
+//   return async (dispatch)=>{
+//     const formData
+//   }
+// }

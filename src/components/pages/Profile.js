@@ -2,7 +2,11 @@ import React from 'react'
 import propTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { getProfile, updateProfile } from '../../redux/actions/profile'
+import {
+  getProfile,
+  updateProfile,
+  // updatePhotoProfile,
+} from '../../redux/actions/profile'
 import { authLogout, authOff } from '../../redux/actions/auth'
 import { gajeel } from '../../assets/img'
 import { FiEdit2 } from 'react-icons/fi'
@@ -12,6 +16,7 @@ class Profile extends React.Component {
     super(props)
     this.state = {
       data: {},
+      currentPhoto: null,
     }
   }
 
@@ -25,8 +30,24 @@ class Profile extends React.Component {
     })
   }
 
+  onFileChange = (event) => {
+    // Update the state
+    this.setState({ currentPhoto: event.target.files[0] })
+    console.log(event.target.files[0])
+
+    // this.setState((prevState) => ({
+    //   data: {
+    //     ...prevState.data,
+    //     photo: event.target.files[0],
+    //   },
+    // }))
+  }
+
   save = (event) => {
     event.preventDefault()
+
+    // console.log(this.props.profile.data)
+    console.log(this.state)
     const { token } = this.props.auth
     const prevKeys = Object.keys(this.props.profile.data)
     const prevValues = Object.values(this.props.profile.data)
@@ -34,12 +55,25 @@ class Profile extends React.Component {
     const realValues = Object.values(this.state.data)
     const length = prevKeys.length
 
+    let keys = ''
+
+    if (this.state.currentPhoto) {
+      keys += 'photo'
+      this.props.updateProfile(token, null, null, this.state.currentPhoto)
+    }
+
     for (let i = 0; i < length; i++) {
       if (prevValues[i] !== realValues[i]) {
+        if (keys !== '') {
+          keys += ', '
+        }
+        keys += `${prevKeys[i]}`
         this.props.updateProfile(token, realKeys[i], realValues[i])
-      } else {
-        console.log(`nothing change on ${realKeys[i]}`)
       }
+    }
+
+    if (keys !== '') {
+      window.alert(`${keys} have been updated`)
     }
   }
 
@@ -73,6 +107,8 @@ class Profile extends React.Component {
                 </button>
               </div>
 
+              <input type="file" onChange={this.onFileChange} />
+
               <div>
                 <h4 className="text-2xl font-bold text-center">
                   {this.state.data.display_name}
@@ -91,7 +127,10 @@ class Profile extends React.Component {
                       Contacts
                     </h3>
 
-                    <button className="flex justify-center items-center h-12 w-12 bg-yellow-900 hover:bg-yellow-700 rounded-full self-end">
+                    <button
+                      onClick={(event) => event.preventDefault()}
+                      className="flex justify-center items-center h-12 w-12 bg-yellow-900 hover:bg-yellow-700 rounded-full self-end"
+                    >
                       <FiEdit2 size={20} color="#fff" />
                     </button>
                   </div>
@@ -104,7 +143,9 @@ class Profile extends React.Component {
                           className="focus:outline-none py-2 w-full border-b border-black  placeholder-gray-700"
                           type="email"
                           name="email"
-                          value={this.state.data.email}
+                          value={
+                            this.state.data.email ? this.state.data.email : ''
+                          }
                           onChange={(event) =>
                             this.setState((prevState) => ({
                               data: {
@@ -122,7 +163,11 @@ class Profile extends React.Component {
                           className="focus:outline-none py-2 w-full border-b border-black placeholder-gray-700"
                           type="text"
                           name="phone"
-                          value={this.state.data.mobile_number}
+                          value={
+                            this.state.data.mobile_number
+                              ? this.state.data.mobile_number
+                              : ''
+                          }
                           onChange={(event) =>
                             this.setState((prevState) => ({
                               data: {
@@ -168,7 +213,10 @@ class Profile extends React.Component {
                       Details
                     </h3>
 
-                    <button className="flex justify-center items-center h-12 w-12 bg-yellow-900 hover:bg-yellow-700 rounded-full self-end sm:self-center">
+                    <button
+                      onClick={(event) => event.preventDefault()}
+                      className="flex justify-center items-center h-12 w-12 bg-yellow-900 hover:bg-yellow-700 rounded-full self-end sm:self-center"
+                    >
                       <FiEdit2 size={20} color="#fff" />
                     </button>
                   </div>
@@ -181,7 +229,11 @@ class Profile extends React.Component {
                           className="focus:outline-none py-2 w-full border-b border-black  placeholder-gray-700"
                           type="text"
                           name="name"
-                          value={this.state.data.display_name}
+                          value={
+                            this.state.data.display_name
+                              ? this.state.data.display_name
+                              : ''
+                          }
                           onChange={(event) =>
                             this.setState((prevState) => ({
                               data: {
@@ -315,13 +367,19 @@ class Profile extends React.Component {
                   Save Change
                 </button>
 
-                <button className="bg-yellow-400 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-yellow-500">
+                <button
+                  onClick={(event) => event.preventDefault()}
+                  className="bg-yellow-400 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-yellow-500"
+                >
                   Cancel
                 </button>
               </div>
 
               <div className="space-y-5 mb-5">
-                <button className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300">
+                <button
+                  onClick={(event) => event.preventDefault()}
+                  className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300"
+                >
                   <p>Edit Password</p>
                   <span>{'>'}</span>
                 </button>
@@ -362,6 +420,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getProfile,
   updateProfile,
+  // updatePhotoProfile,
   authLogout,
   authOff,
 }
