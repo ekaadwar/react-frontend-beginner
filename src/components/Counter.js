@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react'
 
 class Counter extends React.Component {
   state = {
     result: 0,
-  };
+  }
 
-  increment = (event) => {
-    const { result } = this.state;
-    this.setState({ result: result + 1 });
-  };
+  increment = () => {
+    const { result } = this.state
+    this.setState({ result: result + 1 })
+  }
 
-  decrement = (event) => {
-    const { result } = this.state;
-    this.setState({ result: result - 1 });
-  };
+  decrement = () => {
+    const { result } = this.state
+    this.setState({ result: result - 1 })
+  }
 
   render() {
     return (
@@ -39,8 +39,8 @@ class Counter extends React.Component {
           </div>
         </div>
       </>
-    );
+    )
   }
 }
 
-export default Counter;
+export default Counter

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
 function Circle({
   size = 20,
-  text = "Text",
-  bgColor = "gray",
-  bgColorLevel = "200",
+  text = 'Text',
+  bgColor = 'gray',
+  bgColorLevel = '200',
 }) {
   return (
     <div
@@ -12,7 +12,7 @@ function Circle({
     >
       {text}
     </div>
-  );
+  )
 }
 
-export default Circle;
+export default Circle

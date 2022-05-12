@@ -1,74 +1,74 @@
-import React from "react";
-import axios from "axios";
-import qs from "querystring";
+import React from 'react'
+import axios from 'axios'
+import qs from 'querystring'
 
-import { Link } from "react-router-dom";
-import { RiDeleteBin6Line as Delete } from "react-icons/ri";
+import { Link } from 'react-router-dom'
+import { RiDeleteBin6Line as Delete } from 'react-icons/ri'
 
-import ButtonCircle from "../components/ButtonCircle";
-import ItemImage from "../components/PictureCircle";
+import ButtonCircle from '../components/ButtonCircle'
+import ItemImage from '../components/PictureCircle'
 
 class Product extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       items: [],
-      searchInput: "",
-      searchEnd: "",
+      searchInput: '',
+      searchEnd: '',
       id_category: 1,
-    };
+    }
   }
 
   listMenu = [
     {
       idCategory: 1,
-      category: "Favorite Product",
+      category: 'Favorite Product',
     },
     {
       idCategory: 2,
-      category: "Coffee",
+      category: 'Coffee',
     },
     {
       idCategory: 3,
-      category: "Non-Coffee",
+      category: 'Non-Coffee',
     },
     {
       idCategory: 4,
-      category: "Food",
+      category: 'Food',
     },
     {
       idCategory: 5,
-      category: "Add-On",
+      category: 'Add-On',
     },
-  ];
+  ]
 
   onSearch = (event) => {
     if (event.keyCode === 13) {
-      console.log(event.target);
-      let url = `/product`;
-      if (this.state.searchInput !== "") {
-        url += `?search=${this.state.searchInput}`;
+      console.log(event.target)
+      let url = '/product'
+      if (this.state.searchInput !== '') {
+        url += `?search=${this.state.searchInput}`
       }
-      this.props.history.push(url);
+      this.props.history.push(url)
     }
-  };
+  }
 
   parseQuery = (str) => {
-    return qs.parse(str.slice("1"));
-  };
+    return qs.parse(str.slice('1'))
+  }
 
   componentDidMount() {
-    const queryString = this.props.location.search;
+    const queryString = this.props.location.search
 
     if (queryString) {
-      const { search } = this.parseQuery(this.props.location.search);
+      const { search } = this.parseQuery(this.props.location.search)
 
       if (search) {
-        this.setState({ searchInput: search });
+        this.setState({ searchInput: search })
       }
     }
 
-    this.getData();
+    this.getData()
   }
 
   getData = async (dataUrl = this.state) => {
@@ -85,49 +85,49 @@ class Product extends React.Component {
     // const { data } = await axios.get(url);
     const { data } = await axios.get(
       `http://localhost:8080/items?search=${dataUrl.searchEnd}`
-    );
+    )
 
-    this.setState({ items: data.results });
-  };
+    this.setState({ items: data.results })
+  }
 
   doSearch = () => {
-    const queryString = this.props.location.search;
+    const queryString = this.props.location.search
 
     if (queryString) {
-      const { search } = this.parseQuery(queryString);
+      const { search } = this.parseQuery(queryString)
 
       if (this.state.searchEnd !== search) {
         this.setState({ searchEnd: search }, () => {
-          this.getData();
-        });
+          this.getData()
+        })
       }
     }
-  };
+  }
 
   deleteItem = async (id) => {
-    const result = window.confirm("Want to delete?");
+    const result = window.confirm('Want to delete?')
 
     if (result) {
-      await axios.delete(`http://localhost:8080/items/${id}`);
+      await axios.delete(`http://localhost:8080/items/${id}`)
     }
 
-    this.getData();
-  };
+    this.getData()
+  }
 
   getCategory = (event) => {
-    this.setState({ id_category: event.target.value });
+    this.setState({ id_category: event.target.value })
 
-    let url = "/product?";
+    let url = '/product?'
 
     if (this.state.id_category > 1) {
-      url += `category=${this.state.id_category}`;
+      url += `category=${this.state.id_category}`
     }
 
-    this.props.history.push(url);
-  };
+    this.props.history.push(url)
+  }
 
   componentDidUpdate() {
-    this.doSearch();
+    this.doSearch()
   }
 
   render() {
@@ -265,7 +265,7 @@ class Product extends React.Component {
                             />
                           </div>
                         </div>
-                      );
+                      )
                     })}
                   </div>
                 </div>
@@ -274,8 +274,8 @@ class Product extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default Product;
+export default Product

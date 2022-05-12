@@ -1,33 +1,33 @@
-import React from "react";
+import React from 'react'
 
-import logoSportify from "../../../assets/img/logoSportify.png";
-import logoAmazon from "../../../assets/img/logoAmazon.png";
-import logoDiscord from "../../../assets/img/logoDiscord.png";
-import logoNetflix from "../../../assets/img/logoNetflix.png";
-import logoReddit from "../../../assets/img/logoReddit.png";
+import logoSportify from '../../../assets/img/logoSportify.png'
+import logoAmazon from '../../../assets/img/logoAmazon.png'
+import logoDiscord from '../../../assets/img/logoDiscord.png'
+import logoNetflix from '../../../assets/img/logoNetflix.png'
+import logoReddit from '../../../assets/img/logoReddit.png'
 
 const logo = [
   {
-    name: "Sportify",
+    name: 'Sportify',
     image: logoSportify,
   },
   {
-    name: "Amazon",
+    name: 'Amazon',
     image: logoAmazon,
   },
   {
-    name: "Discord",
+    name: 'Discord',
     image: logoDiscord,
   },
   {
-    name: "Netflix",
+    name: 'Netflix',
     image: logoNetflix,
   },
   {
-    name: "Reddit",
+    name: 'Reddit',
     image: logoReddit,
   },
-];
+]
 
 export default function Partners() {
   return (
@@ -43,10 +43,10 @@ export default function Partners() {
               <div key={idx} className="flex-1">
                 <img src={value.image} alt={value.name} />
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -1,40 +1,40 @@
-import React from "react";
-import axios from "axios";
+import React from 'react'
+import axios from 'axios'
 
-import { gajeel } from "../../assets/img";
+import { gajeel } from '../../assets/img'
 
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2 } from 'react-icons/fi'
 
 class Profile extends React.Component {
   state = {
     data: {},
-  };
-
-  data = {
-    email: "ekafajhariadwar@gmail",
-    phone: "123456789098",
-    address: "Jalan Kehidupan",
-    name_shown: "Killer Bee",
-    name_first: "Eka",
-    name_last: "Fajhari Adwar",
-    birth_date: "1 Januari 1991",
-    gender: "Male",
-  };
-
-  componentDidMount() {
-    this.getData();
   }
 
-  getData = async (dataUser = this.state) => {
-    const url = "http://localhost:8080/users/1";
-    const { data } = await axios.get(url);
+  data = {
+    email: 'ekafajhariadwar@gmail',
+    phone: '123456789098',
+    address: 'Jalan Kehidupan',
+    name_shown: 'Killer Bee',
+    name_first: 'Eka',
+    name_last: 'Fajhari Adwar',
+    birth_date: '1 Januari 1991',
+    gender: 'Male',
+  }
+
+  componentDidMount() {
+    this.getData()
+  }
+
+  getData = async () => {
+    const url = 'http://localhost:8080/users/1'
+    const { data } = await axios.get(url)
     // console.log(data.results);
-    this.setState({ data: data.results });
-    console.log(this.state.data);
-  };
+    this.setState({ data: data.results })
+    console.log(this.state.data)
+  }
 
   render() {
-    const profile = this.state.data;
+    const profile = this.state.data
     return (
       <section className="profile pt-20 bg-gray-200">
         <div className="container mx-auto pb-20 px-5 box-border">
@@ -179,11 +179,11 @@ class Profile extends React.Component {
                             id="male"
                             name="gender"
                             placeholder="male"
-                            checked={profile.gender === "male" && true}
+                            checked={profile.gender === 'male' && true}
                           />
                           <label
                             className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
-                            for="male"
+                            htmlFor="male"
                           >
                             Male
                           </label>
@@ -196,11 +196,11 @@ class Profile extends React.Component {
                             id="female"
                             name="gender"
                             placeholder="female"
-                            checked={profile.gender === "female" && true}
+                            checked={profile.gender === 'female' && true}
                           />
                           <label
                             className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
-                            for="female"
+                            htmlFor="female"
                           >
                             Female
                           </label>
@@ -236,7 +236,7 @@ class Profile extends React.Component {
               <div className="space-y-5 mb-5">
                 <button className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300">
                   <p>Edit Password</p>
-                  <span>{`>`}</span>
+                  <span>{'>'}</span>
                 </button>
 
                 <button
@@ -244,15 +244,15 @@ class Profile extends React.Component {
                   className="flex justify-between bg-white px-5 py-3 w-full text-yellow-900 font-bold rounded-2xl hover:bg-gray-300"
                 >
                   <p>Log Out</p>
-                  <span>{`>`}</span>
+                  <span>{'>'}</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default Profile;
+export default Profile

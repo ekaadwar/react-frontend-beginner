@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import map from "../../../img/general/map.png";
+import map from '../../../img/general/map.png'
 
 export default function Spots() {
   return (
@@ -17,5 +17,5 @@ export default function Spots() {
         <img className="mx-auto" src={map} alt="Spot Area Coffee Shop" />
       </div>
     </section>
-  );
+  )
 }

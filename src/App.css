@@ -38,11 +38,11 @@
 }
 
 html {
-  font-family: "Rubik", sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 section .font-poppins {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .text-shadow {
@@ -72,29 +72,29 @@ section.history {
 
 section.auth {
   min-height: 100vh;
-  background-image: url("./img/general/login.png");
+  background-image: url('./img/general/login.png');
   background-size: 50%;
 }
 
 section.forgot {
   min-height: 100vh;
-  background-image: url("./img/general/forgot.png");
-  font-family: "Poppins", sans-serif;
+  background-image: url('./img/general/forgot.png');
+  font-family: 'Poppins', sans-serif;
 }
 
 section.cart {
   min-height: 800px;
-  background-image: url("./img/general/cart.png");
+  background-image: url('./img/general/cart.png');
 }
 
 section.profile {
   min-height: 100vh;
-  background-image: url("./img/general/kopi.png");
+  background-image: url('./img/general/kopi.png');
   /* background-position-y: -200px; */
 }
 
 section.history {
-  background-image: url("./img/general/history.png");
+  background-image: url('./img/general/history.png');
 }
 
 /* nav button {
@@ -112,7 +112,7 @@ section.history {
 .jumbotron {
   padding-top: 80px;
   background-image: linear-gradient(rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url("./img/general/jumbotron.jpg");
+    url('./img/general/jumbotron.jpg');
   background-size: cover;
   background-position-x: center;
   background-position-y: 60px;
@@ -201,14 +201,14 @@ section.history {
 }
 
 .test-card .head p::after {
-  font-family: "Font Awesome 5 Free";
-  content: "\f005";
+  font-family: 'Font Awesome 5 Free';
+  content: '\f005';
   color: yellow;
 }
 
 .arr-left::after {
-  font-family: "Font Awesome 5 Free";
-  content: "\f060";
+  font-family: 'Font Awesome 5 Free';
+  content: '\f060';
   /* color: rgb(58, 39, 0); */
 }
 
@@ -266,7 +266,7 @@ section.cart .cart-body {
 }
 
 section.profile .data {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* .forgot .email {

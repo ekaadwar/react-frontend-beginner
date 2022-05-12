@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { HiViewList } from "react-icons/hi";
+import { HiViewList } from 'react-icons/hi'
 
 class Navbar extends React.Component {
   render() {
@@ -57,8 +57,8 @@ class Navbar extends React.Component {
           </div>
         </div>
       </nav>
-    );
+    )
   }
 }
 
-export default Navbar;
+export default Navbar

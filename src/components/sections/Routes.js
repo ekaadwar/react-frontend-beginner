@@ -1,23 +1,23 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import Home from "../pages/Home";
-import Product from "../pages/Product";
-import Cart from "../pages/Cart";
-import History from "../pages/History";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Profile from "../pages/Profile";
-import ProductDetail from "../pages/ProductDetail";
-import ForgotPassword from "../pages/ForgotPassword";
+import Home from '../pages/Home'
+import Product from '../pages/Product'
+import Cart from '../pages/Cart'
+import History from '../pages/History'
+import Login from '../pages/Login'
+import Signup from '../pages/Signup'
+import Profile from '../pages/Profile'
+import ProductDetail from '../pages/ProductDetail'
+import ForgotPassword from '../pages/ForgotPassword'
 
 class Routes extends React.Component {
   data = {
     isAuth: 0,
-  };
+  }
 
   componentDidMount() {
-    this.props.change(this.data);
+    this.props.change(this.data)
   }
 
   render() {
@@ -33,8 +33,8 @@ class Routes extends React.Component {
         <Route path="/forgot-pass" component={ForgotPassword} />
         <Route part="/profile" component={Profile} />
       </Switch>
-    );
+    )
   }
 }
 
-export default Routes;
+export default Routes

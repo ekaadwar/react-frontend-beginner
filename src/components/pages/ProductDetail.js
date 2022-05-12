@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 
-import PictureCircle from "../components/PictureCircle";
-import ButtonCircle from "../components/ButtonCircle";
-import ButtonSquare from "../components/ButtonSquare";
+import PictureCircle from '../components/PictureCircle'
+import ButtonCircle from '../components/ButtonCircle'
+import ButtonSquare from '../components/ButtonSquare'
 
-import { coldBrew } from "../../assets/img";
+import { coldBrew } from '../../assets/img'
 
 class ProductDetail extends React.Component {
   details = {
-    name: "cold brew",
+    name: 'cold brew',
     price: 30000,
-  };
+  }
 
-  image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />;
+  image = () => <img src={coldBrew} alt="Cold Brew" className="h-full" />
 
   render() {
     return (
@@ -30,7 +30,7 @@ class ProductDetail extends React.Component {
               <div className="py-10 sm:py-24 lg:pr-24">
                 <div className="flex flex-col items-center space-y-8 lg:space-y-16">
                   <div className="h-40 lg:h-80 w-40 lg:w-80">
-                    <PictureCircle Img={this.image} diametre={"full"} />
+                    <PictureCircle Img={this.image} diametre={'full'} />
                   </div>
 
                   <div className="space-y-3 lg:space-y-7 text-center">
@@ -66,8 +66,8 @@ class ProductDetail extends React.Component {
             <div className="col-span-5">
               <div className="w-full bg-white p-5 lg:px-24 lg:pt-24 lg:pb-16 rounded-xl space-y-12">
                 <p className="text-xl text-yellow-900">
-                  Delivery only on{" "}
-                  <span className="font-bold">Monday to Friday</span> at{" "}
+                  Delivery only on{' '}
+                  <span className="font-bold">Monday to Friday</span> at{' '}
                   <span className="font-bold">1-7 pm</span>
                 </p>
 
@@ -82,8 +82,8 @@ class ProductDetail extends React.Component {
                   <p className="text-center">Choose a size</p>
 
                   <div className="flex flex-wrap justify-between">
-                    {["R", "L", "XL"].map((item, id) => (
-                      <div className="mb-3">
+                    {['R', 'L', 'XL'].map((item, id) => (
+                      <div className="mb-3" key={id}>
                         <ButtonCircle
                           content={() => <p>{item}</p>}
                           size={16}
@@ -104,7 +104,7 @@ class ProductDetail extends React.Component {
                 </p>
 
                 <div className="flex flex-wrap max-w-sm mx-auto">
-                  {["Dine In", "Door Delivery", "Pick Up"].map((item, id) => (
+                  {['Dine In', 'Door Delivery', 'Pick Up'].map((item, id) => (
                     <div key={id} className="m-2">
                       <button className="px-5 py-2 bg-white focus:bg-yellow-900 border border-gray-400 focus:border-yellow-900 rounded-xl text-sm lg:text-l font-bold text-gray-600 focus:text-white focus:outline-none">
                         {item}
@@ -172,8 +172,8 @@ class ProductDetail extends React.Component {
           </div>
         </div>
       </section>
-    );
+    )
   }
 }
 
-export default ProductDetail;
+export default ProductDetail
