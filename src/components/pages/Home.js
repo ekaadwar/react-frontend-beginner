@@ -8,6 +8,14 @@ import Partners from '../components/home/Partners'
 import Testimony from '../components/home/Testimony'
 
 class Home extends React.Component {
+  state = {
+    onAuth: false,
+  }
+
+  componentDidMount() {
+    this.props.change(this.state.onAuth)
+  }
+
   render() {
     return (
       <>

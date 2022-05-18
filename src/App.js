@@ -9,16 +9,16 @@ import Footer from './components/sections/Footer'
 import Logo from './img/logo/coffee.png'
 
 class App extends React.Component {
-  state = { isAuth: 0 }
+  state = { isAuth: false }
 
   changeAuth = (data) => {
-    this.setState({ isAuth: data.isAuth })
+    this.setState({ isAuth: data })
   }
 
   render() {
     return (
       <Router>
-        {this.state.isAuth === 0 && <Navbar image={Logo} />}
+        {this.state.isAuth === false && <Navbar image={Logo} />}
         <Routes change={this.changeAuth} />
         <Footer image={Logo} />
       </Router>

@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom'
 import { coffeeLogo } from '../../assets/img'
 
 class Signup extends React.Component {
+  state = { onAuth: true }
+
+  componentDidMount() {
+    this.props.change(this.state.onAuth)
+  }
+
   submitData = (event) => {
     event.preventDefault()
   }

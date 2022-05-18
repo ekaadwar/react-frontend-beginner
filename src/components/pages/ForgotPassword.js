@@ -4,6 +4,12 @@ import { BiSearch } from 'react-icons/bi'
 import ButtonSquare from '../components/ButtonSquare'
 
 class ForgotPassword extends React.Component {
+  state = { onAuth: true }
+
+  componentDidMount() {
+    this.props.change(this.state.onAuth)
+  }
+
   render() {
     return (
       <section className="forgot">
