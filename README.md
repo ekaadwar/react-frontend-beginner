@@ -1,6 +1,6 @@
 # React JS - React_CoffeeShop
 
-![image](https://user-images.githubusercontent.com/59022153/127201194-a850a2a2-178a-4ee3-8f95-02e51c981e27.png)
+![My Image](src/assets/img/homedisplay.png)
 
 ## About
 
