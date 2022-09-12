@@ -41,9 +41,3 @@ export const updateProfile = (token, key, value, file = null) => {
     }
   }
 }
-
-// export const updatePhotoProfile = (token, file) => {
-//   return async (dispatch)=>{
-//     const formData
-//   }
-// }

@@ -3,11 +3,7 @@ import propTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import {
-  getProfile,
-  updateProfile,
-  // updatePhotoProfile,
-} from '../../redux/actions/profile'
+import { getProfile, updateProfile } from '../../redux/actions/profile'
 import { authLogout, authOff } from '../../redux/actions/auth'
 import { gajeel } from '../../assets/img'
 import { FiEdit2 } from 'react-icons/fi'
@@ -22,7 +18,6 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     this.props.authOff()
     const { token } = this.props.auth
     this.props.getProfile(token).then(() => {
@@ -33,23 +28,12 @@ class Profile extends React.Component {
   }
 
   onFileChange = (event) => {
-    // Update the state
-    this.setState({ currentPhoto: event.target.files[0] })
     console.log(event.target.files[0])
-
-    // this.setState((prevState) => ({
-    //   data: {
-    //     ...prevState.data,
-    //     photo: event.target.files[0],
-    //   },
-    // }))
+    this.setState({ currentPhoto: event.target.files[0] })
   }
 
   save = (event) => {
     event.preventDefault()
-
-    // console.log(this.props.profile.data)
-    console.log(this.state)
     const { token } = this.props.auth
     const prevKeys = Object.keys(this.props.profile.data)
     const prevValues = Object.values(this.props.profile.data)
@@ -326,42 +310,6 @@ class Profile extends React.Component {
                             }))
                           }
                         />
-                      </div>
-
-                      <div className="sm:col-span-2 row-span-2 space-y-5">
-                        {/* <div>
-                          <input
-                            type="radio"
-                            id="male"
-                            name="gender"
-                            placeholder="male"
-                            checked={profile.gender === "male" && true}
-                          />
-                          <label
-                            className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
-                            for="male"
-                          >
-                            Male
-                          </label>
-                          <br />
-                        </div> */}
-
-                        {/* <div>
-                          <input
-                            type="radio"
-                            id="female"
-                            name="gender"
-                            placeholder="female"
-                            checked={profile.gender === "female" && true}
-                          />
-                          <label
-                            className="text-xl text-yellow-700 hover:text-yellow-900 ml-3"
-                            for="female"
-                          >
-                            Female
-                          </label>
-                          <br />
-                        </div> */}
                       </div>
                     </div>
                   </div>

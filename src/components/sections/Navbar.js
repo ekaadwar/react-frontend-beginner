@@ -66,7 +66,6 @@ const Navbar = ({ auth, profile }) => {
           </div>
 
           <div className="hidden lg:flex items-center space-x-16 ">
-            {/* <Link to="/">Home</Link> */}
             <Link
               to={(location) => {
                 return { ...location, pathname: '/' }
