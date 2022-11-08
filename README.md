@@ -34,7 +34,3 @@ this application is made using ReactJs as a framework and Tailwind CSS as stylin
 - [Axios](https://axios-http.com/docs/api_intro)
 - [Redux](https://redux.js.org/)
 - [React Redux](https://react-redux.js.org/)
-
-## License
-
-© [Rahadian Reza R](https://github.com/apaajaa22)
